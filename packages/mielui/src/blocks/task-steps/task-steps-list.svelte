@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsListProps } from '.';
-    import { findTaskStepsLabels } from './context.svelte';
+    import { findTaskStepsLabels } from './context';
 
     let { children, class: className, ...rest }: TaskStepsListProps = $props();
     const labels = findTaskStepsLabels();

@@ -10,7 +10,7 @@
     import * as Group from '../../components/group';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { DataTableFiltersProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import Facet from './data-table-facet.svelte';
     import { filterableColumn } from './features';
 

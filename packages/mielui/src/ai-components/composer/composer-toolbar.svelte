@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { toolbarNavigation } from '../../blocks/toolbar/navigation';
     import type { ComposerToolbarProps } from '.';
-    import { findComposerLabels, getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context';
 
     let {
         children,

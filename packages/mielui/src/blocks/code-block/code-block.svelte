@@ -9,7 +9,7 @@
     import Header from './code-block-header.svelte';
     import List from './code-block-list.svelte';
     import Trigger from './code-block-trigger.svelte';
-    import { setCodeBlockLabels, setCodeBlockPanel, setCodeBlockRegistry } from './context.svelte';
+    import { setCodeBlockLabels, setCodeBlockPanel, setCodeBlockRegistry } from './context';
     import { createCodeBlockRegistry } from './registry.svelte';
 
     let {
@@ -77,14 +77,24 @@
     }
 
     const codeBlock = createCodeBlockRegistry({
-        getValue: () => value,
-        setValue: (next) => {
+        get value() {
+            return value;
+        },
+        set value(next) {
             value = next;
         },
-        getElement: () => element,
-        getHighLevel: () => isHighLevel,
-        getHighLevelOrder: highLevelOrder,
-        getTheme: () => theme
+        get element() {
+            return element;
+        },
+        get highLevel() {
+            return isHighLevel;
+        },
+        get highLevelOrder() {
+            return highLevelOrder();
+        },
+        get theme() {
+            return theme;
+        }
     });
     setCodeBlockRegistry(codeBlock.registry);
     setCodeBlockPanel({

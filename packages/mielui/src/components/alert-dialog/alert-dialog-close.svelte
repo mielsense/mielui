@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { getDialogContext } from '../dialog/context.svelte';
+    import { getDialogContext } from '../dialog/context';
 
     import type { AlertDialogActionProps } from '.';
 

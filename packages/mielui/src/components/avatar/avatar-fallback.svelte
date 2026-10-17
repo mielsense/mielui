@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { AvatarFallbackProps } from '.';
-    import { getAvatarContext } from './context.svelte';
+    import { getAvatarContext } from './context';
 
     let { class: className, children, ...rest }: AvatarFallbackProps = $props();
     const ctx = getAvatarContext();

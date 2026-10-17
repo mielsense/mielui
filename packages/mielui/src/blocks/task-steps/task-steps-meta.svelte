@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsMetaProps } from '.';
-    import { getTaskStep } from './context.svelte';
+    import { getTaskStepContext } from './context';
 
     let { children, class: className, ...rest }: TaskStepsMetaProps = $props();
-    const item = getTaskStep();
+    const item = getTaskStepContext();
 </script>
 <span
     {...rest}

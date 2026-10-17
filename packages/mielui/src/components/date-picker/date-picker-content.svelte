@@ -4,7 +4,7 @@
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
     import type { DatePickerContentProps } from '.';
-    import { getDatePickerContext } from './context.svelte';
+    import { getDatePickerContext } from './context';
 
     let {
         children,

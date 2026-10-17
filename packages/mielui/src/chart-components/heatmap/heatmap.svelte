@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapProps } from '.';
     import { calendar } from './calendar';
-    import { setHeatmapContext } from './context.svelte';
+    import { setHeatmapContext } from './context';
     import Calendar from './heatmap-calendar.svelte';
     import Detail from './heatmap-detail.svelte';
     import Footer from './heatmap-footer.svelte';
@@ -27,7 +27,7 @@
         labels,
         children,
         class: className,
-        ...props
+        ...rest
     }: HeatmapProps = $props();
     const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale, labels?.unit));
     const empty = $derived(days.length === 0);
@@ -116,7 +116,7 @@
 </script>
 
 <div
-    {...props}
+    {...rest}
     {@attach (node) => {
         return watchHeatmapMotion(node, (next) => {
             motion = next;

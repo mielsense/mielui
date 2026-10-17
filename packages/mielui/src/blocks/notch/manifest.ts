@@ -20,7 +20,7 @@ export const manifest: Manifest = {
         'components/notch/notch-side-action.svelte',
         'components/notch/frame.svelte.ts',
         'components/notch/shape.ts',
-        'components/notch/state.svelte.ts',
+        'components/notch/controller.svelte.ts',
         'components/notch/swipe.svelte.ts',
         'components/notch/manifest.ts'
     ],

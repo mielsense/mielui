@@ -3,7 +3,7 @@
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
     import { untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { findComboboxLabels, getComboboxContext } from './context.svelte';
+    import { findComboboxLabels, getComboboxContext } from './context';
 
     const context = getComboboxContext();
     const labels = findComboboxLabels();

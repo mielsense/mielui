@@ -8,7 +8,7 @@ export const manifest: Manifest = {
     files: [
         'components/toggle-group/toggle-group.svelte',
         'components/toggle-group/toggle-group-item.svelte',
-        'components/toggle-group/context.svelte.ts',
+        'components/toggle-group/context.ts',
         'components/toggle-group/index.ts',
         'components/toggle-group/manifest.ts'
     ],

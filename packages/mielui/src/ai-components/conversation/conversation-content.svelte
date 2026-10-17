@@ -2,7 +2,7 @@
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationContentProps } from '.';
-    import { findConversationLabels, getConversationContext } from './context.svelte';
+    import { findConversationLabels, getConversationContext } from './context';
 
     let {
         children,

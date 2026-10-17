@@ -29,7 +29,7 @@ export const manifest: Manifest = {
         'components/toast/notch-host.svelte',
         'components/toast/toast.svelte',
         'components/toast/variants.ts',
-        'components/toast/context.svelte.ts',
+        'components/toast/context.ts',
         'components/toast/parts.ts',
         'components/toast/toast-content.svelte',
         'components/toast/toast-footer.svelte',

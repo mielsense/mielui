@@ -9,8 +9,8 @@
     import OverlayClose from '../_internal/overlay-close.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
-    import type { DialogFooterSlot } from './context.svelte';
-    import { getDialogContext } from './context.svelte';
+    import type { DialogFooterSlot } from './context';
+    import { getDialogContext } from './context';
 
     let {
         class: className,

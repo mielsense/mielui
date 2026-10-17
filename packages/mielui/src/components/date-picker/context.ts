@@ -7,7 +7,7 @@ export type DatePickerLabels = {
     invalid?: string;
 };
 
-type DatePickerStyleContext = {
+export type DatePickerContext = {
     readonly labels: Required<DatePickerLabels>;
     readonly locale: string;
     readonly disabled: boolean;
@@ -18,6 +18,6 @@ type DatePickerStyleContext = {
 };
 
 const { set: setDatePickerContext, get: getDatePickerContext } =
-    createContext<DatePickerStyleContext>('date-picker-style');
+    createContext<DatePickerContext>('date-picker');
 
 export { getDatePickerContext, setDatePickerContext };

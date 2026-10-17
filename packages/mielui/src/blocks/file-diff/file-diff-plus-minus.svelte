@@ -2,7 +2,7 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import type { FileDiffPlusMinusProps } from '.';
-    import { findFileDiffContext } from './context.svelte';
+    import { findFileDiffContext } from './context';
 
     let { class: className, additions, deletions, ...rest }: FileDiffPlusMinusProps = $props();
 

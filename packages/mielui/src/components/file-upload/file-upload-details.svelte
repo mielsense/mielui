@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadPartProps } from '.';
-    import { getFileUploadItem } from './context.svelte';
+    import { getFileUploadItem } from './context';
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
 

@@ -4,11 +4,7 @@
 >
     import { cn } from '@mielui/svelte/utils';
     import type { DataTableProps } from '.';
-    import {
-        type DataTableToolbarSlot,
-        setDataTableContext,
-        setDataTableLabels
-    } from './context.svelte';
+    import { type DataTableToolbarSlot, setDataTableContext, setDataTableLabels } from './context';
     import Pagination from './data-table-pagination.svelte';
     import Summary from './data-table-summary.svelte';
     import View from './data-table-view.svelte';

@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/markdown/markdown-token.svelte',
         'components/markdown/_types.ts',
         'components/markdown/token.ts',
-        'components/markdown/context.svelte.ts',
+        'components/markdown/context.ts',
         'components/markdown/index.ts',
         'components/markdown/manifest.ts'
     ],

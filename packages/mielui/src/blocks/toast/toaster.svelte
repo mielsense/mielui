@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn, visualViewportBounds } from '@mielui/svelte/utils';
     import type { ToastLabels } from '.';
-    import { setToastLabels } from './context.svelte';
+    import { setToastLabels } from './context';
     import { getToastPrimaryHostId, setToastUIState } from './lib.svelte';
     import NotchHost from './notch-host.svelte';
     import { createToastStack } from './stack.svelte';
@@ -27,7 +27,11 @@
     const { state: toastState, hostId } = setToastUIState();
     const isPrimary = $derived(getToastPrimaryHostId() === hostId);
 
-    const stack = createToastStack(() => toastState.data.toasts);
+    const stack = createToastStack({
+        get toasts() {
+            return toastState.data.toasts;
+        }
+    });
     let portalEl = $state<HTMLDivElement>();
 
     $effect(() => {

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
     import { untrack } from 'svelte';
-    import { setDatePickerContext } from '../date-picker/context.svelte';
+    import { setDatePickerContext } from '../date-picker/context';
     import type { DateRangePickerProps } from '.';
 
     let {

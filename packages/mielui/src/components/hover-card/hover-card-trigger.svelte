@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { LinkPreview } from 'bits-ui';
     import type { HoverCardTriggerProps } from '.';
-    import { getHoverCardContext } from './context.svelte';
+    import { getHoverCardContext } from './context';
 
     let { class: className, children, href, ...rest }: HoverCardTriggerProps = $props();
     const hoverCard = getHoverCardContext();

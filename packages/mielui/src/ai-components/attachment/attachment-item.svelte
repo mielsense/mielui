@@ -10,7 +10,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AttachmentItemProps } from '.';
-    import { findAttachmentLabels } from './context.svelte';
+    import { findAttachmentLabels } from './context';
     import { fileExtension, fileIcon } from './file-icon';
     import { formatBytes } from './validation';
 

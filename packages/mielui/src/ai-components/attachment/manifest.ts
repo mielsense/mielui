@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/attachment/attachment-list.svelte',
         'components/attachment/attachment-item.svelte',
         'components/attachment/file-icon.ts',
-        'components/attachment/context.svelte.ts',
+        'components/attachment/context.ts',
         'components/attachment/index.ts',
         'components/attachment/manifest.ts'
     ],

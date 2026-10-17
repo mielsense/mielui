@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { disclosureSlide } from '../../components/_internal/disclosure/slide';
     import type { ReasoningContentProps } from '.';
-    import { getReasoningContext } from './context.svelte';
+    import { getReasoningContext } from './context';
 
     let {
         class: className,

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
     import type { RadioGroupItemProps } from '.';
-    import { getRadioGroupContext } from './context.svelte';
+    import { getRadioGroupContext } from './context';
 
     let {
         class: className,

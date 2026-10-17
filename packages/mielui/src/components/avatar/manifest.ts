@@ -6,7 +6,7 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Image avatar with fallback. 4 sizes (sm/md/lg/xl), circle or square shape.',
     files: [
-        'components/avatar/context.svelte.ts',
+        'components/avatar/context.ts',
         'components/avatar/avatar.svelte',
         'components/avatar/avatar-image.svelte',
         'components/avatar/avatar-fallback.svelte',

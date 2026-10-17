@@ -2,14 +2,14 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapLegendProps } from '.';
     import { levelClasses } from './calendar';
-    import { getHeatmapContext } from './context.svelte';
+    import { getHeatmapContext } from './context';
 
-    let { children, class: className, ...props }: HeatmapLegendProps = $props();
+    let { children, class: className, ...rest }: HeatmapLegendProps = $props();
     const context = getHeatmapContext();
 </script>
 
 <div
-    {...props}
+    {...rest}
     data-ui="heatmap-legend"
     class={cn(className, 'flex items-center gap-1 text-xs text-foreground-muted')}
 >

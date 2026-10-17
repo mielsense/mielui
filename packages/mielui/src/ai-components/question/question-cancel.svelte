@@ -2,7 +2,7 @@
     import { Button } from '@mielui/svelte/components/button';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import type { QuestionActionProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { getQuestionContext } from './context';
 
     let { children, disabled = false, onclick, ...rest }: QuestionActionProps = $props();
     const context = getQuestionContext();

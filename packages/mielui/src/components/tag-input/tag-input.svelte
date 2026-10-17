@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { fieldMetadata } from '../_internal/field-metadata';
     import type { TagInputProps } from '.';
-    import { setTagInputContext } from './context.svelte';
+    import { setTagInputContext } from './context';
     import { createTagInputController } from './controller.svelte';
 
     let {
@@ -50,26 +50,54 @@
     );
 
     const controller = createTagInputController({
-        getTags: () => tags,
-        setTags: (next) => {
+        get tags() {
+            return tags;
+        },
+        set tags(next) {
             tags = next;
         },
-        getQuery: () => query,
-        setQuery: (next) => {
+        get query() {
+            return query;
+        },
+        set query(next) {
             query = next;
         },
-        getMax: () => max,
-        getAllowDuplicates: () => allowDuplicates,
-        getDisabled: () => disabled,
-        getRequired: () => required,
-        getRequiredMessage: () => labels?.required ?? 'Add at least one tag.',
-        getLabels: () => labels,
-        getValidate: () => validate,
-        getNormalize: () => normalize,
-        getOnTagsChange: () => onTagsChange,
-        getOnAdd: () => onAdd,
-        getOnRemove: () => onRemove,
-        getOnReject: () => onReject
+        get max() {
+            return max;
+        },
+        get allowDuplicates() {
+            return allowDuplicates;
+        },
+        get disabled() {
+            return disabled;
+        },
+        get required() {
+            return required;
+        },
+        get requiredMessage() {
+            return labels?.required ?? 'Add at least one tag.';
+        },
+        get labels() {
+            return labels;
+        },
+        get validate() {
+            return validate;
+        },
+        get normalize() {
+            return normalize;
+        },
+        get onTagsChange() {
+            return onTagsChange;
+        },
+        get onAdd() {
+            return onAdd;
+        },
+        get onRemove() {
+            return onRemove;
+        },
+        get onReject() {
+            return onReject;
+        }
     });
     const controlClass = $derived(
         variant === 'secondary'

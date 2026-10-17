@@ -1,9 +1,9 @@
 <script lang="ts">
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import { cn } from '@mielui/svelte/utils';
-    import { findTabsContext } from '../../components/tabs/context.svelte';
+    import { findTabsContext } from '../../components/tabs/context';
     import type { CodeBlockCopyProps } from '.';
-    import { findCodeBlockLabels, findCodeBlockRegistry } from './context.svelte';
+    import { findCodeBlockLabels, findCodeBlockRegistry } from './context';
 
     let { class: className, ...rest }: CodeBlockCopyProps = $props();
     const labels = findCodeBlockLabels();

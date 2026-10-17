@@ -9,7 +9,7 @@
     import type { NotchSideActionProps } from '.';
     import {
         closePopover,
-        notchContext,
+        getNotchContext,
         notchSatelliteHandlers,
         openPopover,
         spacingInPixels
@@ -25,7 +25,7 @@
         element = $bindable(),
         ...rest
     }: NotchSideActionProps = $props();
-    const context = notchContext.get();
+    const context = getNotchContext();
     const handlers = notchSatelliteHandlers(context);
     const reduced = useReducedMotion();
     let host = $state<HTMLElement | null>(null);

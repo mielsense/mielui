@@ -3,15 +3,15 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapSummaryProps } from '.';
     import { countUnit } from './calendar';
-    import { getHeatmapContext } from './context.svelte';
+    import { getHeatmapContext } from './context';
 
-    let { children, class: className, ...props }: HeatmapSummaryProps = $props();
+    let { children, class: className, ...rest }: HeatmapSummaryProps = $props();
     const context = getHeatmapContext();
     const formatter = $derived(new Intl.NumberFormat(context.locale));
     const unit = $derived(countUnit(context.model.total, context.labels?.unit));
 </script>
 
-<p {...props} data-ui="heatmap-summary" class={cn(className, 'text-sm font-medium tabular-nums')}>
+<p {...rest} data-ui="heatmap-summary" class={cn(className, 'text-sm font-medium tabular-nums')}>
     {#if children}
         {@render children(context.model.total)}
     {:else if !context.ready}

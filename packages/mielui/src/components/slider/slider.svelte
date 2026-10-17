@@ -51,20 +51,42 @@
     let fieldLabelWidth = $state(0);
 
     const slider = createSliderController({
-        getValue: () => value,
-        setValue: (next) => {
+        get value() {
+            return value;
+        },
+        set value(next) {
             value = next;
         },
-        getMin: () => min,
-        getMax: () => max,
-        getStep: () => step,
-        getDisabled: () => disabled,
-        getDir: () => dir,
-        getForm: () => form,
-        getMode: () => mode,
-        getElement: () => element,
-        getFormInput: () => formInput,
-        getEditor: () => editor
+        get min() {
+            return min;
+        },
+        get max() {
+            return max;
+        },
+        get step() {
+            return step;
+        },
+        get disabled() {
+            return disabled;
+        },
+        get dir() {
+            return dir;
+        },
+        get form() {
+            return form;
+        },
+        get mode() {
+            return mode;
+        },
+        get element() {
+            return element;
+        },
+        get formInput() {
+            return formInput;
+        },
+        get editor() {
+            return editor;
+        }
     });
 
     const fieldTickHidden = $derived.by(() => {

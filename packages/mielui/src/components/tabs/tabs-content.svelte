@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
     import type { TabsContentProps } from '.';
-    import { getTabsContext } from './context.svelte';
+    import { getTabsContext } from './context';
     import { tabContentId, tabTriggerId } from './id';
 
     let {

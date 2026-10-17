@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { insetLayout } from '../_internal/inset-layout';
     import type { CardProps } from '.';
-    import { type CardFooterSlot, setCardContext } from './context.svelte';
+    import { type CardFooterSlot, setCardContext } from './context';
 
     let {
         children,

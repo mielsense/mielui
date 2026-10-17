@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerInputProps } from '.';
-    import { findComposerLabels, getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context';
 
     let {
         submitOnEnter = true,

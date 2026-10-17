@@ -4,7 +4,7 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileUploadButtonProps } from '.';
-    import { getFileUploadContext, getFileUploadItem } from './context.svelte';
+    import { getFileUploadContext, getFileUploadItem } from './context';
 
     let { children, disabled, onclick, ...rest }: FileUploadButtonProps = $props();
 

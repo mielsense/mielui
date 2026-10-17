@@ -21,7 +21,7 @@ export const manifest: Manifest = {
         'components/heatmap/heatmap-month-labels.svelte',
         'components/heatmap/index.ts',
         'components/heatmap/heatmap-calendar.svelte',
-        'components/heatmap/context.svelte.ts',
+        'components/heatmap/context.ts',
         'components/heatmap/heatmap-detail.svelte',
         'components/heatmap/heatmap-weekday-labels.svelte',
         'components/heatmap/manifest.ts'

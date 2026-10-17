@@ -1,6 +1,6 @@
 import { untrack } from 'svelte';
 import { Tween } from 'svelte/motion';
-import type { ChartContext } from './context.svelte';
+import type { ChartContext } from './context';
 import { followSpring } from './motion';
 
 type FollowOptions = {

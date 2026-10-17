@@ -5,7 +5,7 @@
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AttachmentTriggerProps } from '.';
-    import { findAttachmentLabels, getAttachmentContext } from './context.svelte';
+    import { findAttachmentLabels, getAttachmentContext } from './context';
 
     let {
         children,

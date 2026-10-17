@@ -2,7 +2,7 @@
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import type { ToolContentProps } from '.';
-    import { getToolContext } from './context.svelte';
+    import { getToolContext } from './context';
 
     let {
         class: className,

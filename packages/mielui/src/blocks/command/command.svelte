@@ -2,7 +2,7 @@
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { untrack } from 'svelte';
     import type { CommandProps } from '.';
-    import { resetCommand, setCommandContext, setCommandLabels } from './context.svelte';
+    import { resetCommand, setCommandContext, setCommandLabels } from './context';
     import { createCommandController } from './controller.svelte';
 
     let { open = $bindable(false), onOpenChange, labels, children }: CommandProps = $props();

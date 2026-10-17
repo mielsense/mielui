@@ -29,22 +29,20 @@ export function splitTags(value: string, delimiters: readonly string[]) {
 }
 
 type ControllerOptions = {
-    getTags: () => string[];
-    setTags: (tags: string[]) => void;
-    getQuery: () => string;
-    setQuery: (query: string) => void;
-    getMax: () => TagInputProps['max'];
-    getAllowDuplicates: () => boolean;
-    getDisabled: () => boolean;
-    getRequired: () => boolean;
-    getRequiredMessage: () => string;
-    getLabels: () => TagInputProps['labels'];
-    getValidate: () => TagInputProps['validate'];
-    getNormalize: () => TagInputProps['normalize'];
-    getOnTagsChange: () => TagInputProps['onTagsChange'];
-    getOnAdd: () => TagInputProps['onAdd'];
-    getOnRemove: () => TagInputProps['onRemove'];
-    getOnReject: () => TagInputProps['onReject'];
+    tags: string[];
+    query: string;
+    readonly max: TagInputProps['max'];
+    readonly allowDuplicates: boolean;
+    readonly disabled: boolean;
+    readonly required: boolean;
+    readonly requiredMessage: string;
+    readonly labels: TagInputProps['labels'];
+    readonly validate: TagInputProps['validate'];
+    readonly normalize: TagInputProps['normalize'];
+    readonly onTagsChange: TagInputProps['onTagsChange'];
+    readonly onAdd: TagInputProps['onAdd'];
+    readonly onRemove: TagInputProps['onRemove'];
+    readonly onReject: TagInputProps['onReject'];
 };
 
 export function createTagInputController(options: ControllerOptions) {
@@ -52,18 +50,18 @@ export function createTagInputController(options: ControllerOptions) {
     let spoken = $state('');
 
     const safeTags = $derived.by(() => {
-        const tags = options.getTags();
+        const tags = options.tags;
 
         return Array.isArray(tags) ? tags : [];
     });
     const atMax = $derived.by(() => {
-        const max = options.getMax();
+        const max = options.max;
 
         return max !== undefined && safeTags.length >= max;
     });
 
     function toCandidate(raw: string) {
-        const normalize = options.getNormalize();
+        const normalize = options.normalize;
 
         if (normalize) {
             return normalize(raw);
@@ -73,20 +71,20 @@ export function createTagInputController(options: ControllerOptions) {
     }
 
     function emit(next: string[]) {
-        options.setTags(next);
-        options.getOnTagsChange()?.(next);
+        options.tags = next;
+        options.onTagsChange?.(next);
     }
 
     /** Speaks the reason through the live region, since `onReject` alone is silent to a screen reader. */
     function reject(rejection: TagInputRejection) {
         spoken = rejection.reason;
-        options.getOnReject()?.(rejection);
+        options.onReject?.(rejection);
 
         return false;
     }
 
     function add(raw: string) {
-        if (options.getDisabled()) {
+        if (options.disabled) {
             return false;
         }
 
@@ -96,29 +94,28 @@ export function createTagInputController(options: ControllerOptions) {
             return false;
         }
 
-        if (!options.getAllowDuplicates() && safeTags.includes(candidate)) {
+        if (!options.allowDuplicates && safeTags.includes(candidate)) {
             return reject({
                 code: 'duplicate',
                 reason:
-                    options.getLabels()?.duplicate?.(candidate) ??
-                    `"${candidate}" is already added.`,
+                    options.labels?.duplicate?.(candidate) ?? `"${candidate}" is already added.`,
                 value: candidate
             });
         }
 
-        const max = options.getMax();
+        const max = options.max;
 
         if (max !== undefined && safeTags.length >= max) {
             return reject({
                 code: 'max-tags',
                 reason:
-                    options.getLabels()?.maxReached?.(max) ??
+                    options.labels?.maxReached?.(max) ??
                     `Only ${max} ${max === 1 ? 'tag is' : 'tags are'} allowed.`,
                 value: candidate
             });
         }
 
-        const validate = options.getValidate();
+        const validate = options.validate;
 
         if (validate) {
             const result = validate(candidate);
@@ -127,7 +124,7 @@ export function createTagInputController(options: ControllerOptions) {
                 return reject({
                     code: 'invalid',
                     reason:
-                        options.getLabels()?.invalid?.(candidate) ??
+                        options.labels?.invalid?.(candidate) ??
                         `"${candidate}" is not a valid tag.`,
                     value: candidate
                 });
@@ -145,17 +142,17 @@ export function createTagInputController(options: ControllerOptions) {
         const next = [...safeTags, candidate];
 
         emit(next);
-        options.setQuery('');
+        options.query = '';
         spoken =
-            options.getLabels()?.added?.(candidate, next.length) ??
+            options.labels?.added?.(candidate, next.length) ??
             `${candidate} added. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
-        options.getOnAdd()?.(candidate);
+        options.onAdd?.(candidate);
 
         return true;
     }
 
     function removeAt(index: number) {
-        if (options.getDisabled()) {
+        if (options.disabled) {
             return;
         }
 
@@ -168,9 +165,9 @@ export function createTagInputController(options: ControllerOptions) {
 
         emit(next);
         spoken =
-            options.getLabels()?.removed?.(removed, next.length) ??
+            options.labels?.removed?.(removed, next.length) ??
             `${removed} removed. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
-        options.getOnRemove()?.(removed);
+        options.onRemove?.(removed);
     }
 
     function removeValue(value: string) {
@@ -182,7 +179,7 @@ export function createTagInputController(options: ControllerOptions) {
     }
 
     function commitDraft() {
-        return add(options.getQuery());
+        return add(options.query);
     }
 
     function focusInput() {
@@ -196,7 +193,7 @@ export function createTagInputController(options: ControllerOptions) {
     /** Hidden inputs are barred from constraint validation, so the visible input carries `required`. */
     $effect(() => {
         inputElement?.setCustomValidity(
-            options.getRequired() && safeTags.length === 0 ? options.getRequiredMessage() : ''
+            options.required && safeTags.length === 0 ? options.requiredMessage : ''
         );
     });
 

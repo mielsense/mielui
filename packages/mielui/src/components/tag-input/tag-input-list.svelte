@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TagInputListProps } from '.';
-    import { getTagInputContext } from './context.svelte';
+    import { getTagInputContext } from './context';
     import Tag from './tag-input-tag.svelte';
 
     let {

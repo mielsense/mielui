@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
     import type { TabsListProps } from '.';
-    import { getTabsContext } from './context.svelte';
+    import { getTabsContext } from './context';
     import { createTabIndicators } from './indicators.svelte';
 
     let { children, class: className, ...rest }: TabsListProps = $props();

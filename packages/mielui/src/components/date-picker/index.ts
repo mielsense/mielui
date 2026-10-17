@@ -1,7 +1,7 @@
 import type { WithElement } from '@mielui/svelte/utils';
 import type { DatePicker as DatePickerPrimitive } from 'bits-ui';
 
-import type { DatePickerLabels } from './context.svelte';
+import type { DatePickerLabels } from './context';
 
 export type { DatePickerLabels };
 

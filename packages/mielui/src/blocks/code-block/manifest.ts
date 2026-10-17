@@ -17,7 +17,7 @@ export const manifest: Manifest = {
         'components/code-block/code-block-content.svelte',
         'components/code-block/highlight.ts',
         'components/code-block/registry.svelte.ts',
-        'components/code-block/context.svelte.ts',
+        'components/code-block/context.ts',
         'components/code-block/index.ts',
         'components/code-block/manifest.ts'
     ],

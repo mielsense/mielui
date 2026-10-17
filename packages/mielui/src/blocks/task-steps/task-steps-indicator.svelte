@@ -2,10 +2,10 @@
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsIndicatorProps } from '.';
-    import { getTaskStep } from './context.svelte';
+    import { getTaskStepContext } from './context';
 
     let { status: statusProp, class: className, ...rest }: TaskStepsIndicatorProps = $props();
-    const item = getTaskStep();
+    const item = getTaskStepContext();
     const status = $derived(statusProp ?? item.status);
 </script>
 <span

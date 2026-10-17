@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { tick } from 'svelte';
     import type { ReorderListHandleProps } from '.';
-    import { getReorderItem, getReorderList } from './context.svelte';
+    import { getReorderListContext, getReorderListItemContext } from './context';
 
     let {
         children,
@@ -15,8 +15,8 @@
         'aria-describedby': describedBy,
         ...rest
     }: ReorderListHandleProps = $props();
-    const root = getReorderList();
-    const item = getReorderItem();
+    const root = getReorderListContext();
+    const item = getReorderListItemContext();
 </script>
 <button
     {...rest}

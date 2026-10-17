@@ -11,7 +11,7 @@
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ReasoningTriggerProps } from '.';
-    import { findReasoningLabels, getReasoningContext } from './context.svelte';
+    import { findReasoningLabels, getReasoningContext } from './context';
 
     let { title, duration, children, class: className, ...rest }: ReasoningTriggerProps = $props();
     const labels = findReasoningLabels();

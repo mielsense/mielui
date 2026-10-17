@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsLabelProps } from '.';
-    import { getTaskStep } from './context.svelte';
+    import { getTaskStepContext } from './context';
 
     let { children, class: className, ...rest }: TaskStepsLabelProps = $props();
-    const item = getTaskStep();
+    const item = getTaskStepContext();
 </script>
 <span
     {...rest}

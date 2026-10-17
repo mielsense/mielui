@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { SelectValueProps } from '.';
-    import { getSelectContext } from './context.svelte';
+    import { getSelectContext } from './context';
 
     let { placeholder = 'Select', class: className }: SelectValueProps = $props();
 

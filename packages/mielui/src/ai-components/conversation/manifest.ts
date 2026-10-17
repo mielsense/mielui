@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/conversation/conversation-content.svelte',
         'components/conversation/conversation-empty.svelte',
         'components/conversation/conversation-scroll-button.svelte',
-        'components/conversation/context.svelte.ts',
+        'components/conversation/context.ts',
         'components/conversation/index.ts',
         'components/conversation/manifest.ts'
     ],

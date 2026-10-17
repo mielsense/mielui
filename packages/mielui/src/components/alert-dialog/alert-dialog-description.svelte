@@ -1,6 +1,6 @@
 <script lang="ts">
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
-    import { getDialogContext } from '../dialog/context.svelte';
+    import { getDialogContext } from '../dialog/context';
     import { descriptionClasses } from '../typography/variants';
 
     let { class: className, children, ...rest }: DefaultProps = $props();

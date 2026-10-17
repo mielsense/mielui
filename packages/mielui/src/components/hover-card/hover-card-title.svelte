@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { HoverCardTitleProps } from '.';
-    import { getHoverCardContext } from './context.svelte';
+    import { getHoverCardContext } from './context';
 
     let { children, class: className, ...rest }: HoverCardTitleProps = $props();
     const context = getHoverCardContext();

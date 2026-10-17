@@ -7,7 +7,7 @@
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
-    import { getDropdownMenuContext } from './context.svelte';
+    import { getDropdownMenuContext } from './context';
 
     type SubTriggerProps = {
         /** Additional classes for the element. */

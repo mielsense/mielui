@@ -52,7 +52,7 @@ export const manifest: Manifest = {
         'components/popover/popover-trigger.svelte',
         'components/popover/popover-content.svelte',
         'components/popover/popover-title.svelte',
-        'components/popover/context.svelte.ts',
+        'components/popover/context.ts',
         'components/popover/position.svelte.ts',
         'components/popover/inert.ts',
         'components/popover/index.ts',

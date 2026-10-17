@@ -2,7 +2,7 @@
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import type { FieldErrorProps } from '.';
-    import { getFieldContext } from './context.svelte';
+    import { getFieldContext } from './context';
 
     let {
         issues,

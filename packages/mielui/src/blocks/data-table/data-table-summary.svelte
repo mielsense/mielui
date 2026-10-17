@@ -5,7 +5,7 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import type { DataTableSummaryProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import { summary } from './features';
 
     let {

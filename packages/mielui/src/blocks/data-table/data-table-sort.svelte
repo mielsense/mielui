@@ -7,7 +7,7 @@
     import * as Menu from '../../components/dropdown-menu';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { DataTableSortProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import { sortableColumn } from './features';
 
     let { table, columns, class: className }: DataTableSortProps<TFeatures, TData> = $props();

@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
     import type { TabsProps } from '.';
-    import { setTabsContext } from './context.svelte';
+    import { setTabsContext } from './context';
 
     let {
         children,

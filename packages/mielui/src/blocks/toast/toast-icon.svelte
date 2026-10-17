@@ -9,7 +9,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { getToastContext } from './context.svelte';
+    import { getToastContext } from './context';
     import { toastIcon } from './variants';
 
     let { children, class: className, ...rest }: HTMLAttributes<HTMLSpanElement> = $props();

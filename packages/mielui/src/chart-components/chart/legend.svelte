@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ChartLegendProps } from '.';
-    import { getChart } from './context.svelte';
+    import { getChartContext } from './context';
 
     let { class: className, children }: ChartLegendProps = $props();
-    const chart = getChart();
+    const chart = getChartContext();
 </script>
 
 <div

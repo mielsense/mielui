@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
     import type { ComboboxRootProps } from '.';
-    import { setComboboxContext, setComboboxLabels } from './context.svelte';
+    import { setComboboxContext, setComboboxLabels } from './context';
     import { createComboboxController } from './controller.svelte';
 
     let {
@@ -22,13 +22,13 @@
 
     const id = $props.id();
     const controller = createComboboxController({
-        getValue() {
+        get value() {
             return value;
         },
-        getMultiple() {
+        get multiple() {
             return selection.type === 'multiple';
         },
-        setValue(next) {
+        set value(next) {
             if (selection.type === 'multiple' && Array.isArray(next)) {
                 value = next;
                 selection.onValueChange?.(next);
@@ -37,26 +37,26 @@
                 selection.onValueChange?.(next);
             }
         },
-        getOpen() {
+        get open() {
             return open;
         },
-        setOpen(next) {
+        set open(next) {
             open = next;
             onOpenChange?.(next);
         },
-        getPlacement() {
+        get placement() {
             return placement;
         },
-        getInert() {
+        get inert() {
             return inert;
         },
-        getHoverable() {
+        get hoverable() {
             return hoverable;
         },
-        getDelay() {
+        get delay() {
             return Math.max(0, delay);
         },
-        getCloseDelay() {
+        get closeDelay() {
             return Math.max(0, closeDelay);
         }
     });

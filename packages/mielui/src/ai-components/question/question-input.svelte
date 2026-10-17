@@ -2,7 +2,7 @@
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { cn } from '@mielui/svelte/utils';
     import type { QuestionInputProps } from '.';
-    import { findQuestionLabels, getQuestionContext } from './context.svelte';
+    import { findQuestionLabels, getQuestionContext } from './context';
 
     let {
         submitOnEnter = true,

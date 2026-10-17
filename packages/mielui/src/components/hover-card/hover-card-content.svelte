@@ -4,7 +4,7 @@
     import { LinkPreview } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
     import type { HoverCardContentProps } from '.';
-    import { getHoverCardContext } from './context.svelte';
+    import { getHoverCardContext } from './context';
 
     let {
         class: className,

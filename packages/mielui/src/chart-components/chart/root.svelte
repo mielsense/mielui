@@ -2,8 +2,8 @@
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import type { ChartProps } from '.';
-    import { setChart, setChartLabels } from './context.svelte';
-    import { createChartState } from './state.svelte';
+    import { setChartContext, setChartLabels } from './context';
+    import { createChartController } from './controller.svelte';
 
     let {
         data,
@@ -21,7 +21,7 @@
     }: ChartProps<T> = $props();
     setChartLabels(() => labels);
     let element = $state<HTMLDivElement>();
-    const chart = createChartState({
+    const chart = createChartController({
         get data() {
             return data;
         },
@@ -48,7 +48,7 @@
         }
     });
     const context = chart.context;
-    setChart(context);
+    setChartContext(context);
 
     function tableValue(row: T, key: string) {
         const value = row[key];

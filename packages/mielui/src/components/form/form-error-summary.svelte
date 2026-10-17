@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { tick } from 'svelte';
     import type { FormErrorSummaryProps, FormIssue } from '.';
-    import { findFormContext } from './context.svelte';
+    import { findFormContext } from './context';
 
     let {
         issues = [],

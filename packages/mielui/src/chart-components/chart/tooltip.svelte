@@ -2,12 +2,12 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
     import type { ChartTooltipProps } from '.';
-    import { findChartLabels, getChart } from './context.svelte';
+    import { findChartLabels, getChartContext } from './context';
     import { createChartFollow } from './follow.svelte';
 
     let { class: className, children }: ChartTooltipProps = $props();
     const labels = findChartLabels();
-    const chart = getChart();
+    const chart = getChartContext();
     const selected = $derived(
         chart.active === null ? null : chart.data[chart.active] ? chart.active : null
     );

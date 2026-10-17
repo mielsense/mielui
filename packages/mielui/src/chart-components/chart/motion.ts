@@ -1,5 +1,5 @@
 import { springEase } from '@mielui/svelte/transition';
-import type { ChartContext } from './context.svelte';
+import type { ChartContext } from './context';
 
 export const followSpring = springEase(550, 40);
 

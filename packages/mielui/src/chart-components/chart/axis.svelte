@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getChartContext } from 'layerchart';
-    import { getChart } from './context.svelte';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
+    import { getChartContext } from './context';
     import { numericTicks, tickCount, tickFractionDigits } from './ticks';
 
     let {
@@ -15,8 +15,8 @@
         ticks?: number;
         format?: (value: string | number) => string;
     } = $props();
-    const layer = getChartContext();
-    const chart = getChart();
+    const layer = getLayerChartContext();
+    const chart = getChartContext();
     const categorical = $derived((axis === 'x') !== (chart.orientation === 'horizontal'));
     const count = $derived(tickCount(ticks));
     const values = $derived(

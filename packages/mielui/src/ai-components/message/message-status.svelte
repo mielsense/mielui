@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { MessageStatusProps } from '.';
-    import { findMessageLabels, getMessageContext } from './context.svelte';
+    import { findMessageLabels, getMessageContext } from './context';
 
     let { children, class: className, ...rest }: MessageStatusProps = $props();
     const labels = findMessageLabels();

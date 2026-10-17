@@ -1,13 +1,13 @@
 import { getCssDuration } from '@mielui/svelte/transition';
 import { observeThemeChanges } from '../../components/_internal/theme-changes';
-import type { PieContext } from './context';
+import type { PieChartContext } from './context';
 import type { PieChartConfig, PieChartDatum } from './index';
 
-type PieChartStateOptions = {
+type ControllerOptions = {
     readonly data: readonly PieChartDatum[];
     readonly config: PieChartConfig;
     readonly loading: boolean;
-    readonly animation: PieContext['animation'];
+    readonly animation: PieChartContext['animation'];
     readonly element: HTMLElement | undefined;
 };
 
@@ -24,7 +24,7 @@ const numberFormatter = new Intl.NumberFormat();
  * Pie data, colors, and motion gates shared by every slice through context.
  * `observeMotion` tracks reduced motion, the theme's speed, and whether the chart is on screen.
  */
-export function createPieChartState(options: PieChartStateOptions) {
+export function createPieChartController(options: ControllerOptions) {
     let active = $state<string>();
     let anchor = $state<Element>();
     let pointer = $state<{ x: number; y: number }>();
@@ -67,7 +67,7 @@ export function createPieChartState(options: PieChartStateOptions) {
         };
     }
 
-    const context: PieContext = {
+    const context: PieChartContext = {
         get element() {
             return options.element;
         },

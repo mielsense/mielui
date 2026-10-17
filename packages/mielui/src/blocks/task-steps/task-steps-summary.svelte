@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { TaskStepsSummaryProps } from '.';
-    import { getTaskSteps } from './context.svelte';
+    import { getTaskStepsContext } from './context';
 
     let { children, ...rest }: TaskStepsSummaryProps = $props();
-    const context = getTaskSteps();
+    const context = getTaskStepsContext();
     let spoken = $state('');
     $effect(() => {
         const sentence = context.state.sentence;

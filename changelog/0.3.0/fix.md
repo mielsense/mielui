@@ -75,3 +75,4 @@
 - The File Upload dropzone's default description starts in lowercase, so it reads as one sentence with its title.
 - Heatmap reads the theme's motion once per chart instead of once per cell, so year-long heatmaps mount faster.
 - The Toast stack computes each toast's offset once per change instead of re-summing every height for each toast.
+- Copied component folders name their context module `context.ts` instead of `context.svelte.ts`. Re-adding a component leaves the old file behind; delete it.

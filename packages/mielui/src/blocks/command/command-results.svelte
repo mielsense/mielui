@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn, travelingHighlight } from '@mielui/svelte/utils';
     import type { CommandResultsProps } from '.';
-    import { findCommandLabels, getCommandContext } from './context.svelte';
+    import { findCommandLabels, getCommandContext } from './context';
 
     const { state: command } = getCommandContext();
     const labels = findCommandLabels();

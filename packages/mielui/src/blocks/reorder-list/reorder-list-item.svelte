@@ -1,11 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ReorderListItemProps } from '.';
-    import { getReorderList, setReorderItem } from './context.svelte';
+    import { getReorderListContext, setReorderListItemContext } from './context';
 
     let { id, label, children, class: className, ...rest }: ReorderListItemProps = $props();
-    const root = getReorderList();
-    setReorderItem({
+    const root = getReorderListContext();
+    setReorderListItemContext({
         get id() {
             return id;
         },

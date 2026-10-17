@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getDatePickerContext } from './context.svelte';
+    import { getDatePickerContext } from './context';
 
     let {
         name,

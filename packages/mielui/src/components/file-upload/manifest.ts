@@ -10,7 +10,7 @@ export const manifest: Manifest = {
         'actions/number-shuffle/index.ts',
         'actions/number-shuffle/render.ts',
         'components/file-upload/index.ts',
-        'components/file-upload/context.svelte.ts',
+        'components/file-upload/context.ts',
         'components/file-upload/controller.svelte.ts',
         'components/file-upload/file-upload.svelte',
         'components/file-upload/file-upload-dropzone.svelte',

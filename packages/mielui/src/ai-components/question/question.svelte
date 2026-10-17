@@ -4,8 +4,8 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionProps } from '.';
-    import { setQuestionContext, setQuestionLabels } from './context.svelte';
-    import { createQuestionState } from './state.svelte';
+    import { setQuestionContext, setQuestionLabels } from './context';
+    import { createQuestionController } from './controller.svelte';
 
     let {
         variant = 'default',
@@ -28,7 +28,7 @@
 
     let form: HTMLFormElement | undefined;
 
-    const question = createQuestionState({
+    const question = createQuestionController({
         get type() {
             return type;
         },

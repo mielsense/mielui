@@ -2,7 +2,7 @@
     import { cn, pressable } from '@mielui/svelte/utils';
     import { ToggleGroup as BitsToggleGroup } from 'bits-ui';
     import type { ToggleGroupItemProps } from '.';
-    import { getToggleGroupContext } from './context.svelte';
+    import { getToggleGroupContext } from './context';
 
     let { class: className, value, disabled, children, ...rest }: ToggleGroupItemProps = $props();
     const ctx = getToggleGroupContext();

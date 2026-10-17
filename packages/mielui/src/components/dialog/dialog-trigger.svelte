@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import type { DialogTriggerProps } from '.';
-    import { getDialogContext } from './context.svelte';
+    import { getDialogContext } from './context';
 
     let {
         class: className,

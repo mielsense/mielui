@@ -6,7 +6,7 @@
     import Month from '../calendar/calendar-month.svelte';
     import NextButton from '../calendar/calendar-next-button.svelte';
     import PrevButton from '../calendar/calendar-prev-button.svelte';
-    import { getDatePickerContext } from './context.svelte';
+    import { getDatePickerContext } from './context';
     import { dateCalendarClasses } from './variants';
 
     let {

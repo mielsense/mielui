@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationRootProps } from '.';
-    import { setConversationContext, setConversationLabels } from './context.svelte';
+    import { setConversationContext, setConversationLabels } from './context';
     import { createConversationFollow } from './follow.svelte';
 
     let {

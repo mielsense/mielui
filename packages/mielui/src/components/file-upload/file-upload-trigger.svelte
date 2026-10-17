@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import type { FileUploadButtonProps } from '.';
-    import { getFileUploadContext } from './context.svelte';
+    import { getFileUploadContext } from './context';
 
     let { children, disabled, onclick, ...rest }: FileUploadButtonProps = $props();
 

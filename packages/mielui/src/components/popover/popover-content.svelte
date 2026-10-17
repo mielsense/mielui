@@ -4,7 +4,7 @@
     import { Popover as PopoverPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
     import type { PopoverContentProps } from '.';
-    import { getPopoverContext } from './context.svelte';
+    import { getPopoverContext } from './context';
     import { createPopoverPosition } from './position.svelte';
 
     let {

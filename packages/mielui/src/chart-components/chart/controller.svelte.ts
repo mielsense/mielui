@@ -2,10 +2,10 @@ import { getCssDuration } from '@mielui/svelte/transition';
 import { Tween } from 'svelte/motion';
 import { SvelteMap } from 'svelte/reactivity';
 import { observeThemeChanges } from '../../components/_internal/theme-changes';
-import type { ChartContext, ChartRow, Config } from './context.svelte';
+import type { ChartContext, ChartRow, Config } from './context';
 import { categoryExtent, valueExtent } from './domains';
 
-type ChartStateOptions = {
+type ControllerOptions = {
     readonly data: readonly ChartRow[];
     readonly config: Config;
     readonly x: string;
@@ -60,7 +60,7 @@ function interpolateRows(from: AnimatedRow[], to: AnimatedRow[]) {
  * Chart data, scales, and value tweens shared by every mark through context.
  * `observeMotion` keeps the tween speed in step with the theme once the root mounts.
  */
-export function createChartState(options: ChartStateOptions) {
+export function createChartController(options: ControllerOptions) {
     let pointer = $state<{ x: number; y: number } | null>(null);
     let anchor = $state({ x: 0, y: 0 });
     let motion = $state(false);

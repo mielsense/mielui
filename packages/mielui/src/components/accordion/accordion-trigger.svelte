@@ -10,7 +10,7 @@
         disclosureTrigger
     } from '../_internal/disclosure/variants';
     import type { AccordionTriggerProps } from '.';
-    import { getAccordionContext, getAccordionItemContext } from './context.svelte';
+    import { getAccordionContext, getAccordionItemContext } from './context';
 
     let { class: className, children, ...rest }: AccordionTriggerProps = $props();
 

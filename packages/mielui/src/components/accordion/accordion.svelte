@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
     import type { AccordionProps } from '.';
-    import { setAccordionContext } from './context.svelte';
+    import { setAccordionContext } from './context';
 
     let {
         class: className,

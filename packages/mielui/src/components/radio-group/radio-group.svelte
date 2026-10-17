@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { RadioGroupProps } from '.';
-    import { setRadioGroupContext } from './context.svelte';
+    import { setRadioGroupContext } from './context';
 
     let {
         class: className,

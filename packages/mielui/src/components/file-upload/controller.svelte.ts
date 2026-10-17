@@ -1,7 +1,7 @@
 import { onDestroy } from 'svelte';
 import type { FileUploadEntry, FileUploadProps } from '.';
 
-type Options = {
+type ControllerOptions = {
     disabled: () => boolean;
     onUpload: () => FileUploadProps['onUpload'];
     constraints: () => Pick<FileUploadProps, 'accept' | 'maxSize' | 'maxFiles'>;
@@ -20,7 +20,7 @@ function matchesRule(file: File, rule: string) {
     return file.type.toLowerCase() === rule;
 }
 
-export function createFileUploadController(options: Options) {
+export function createFileUploadController(options: ControllerOptions) {
     let items = $state<FileUploadEntry[]>([]);
     let nextId = 0;
 

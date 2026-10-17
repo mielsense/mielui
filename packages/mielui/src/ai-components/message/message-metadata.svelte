@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { metadataClasses } from '../../components/typography/variants';
     import type { MessageMetadataProps } from '.';
-    import { getMessageContext } from './context.svelte';
+    import { getMessageContext } from './context';
 
     let { children, class: className, ...rest }: MessageMetadataProps = $props();
     const message = getMessageContext();

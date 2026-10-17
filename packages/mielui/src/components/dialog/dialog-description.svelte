@@ -3,7 +3,7 @@
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import { descriptionClasses } from '../typography/variants';
     import type { DialogDescriptionProps } from '.';
-    import { getDialogContext } from './context.svelte';
+    import { getDialogContext } from './context';
 
     let { class: className, children, ...rest }: DialogDescriptionProps = $props();
     const context = getDialogContext();

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsProps } from '.';
-    import { setTaskSteps, setTaskStepsLabels } from './context.svelte';
+    import { setTaskStepsContext, setTaskStepsLabels } from './context';
     import { deriveTaskSteps } from './state';
     import Indicator from './task-steps-indicator.svelte';
     import Item from './task-steps-item.svelte';
@@ -20,7 +20,7 @@
         ...rest
     }: TaskStepsProps = $props();
     const state = $derived(deriveTaskSteps(steps, current, failed, labels));
-    setTaskSteps({
+    setTaskStepsContext({
         get state() {
             return state;
         }

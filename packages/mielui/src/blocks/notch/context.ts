@@ -20,7 +20,9 @@ export type NotchContext = {
     readonly side: NonNullable<NotchProps['side']>;
     readonly surface: NotchProps['surface'];
 };
-export const notchContext = createContext<NotchContext>('notch');
+const { set: setNotchContext, get: getNotchContext } = createContext<NotchContext>('notch');
+
+export { getNotchContext, setNotchContext };
 
 /** Focus, hover, and Escape handling shared by the floating parts that sit beside the notch. */
 export function notchSatelliteHandlers(context: NotchContext) {

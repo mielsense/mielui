@@ -5,7 +5,7 @@
     import { cn } from '@mielui/svelte/utils';
     import * as Table from '../../components/table';
     import type { DataTableHeaderProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import ColumnHeader from './data-table-column-header.svelte';
     import Selection from './data-table-selection.svelte';
     import { selectedRow, selection, sortableColumn } from './features';

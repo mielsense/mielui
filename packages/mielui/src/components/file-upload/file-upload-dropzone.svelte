@@ -4,7 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileUploadPartProps } from '.';
-    import { getFileUploadContext } from './context.svelte';
+    import { getFileUploadContext } from './context';
     import Trigger from './file-upload-trigger.svelte';
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();

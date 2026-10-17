@@ -12,7 +12,7 @@ export const manifest: Manifest = {
         'components/reorder-list/reorder-list-item.svelte',
         'components/reorder-list/reorder-list-handle.svelte',
         'components/reorder-list/reorder-list-content.svelte',
-        'components/reorder-list/context.svelte.ts',
+        'components/reorder-list/context.ts',
         'components/reorder-list/index.ts',
         'components/reorder-list/manifest.ts'
     ],

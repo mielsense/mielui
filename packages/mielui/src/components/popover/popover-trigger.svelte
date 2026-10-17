@@ -5,7 +5,7 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { Placement, PopoverTriggerProps } from '.';
-    import { getPopoverContext } from './context.svelte';
+    import { getPopoverContext } from './context';
     import { closePopoverAfter } from './position.svelte';
 
     const { id: key, state: popoverState } = getPopoverContext();

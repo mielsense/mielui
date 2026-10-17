@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { getChartContext } from 'layerchart';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
     import type { ChartBarProps } from '.';
-    import { getChart } from './context.svelte';
+    import { getChartContext } from './context';
     import { reveal, sweep } from './motion';
 
     let { key, class: className, radius = 4 }: ChartBarProps = $props();
-    const chart = getChart();
-    const layer = getChartContext();
+    const chart = getChartContext();
+    const layer = getLayerChartContext();
     const token = Symbol('bar');
     const id = $props.id();
     $effect.pre(() => chart.register(token, key, 'bar'));

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { FileDiffRowProps } from '.';
-    import { findFileDiffContext } from './context.svelte';
+    import { findFileDiffContext } from './context';
     import LineNumber from './file-diff-line-number.svelte';
     import { highlight } from './highlight';
 

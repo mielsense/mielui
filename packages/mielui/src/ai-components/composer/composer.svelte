@@ -6,7 +6,7 @@
     import { overlaySurface } from '../../components/_internal/surface';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerProps, ComposerStatus } from '.';
-    import { setComposerContext, setComposerLabels } from './context.svelte';
+    import { setComposerContext, setComposerLabels } from './context';
 
     let {
         value = $bindable(''),

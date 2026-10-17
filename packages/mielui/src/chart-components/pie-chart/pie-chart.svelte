@@ -1,9 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import { setPieChartLabels, setPieContext } from './context';
+    import { setPieChartContext, setPieChartLabels } from './context';
+    import { createPieChartController } from './controller.svelte';
     import type { PieChartProps } from './index';
-    import { createPieChartState } from './state.svelte';
 
     let {
         data,
@@ -18,7 +18,7 @@
     }: PieChartProps = $props();
     setPieChartLabels(() => labels);
     let element = $state<HTMLDivElement>();
-    const pie = createPieChartState({
+    const pie = createPieChartController({
         get data() {
             return data;
         },
@@ -35,7 +35,7 @@
             return element;
         }
     });
-    const context = setPieContext(pie.context);
+    const context = setPieChartContext(pie.context);
 
     onMount(() => {
         if (element) {

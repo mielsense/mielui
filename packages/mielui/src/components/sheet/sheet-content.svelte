@@ -6,7 +6,7 @@
     import { useDeferredClose, useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { SheetContentProps } from '.';
-    import { getSheetContext } from './context.svelte';
+    import { getSheetContext } from './context';
 
     let {
         class: className,

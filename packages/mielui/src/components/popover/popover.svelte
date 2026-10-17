@@ -2,7 +2,7 @@
     import { Popover as PopoverPrimitive } from 'bits-ui';
     import { onDestroy } from 'svelte';
     import type { PopoverProps, PopoverState } from '.';
-    import { setPopoverContext } from './context.svelte';
+    import { setPopoverContext } from './context';
 
     let {
         open = $bindable(false),

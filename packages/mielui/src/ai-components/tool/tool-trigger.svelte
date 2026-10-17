@@ -14,7 +14,7 @@
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ToolTriggerProps } from '.';
-    import { findToolLabels, getToolContext } from './context.svelte';
+    import { findToolLabels, getToolContext } from './context';
 
     let { children, class: className, onclick, ...rest }: ToolTriggerProps = $props();
     const labels = findToolLabels();

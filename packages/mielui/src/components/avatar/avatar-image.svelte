@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { AvatarImageProps } from '.';
-    import { getAvatarContext } from './context.svelte';
+    import { getAvatarContext } from './context';
 
     let { class: className, src, alt = '', onload, onerror, ...rest }: AvatarImageProps = $props();
     const ctx = getAvatarContext();

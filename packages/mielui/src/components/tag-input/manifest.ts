@@ -19,7 +19,7 @@ export const manifest: Manifest = {
         'components/tag-input/tag-input-list.svelte',
         'components/tag-input/tag-input-tag.svelte',
         'components/tag-input/tag-input-input.svelte',
-        'components/tag-input/context.svelte.ts',
+        'components/tag-input/context.ts',
         'components/tag-input/controller.svelte.ts',
         'components/tag-input/index.ts',
         'components/tag-input/manifest.ts'

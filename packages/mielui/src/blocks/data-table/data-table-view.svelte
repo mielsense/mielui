@@ -5,7 +5,7 @@
     import { cn } from '@mielui/svelte/utils';
     import * as Table from '../../components/table';
     import type { DataTableViewProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import Body from './data-table-body.svelte';
     import Header from './data-table-header.svelte';
 

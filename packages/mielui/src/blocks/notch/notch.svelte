@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { NotchProps } from '.';
-    import { notchContext } from './context';
-    import { createNotchState } from './state.svelte';
+    import { setNotchContext } from './context';
+    import { createNotchController } from './controller.svelte';
 
     let {
         open = $bindable(false),
@@ -13,8 +13,8 @@
         children
     }: NotchProps = $props();
 
-    notchContext.set(
-        createNotchState({
+    setNotchContext(
+        createNotchController({
             get open() {
                 return open;
             },

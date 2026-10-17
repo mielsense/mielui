@@ -2,7 +2,7 @@
     import { Select as BitsSelect } from 'bits-ui';
     import { SvelteMap } from 'svelte/reactivity';
     import type { SelectProps } from '.';
-    import { type SelectContext, setSelectContext } from './context.svelte';
+    import { type SelectContext, setSelectContext } from './context';
 
     let {
         children,

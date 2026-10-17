@@ -2,11 +2,11 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartTooltipProps } from './index';
 
     let { children, class: className, ...rest }: PieChartTooltipProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     let element = $state<HTMLDivElement>();
     let left = $state(0);
     let top = $state(0);

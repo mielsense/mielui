@@ -2,9 +2,9 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
-    import { getDialogContext } from '../../components/dialog/context.svelte';
+    import { getDialogContext } from '../../components/dialog/context';
     import type { CommandItem, CommandItemProps } from '.';
-    import { getCommandContext } from './context.svelte';
+    import { getCommandContext } from './context';
 
     const controller = getCommandContext();
     const { state: command } = controller;

@@ -6,7 +6,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileUploadEntry, FileUploadPartProps } from '.';
-    import { getFileUploadContext, getFileUploadItem } from './context.svelte';
+    import { getFileUploadContext, getFileUploadItem } from './context';
 
     const statusTones: Partial<Record<FileUploadEntry['status'], string>> = {
         error: 'text-[var(--mielui-error-text)]',

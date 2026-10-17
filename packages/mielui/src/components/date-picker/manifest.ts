@@ -7,7 +7,7 @@ export const manifest: Manifest = {
     description:
         'Segmented date field and calendar popup with locale, validation, and form support.',
     files: [
-        'components/date-picker/context.svelte.ts',
+        'components/date-picker/context.ts',
         'components/date-picker/date-picker-calendar.svelte',
         'components/date-picker/date-picker-content.svelte',
         'components/date-picker/date-picker-input.svelte',

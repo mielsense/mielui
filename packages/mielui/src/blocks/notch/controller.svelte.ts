@@ -2,7 +2,7 @@ import type { Snippet } from 'svelte';
 import type { NotchProps } from '.';
 import type { NotchContext } from './context';
 
-type NotchStateOptions = {
+type ControllerOptions = {
     open: boolean;
     readonly side: NonNullable<NotchProps['side']>;
     readonly surface: NotchProps['surface'];
@@ -18,7 +18,7 @@ const COLLAPSE_DELAY = 120;
  * The shared notch state: open, hover and focus across every region, the peek collapse,
  * and the auto-close timer that pauses while the pointer or focus is inside.
  */
-export function createNotchState(options: NotchStateOptions): NotchContext {
+export function createNotchController(options: ControllerOptions): NotchContext {
     let hovered = $state(false);
     let focused = $state(false);
     let actionCount = $state(0);

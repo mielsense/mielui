@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import type { SheetTriggerProps } from '.';
-    import { getSheetContext } from './context.svelte';
+    import { getSheetContext } from './context';
 
     let {
         class: className,

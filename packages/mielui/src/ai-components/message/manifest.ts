@@ -9,7 +9,7 @@ export const manifest: Manifest = {
         'components/message/message.svelte',
         'components/message/message-content.svelte',
         'components/message/message-actions.svelte',
-        'components/message/context.svelte.ts',
+        'components/message/context.ts',
         'components/message/message-avatar.svelte',
         'components/message/message-body.svelte',
         'components/message/message-metadata.svelte',

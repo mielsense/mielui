@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/accordion/accordion-trigger.svelte',
         'components/accordion/accordion-content.svelte',
         'components/accordion/index.ts',
-        'components/accordion/context.svelte.ts',
+        'components/accordion/context.ts',
         'components/accordion/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/disclosure'],

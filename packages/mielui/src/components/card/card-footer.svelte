@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { CardFooterProps } from '.';
-    import { type CardFooterSlot, findCardContext } from './context.svelte';
+    import { type CardFooterSlot, findCardContext } from './context';
 
     let { children, class: className, ...rest }: CardFooterProps = $props();
 

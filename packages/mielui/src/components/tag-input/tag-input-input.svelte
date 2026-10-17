@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { mergeDescriptionIds } from '../_internal/field-metadata';
     import type { TagInputInputProps } from '.';
-    import { getTagInputContext } from './context.svelte';
+    import { getTagInputContext } from './context';
     import { splitTags } from './controller.svelte';
 
     let {

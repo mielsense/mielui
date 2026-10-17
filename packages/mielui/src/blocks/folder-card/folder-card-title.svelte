@@ -2,12 +2,12 @@
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { FolderCardTitleProps } from '.';
-    import { getFolderCard } from './context';
+    import { getFolderCardContext } from './context';
 
     let { level = 3, class: className, children, ...rest }: FolderCardTitleProps = $props();
 
     const tag = $derived(`h${level}` as const);
-    const folderCard = getFolderCard();
+    const folderCard = getFolderCardContext();
 
     function adoptId() {
         if (typeof rest.id === 'string') {

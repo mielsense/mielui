@@ -2,7 +2,7 @@
     import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
     import { cn } from '@mielui/svelte/utils';
     import type { ReasoningRootProps } from '.';
-    import { setReasoningContext, setReasoningLabels } from './context.svelte';
+    import { setReasoningContext, setReasoningLabels } from './context';
 
     let {
         streaming = false,

@@ -17,8 +17,8 @@ export const manifest: Manifest = {
         'components/question/question-actions.svelte',
         'components/question/question-cancel.svelte',
         'components/question/question-submit.svelte',
-        'components/question/context.svelte.ts',
-        'components/question/state.svelte.ts',
+        'components/question/context.ts',
+        'components/question/controller.svelte.ts',
         'components/question/index.ts',
         'components/question/manifest.ts'
     ],

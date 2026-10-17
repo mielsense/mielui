@@ -4,7 +4,7 @@
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
-    import { getDatePickerContext } from './context.svelte';
+    import { getDatePickerContext } from './context';
     import { dateTriggerClasses } from './variants';
 
     let {

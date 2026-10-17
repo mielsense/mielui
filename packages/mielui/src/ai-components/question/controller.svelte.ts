@@ -1,9 +1,9 @@
 import { untrack } from 'svelte';
 import { createSubmission } from '../../components/_internal/submission.svelte';
 import type { QuestionAnswer, QuestionProps, QuestionStatus, QuestionType } from '.';
-import type { QuestionContext } from './context.svelte';
+import type { QuestionContext } from './context';
 
-type QuestionStateOptions = {
+type ControllerOptions = {
     readonly type: QuestionType;
     value: QuestionAnswer | undefined;
     readonly status: QuestionStatus;
@@ -44,7 +44,7 @@ function getValidationMessage(questionType: QuestionType, labels: QuestionProps[
     return labels?.selectAnswer ?? 'Select an answer.';
 }
 
-export function createQuestionState(options: QuestionStateOptions) {
+export function createQuestionController(options: ControllerOptions) {
     const initialType = untrack(() => options.type);
     options.value = normalizeAnswer(initialType, options.value);
 

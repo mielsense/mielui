@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { MessageActionsProps } from '.';
-    import { findMessageLabels, getMessageContext } from './context.svelte';
+    import { findMessageLabels, getMessageContext } from './context';
 
     let {
         children,

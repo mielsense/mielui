@@ -6,7 +6,7 @@ export type Config = Record<
     string,
     { label: string; color?: string; format?: (value: number) => string }
 >;
-export interface ChartContext {
+export type ChartContext = {
     readonly data: readonly ChartRow[];
     readonly config: Config;
     readonly keys: string[];
@@ -31,11 +31,11 @@ export interface ChartContext {
     color(key: string): string;
     label(row: number): string;
     format(key: string, value: number): string;
-}
+};
 
-const { set: setChart, get: getChart } = createContext<ChartContext>('chart');
+const { set: setChartContext, get: getChartContext } = createContext<ChartContext>('chart');
 
 const { set: setChartLabels, find: findChartLabels } =
     createContext<() => ChartLabels | undefined>('chart-labels');
 
-export { findChartLabels, getChart, setChart, setChartLabels };
+export { findChartLabels, getChartContext, setChartContext, setChartLabels };

@@ -15,7 +15,9 @@
     }: ScrollAreaProps = $props();
 
     const area = createScrollAreaMeasure({
-        getElement: () => element
+        get element() {
+            return element;
+        }
     });
 
     const scrollable = $derived(

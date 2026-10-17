@@ -3,7 +3,7 @@
     import { Arc } from 'layerchart';
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartDatum } from './index';
 
     let {
@@ -23,7 +23,7 @@
         padAngle: number;
         class?: string;
     } = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     const angles = new Tween([0, 0], { duration: 480, easing: cubicOut });
     const hole = $derived(Math.max(0, Math.min(innerRadius, 0.95)));
     const gap = $derived(Math.max(0, Math.min(padAngle, 0.2)));

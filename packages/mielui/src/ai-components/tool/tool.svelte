@@ -2,7 +2,7 @@
     import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
     import { cn } from '@mielui/svelte/utils';
     import type { ToolProps } from '.';
-    import { setToolContext, setToolLabels } from './context.svelte';
+    import { setToolContext, setToolLabels } from './context';
     import Content from './tool-content.svelte';
     import Trigger from './tool-trigger.svelte';
 

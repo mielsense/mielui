@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { MessageRootProps } from '.';
-    import { type MessageContext, setMessageContext, setMessageLabels } from './context.svelte';
+    import { type MessageContext, setMessageContext, setMessageLabels } from './context';
     import Avatar from './message-avatar.svelte';
     import Body from './message-body.svelte';
     import Metadata from './message-metadata.svelte';

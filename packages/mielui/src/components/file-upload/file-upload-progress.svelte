@@ -2,7 +2,7 @@
     import { motion } from '@humanspeak/svelte-motion';
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadPartProps } from '.';
-    import { getFileUploadContext, getFileUploadItem } from './context.svelte';
+    import { getFileUploadContext, getFileUploadItem } from './context';
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
 

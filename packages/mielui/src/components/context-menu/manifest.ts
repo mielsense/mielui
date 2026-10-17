@@ -17,7 +17,7 @@ export const manifest: Manifest = {
         'components/context-menu/context-menu-sub.svelte',
         'components/context-menu/context-menu-sub-trigger.svelte',
         'components/context-menu/context-menu-sub-content.svelte',
-        'components/context-menu/context.svelte.ts',
+        'components/context-menu/context.ts',
         'components/context-menu/index.ts',
         'components/context-menu/manifest.ts'
     ],

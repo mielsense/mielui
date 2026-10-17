@@ -7,7 +7,7 @@
     import { buttonAttributes } from '../_internal/button-attributes';
     import { badge } from '../badge/variants';
     import type { TagInputTagProps } from '.';
-    import { getTagInputContext } from './context.svelte';
+    import { getTagInputContext } from './context';
 
     let {
         value,

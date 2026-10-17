@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { createAttachmentKey } from 'svelte/attachments';
     import type { FormProps } from '.';
-    import { setFormContext } from './context.svelte';
+    import { setFormContext } from './context';
 
     let {
         children,

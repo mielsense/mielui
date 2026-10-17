@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { createAttachmentKey } from 'svelte/attachments';
     import type { FieldControlAttributes, FieldProps } from '.';
-    import { setFieldContext } from './context.svelte';
+    import { setFieldContext } from './context';
     import { connectFieldMetadata } from './metadata';
 
     let {

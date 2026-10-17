@@ -3,7 +3,7 @@
     import { marked } from 'marked';
     import type { MarkdownProps } from '.';
     import type { MarkdownToken } from './_types';
-    import { setMarkdownLabels } from './context.svelte';
+    import { setMarkdownLabels } from './context';
     import TokenRenderer from './markdown-token.svelte';
 
     let { content, streaming = false, labels, class: className, ...rest }: MarkdownProps = $props();

@@ -1,7 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { PieChartConfig, PieChartDatum, PieChartLabels } from './index';
 
-export type PieContext = {
+export type PieChartContext = {
     readonly element: HTMLElement | undefined;
     anchor: Element | undefined;
     pointer: { x: number; y: number } | undefined;
@@ -23,9 +23,10 @@ export type PieContext = {
     percentage(item: PieChartDatum): number;
 };
 
-const { set: setPieContext, get: getPieContext } = createContext<PieContext>('pie-chart');
+const { set: setPieChartContext, get: getPieChartContext } =
+    createContext<PieChartContext>('pie-chart');
 
 const { set: setPieChartLabels, find: findPieChartLabels } =
     createContext<() => PieChartLabels | undefined>('pie-chart-labels');
 
-export { findPieChartLabels, getPieContext, setPieChartLabels, setPieContext };
+export { findPieChartLabels, getPieChartContext, setPieChartContext, setPieChartLabels };

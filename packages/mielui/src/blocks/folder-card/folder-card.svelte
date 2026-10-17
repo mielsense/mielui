@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAnchorAttributes, HTMLAttributes } from 'svelte/elements';
     import type { FolderCardProps } from '.';
-    import { setFolderCard, setFolderCardLabels } from './context';
+    import { setFolderCardContext, setFolderCardLabels } from './context';
 
     let {
         href,
@@ -18,7 +18,7 @@
     const generatedId = $props.id();
     let titleId = $state(`${generatedId}-title`);
 
-    setFolderCard({
+    setFolderCardContext({
         get tone() {
             return tone;
         },

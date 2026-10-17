@@ -1,14 +1,14 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapWeekdayLabelsProps } from '.';
-    import { getHeatmapContext } from './context.svelte';
+    import { getHeatmapContext } from './context';
 
-    let { children, class: className, ...props }: HeatmapWeekdayLabelsProps = $props();
+    let { children, class: className, ...rest }: HeatmapWeekdayLabelsProps = $props();
     const context = getHeatmapContext();
 </script>
 
 <div
-    {...props}
+    {...rest}
     aria-hidden="true"
     data-ui="heatmap-weekday-labels"
     class={cn(

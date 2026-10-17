@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { FieldLabelProps } from '.';
-    import { getFieldContext } from './context.svelte';
+    import { getFieldContext } from './context';
 
     let { children, class: className, for: htmlFor, ...rest }: FieldLabelProps = $props();
     const field = getFieldContext();

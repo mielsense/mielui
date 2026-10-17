@@ -1,13 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getChartContext } from 'layerchart';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
     import type { ChartGridProps } from '.';
-    import { getChart } from './context.svelte';
+    import { getChartContext } from './context';
     import { numericTicks, tickCount } from './ticks';
 
     let { class: className, ticks = 5 }: ChartGridProps = $props();
-    const layer = getChartContext();
-    const chart = getChart();
+    const layer = getLayerChartContext();
+    const chart = getChartContext();
     const count = $derived(tickCount(ticks));
     const values = $derived(numericTicks(chart.domain, count));
 </script>

@@ -7,7 +7,7 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { ComboboxItemProps } from '.';
-    import { getComboboxContext } from './context.svelte';
+    import { getComboboxContext } from './context';
     import type { RegisteredComboboxItem } from './controller.svelte';
 
     const context = getComboboxContext();

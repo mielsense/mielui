@@ -2,7 +2,7 @@
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { Snippet } from 'svelte';
     import type { SheetProps, SheetState } from '.';
-    import { setSheetContext } from './context.svelte';
+    import { setSheetContext } from './context';
 
     let { open = $bindable(false), onOpenChange, labels, children }: SheetProps = $props();
 

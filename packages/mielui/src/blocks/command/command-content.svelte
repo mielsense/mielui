@@ -2,8 +2,8 @@
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
-    import { getDialogContext } from '../../components/dialog/context.svelte';
-    import { findCommandLabels } from './context.svelte';
+    import { getDialogContext } from '../../components/dialog/context';
+    import { findCommandLabels } from './context';
 
     const dialog = getDialogContext();
     dialog.motion = 'none';

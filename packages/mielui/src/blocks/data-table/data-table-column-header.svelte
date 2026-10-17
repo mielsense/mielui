@@ -7,7 +7,7 @@
     import { FlexRender } from '@tanstack/svelte-table';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { DataTableColumnHeaderProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import { sortableColumn } from './features';
 
     let { header, class: className }: DataTableColumnHeaderProps<TFeatures, TData> = $props();

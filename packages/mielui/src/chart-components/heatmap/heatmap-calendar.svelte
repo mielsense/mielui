@@ -2,11 +2,11 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapCalendarProps } from '.';
 
-    let { children, class: className, ...props }: HeatmapCalendarProps = $props();
+    let { children, class: className, ...rest }: HeatmapCalendarProps = $props();
 </script>
 
 <div
-    {...props}
+    {...rest}
     data-ui="heatmap-calendar"
     class={cn(
         className,

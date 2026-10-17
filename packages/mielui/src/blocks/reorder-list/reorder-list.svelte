@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { flip } from 'svelte/animate';
     import type { ReorderListProps } from '.';
-    import { setReorderList } from './context.svelte';
+    import { setReorderListContext } from './context';
     import { createReorderGesture } from './gesture.svelte';
     import Content from './reorder-list-content.svelte';
     import Handle from './reorder-list-handle.svelte';
@@ -57,7 +57,7 @@
             return onCommit;
         }
     });
-    setReorderList(gesture);
+    setReorderListContext(gesture);
 
     function animateRow(
         node: HTMLElement,

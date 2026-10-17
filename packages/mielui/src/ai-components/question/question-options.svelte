@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { QuestionOptionsProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { getQuestionContext } from './context';
 
     let { class: className, children, ...rest }: QuestionOptionsProps = $props();
     const context = getQuestionContext();

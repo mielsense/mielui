@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/composer/composer-actions.svelte',
         'components/composer/composer-footer.svelte',
         'components/composer/composer-submit.svelte',
-        'components/composer/context.svelte.ts',
+        'components/composer/context.ts',
         'components/composer/index.ts',
         'components/composer/manifest.ts'
     ],

@@ -3,7 +3,7 @@
     import { cn, pressable } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { findToastLabels, getToastContext } from './context.svelte';
+    import { findToastLabels, getToastContext } from './context';
 
     let { children, class: className, onclick, ...rest }: HTMLButtonAttributes = $props();
     const context = getToastContext();

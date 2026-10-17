@@ -4,7 +4,7 @@
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ConversationScrollButtonProps } from '.';
-    import { findConversationLabels, getConversationContext } from './context.svelte';
+    import { findConversationLabels, getConversationContext } from './context';
 
     let { class: className, onclick, ...rest }: ConversationScrollButtonProps = $props();
 

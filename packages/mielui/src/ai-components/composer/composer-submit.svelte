@@ -8,7 +8,7 @@
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerSubmitProps } from '.';
-    import { findComposerLabels, getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context';
 
     let {
         children,

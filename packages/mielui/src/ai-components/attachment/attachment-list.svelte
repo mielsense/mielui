@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { AttachmentListProps } from '.';
     import Item from './attachment-item.svelte';
-    import { findAttachmentLabels, getAttachmentContext } from './context.svelte';
+    import { findAttachmentLabels, getAttachmentContext } from './context';
 
     let {
         label,

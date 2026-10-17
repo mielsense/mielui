@@ -3,7 +3,7 @@
     import { travelingHighlight } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
     import type { Snippet } from 'svelte';
-    import { findComboboxLabels, getComboboxContext } from './context.svelte';
+    import { findComboboxLabels, getComboboxContext } from './context';
 
     let { children }: { children?: Snippet } = $props();
     const labels = findComboboxLabels();

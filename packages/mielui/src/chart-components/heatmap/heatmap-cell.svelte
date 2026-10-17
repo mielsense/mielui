@@ -4,7 +4,7 @@
     import { untrack } from 'svelte';
     import type { HeatmapCellProps } from '.';
     import { levelClasses } from './calendar';
-    import { getHeatmapContext } from './context.svelte';
+    import { getHeatmapContext } from './context';
     import { revealCell, revealDelay } from './reveal';
 
     let {
@@ -17,7 +17,7 @@
         onpointerenter,
         onpointerleave,
         onblur,
-        ...props
+        ...rest
     }: HeatmapCellProps = $props();
 
     const context = getHeatmapContext();
@@ -114,7 +114,7 @@
     </div>
 {:else}
     <button
-        {...props}
+        {...rest}
         type="button"
         data-ui="heatmap-cell"
         bind:this={element}

@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ConversationEmptyProps } from '.';
-    import { findConversationLabels } from './context.svelte';
+    import { findConversationLabels } from './context';
 
     let {
         icon,

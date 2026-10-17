@@ -30,7 +30,7 @@ export const manifest: Manifest = {
         'components/hover-card/hover-card-trigger.svelte',
         'components/hover-card/hover-card-title.svelte',
         'components/hover-card/hover-card-description.svelte',
-        'components/hover-card/context.svelte.ts',
+        'components/hover-card/context.ts',
         'components/hover-card/index.ts',
         'components/hover-card/manifest.ts'
     ],

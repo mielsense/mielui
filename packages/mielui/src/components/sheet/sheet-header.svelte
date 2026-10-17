@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import OverlayClose from '../_internal/overlay-close.svelte';
     import type { SheetHeaderProps } from '.';
-    import { getSheetContext } from './context.svelte';
+    import { getSheetContext } from './context';
 
     let { class: className, children, showClose = true, ...rest }: SheetHeaderProps = $props();
 

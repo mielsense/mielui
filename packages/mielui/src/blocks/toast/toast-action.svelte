@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
-    import { getToastContext } from './context.svelte';
+    import { getToastContext } from './context';
     import type { ToastAction } from './lib.svelte';
 
     let {

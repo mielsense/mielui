@@ -2,11 +2,11 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapFooterProps } from '.';
 
-    let { children, class: className, ...props }: HeatmapFooterProps = $props();
+    let { children, class: className, ...rest }: HeatmapFooterProps = $props();
 </script>
 
 <div
-    {...props}
+    {...rest}
     data-ui="heatmap-footer"
     class={cn(
         className,

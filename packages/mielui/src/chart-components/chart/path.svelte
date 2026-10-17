@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { getChartContext } from 'layerchart';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
     import { cubicOut } from 'svelte/easing';
-    import { getChart } from './context.svelte';
+    import { getChartContext } from './context';
     import { createChartFollow } from './follow.svelte';
     import { live, reveal, sweep } from './motion';
 
@@ -11,8 +11,8 @@
         class: className,
         strokeWidth = 2.5
     }: { key: string; area?: boolean; class?: string; strokeWidth?: number } = $props();
-    const chart = getChart();
-    const layer = getChartContext();
+    const chart = getChartContext();
+    const layer = getLayerChartContext();
     const token = Symbol('path');
     $effect.pre(() => chart.register(token, key, area ? 'area' : 'line'));
     const id = $props.id();

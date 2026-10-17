@@ -47,7 +47,7 @@
 <script lang="ts">
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { DialogProps, DialogState } from '.';
-    import { type DialogFooterSlot, setDialogContext } from './context.svelte';
+    import { type DialogFooterSlot, setDialogContext } from './context';
 
     let {
         open = $bindable(false),

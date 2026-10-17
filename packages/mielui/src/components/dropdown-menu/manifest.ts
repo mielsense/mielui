@@ -30,7 +30,7 @@ export const manifest: Manifest = {
         'components/dropdown-menu/dropdown-menu-sub.svelte',
         'components/dropdown-menu/dropdown-menu-sub-trigger.svelte',
         'components/dropdown-menu/dropdown-menu-sub-content.svelte',
-        'components/dropdown-menu/context.svelte.ts',
+        'components/dropdown-menu/context.ts',
         'components/dropdown-menu/index.ts',
         'components/dropdown-menu/manifest.ts'
     ],

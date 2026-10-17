@@ -5,7 +5,7 @@
     import { FlexRender, type Row } from '@tanstack/svelte-table';
     import * as Table from '../../components/table';
     import type { DataTableBodyProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import Empty from './data-table-empty.svelte';
     import Selection from './data-table-selection.svelte';
     import { selectedRow, selection, visibleCells, visibleColumnCount } from './features';

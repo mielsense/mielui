@@ -8,7 +8,7 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { ContextMenuCheckboxItemProps } from '.';
-    import { getContextMenuContext } from './context.svelte';
+    import { getContextMenuContext } from './context';
 
     let {
         children,

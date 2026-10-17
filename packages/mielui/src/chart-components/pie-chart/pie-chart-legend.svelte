@@ -1,11 +1,11 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartLegendProps } from './index';
 
     let { children, class: className, ...rest }: PieChartLegendProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
 
     function activate(key: string, anchor?: EventTarget | null) {
         if (anchor instanceof Element) {

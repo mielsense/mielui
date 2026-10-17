@@ -2,7 +2,7 @@
     import { cn, travelingHighlight } from '@mielui/svelte/utils';
     import { ToggleGroup as BitsToggleGroup } from 'bits-ui';
     import type { ToggleGroupProps } from '.';
-    import { setToggleGroupContext } from './context.svelte';
+    import { setToggleGroupContext } from './context';
 
     let {
         class: className,

@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AttachmentProps } from '.';
-    import { setAttachmentContext, setAttachmentLabels } from './context.svelte';
+    import { setAttachmentContext, setAttachmentLabels } from './context';
     import { validateFiles } from './validation';
 
     let {

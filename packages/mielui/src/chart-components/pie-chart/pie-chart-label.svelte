@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartLabelProps } from './index';
 
     let { children, class: className, ...rest }: PieChartLabelProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     const active = $derived(context.data.find((item) => item.key === context.active));
     const totalFormatter = new Intl.NumberFormat();
 </script>

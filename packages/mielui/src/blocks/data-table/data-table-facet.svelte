@@ -10,7 +10,7 @@
     import * as NativeSelect from '../../components/native-select';
     import * as Popover from '../../components/popover';
     import type { DataTableFacetProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import { filterableColumn } from './features';
     import {
         defaultFilterOperator,

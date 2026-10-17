@@ -4,7 +4,7 @@
     import { checkboxBox } from '../../components/checkbox/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionOptionProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { getQuestionContext } from './context';
 
     let {
         value,

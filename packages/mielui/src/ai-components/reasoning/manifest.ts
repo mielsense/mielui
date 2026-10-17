@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/reasoning/reasoning.svelte',
         'components/reasoning/reasoning-trigger.svelte',
         'components/reasoning/reasoning-content.svelte',
-        'components/reasoning/context.svelte.ts',
+        'components/reasoning/context.ts',
         'components/reasoning/index.ts',
         'components/reasoning/manifest.ts'
     ],

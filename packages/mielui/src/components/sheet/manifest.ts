@@ -28,7 +28,7 @@ export const manifest: Manifest = {
         'components/sheet/sheet-header.svelte',
         'components/sheet/sheet-footer.svelte',
         'components/sheet/sheet-close.svelte',
-        'components/sheet/context.svelte.ts',
+        'components/sheet/context.ts',
         'components/sheet/index.ts',
         'components/sheet/manifest.ts'
     ],

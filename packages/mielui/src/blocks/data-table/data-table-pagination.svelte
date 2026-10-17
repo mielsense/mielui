@@ -7,7 +7,7 @@
     import { Button } from '../../components/button';
     import Pagination from '../../components/pagination';
     import type { DataTablePaginationProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
     import { pagination } from './features';
 
     let {

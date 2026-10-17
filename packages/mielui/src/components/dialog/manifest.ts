@@ -36,7 +36,7 @@ export const manifest: Manifest = {
         'components/dialog/dialog-body.svelte',
         'components/dialog/dialog-close.svelte',
         'components/dialog/dialog-confirm.svelte',
-        'components/dialog/context.svelte.ts',
+        'components/dialog/context.ts',
         'components/dialog/index.ts',
         'components/dialog/manifest.ts'
     ],

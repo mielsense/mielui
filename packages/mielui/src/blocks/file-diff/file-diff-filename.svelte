@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileDiffFilenameProps } from '.';
-    import { findFileDiffContext } from './context.svelte';
+    import { findFileDiffContext } from './context';
 
     let { class: className, file, ...rest }: FileDiffFilenameProps = $props();
 

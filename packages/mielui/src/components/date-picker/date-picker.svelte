@@ -2,7 +2,7 @@
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import { untrack } from 'svelte';
     import type { DatePickerProps } from '.';
-    import { setDatePickerContext } from './context.svelte';
+    import { setDatePickerContext } from './context';
 
     let {
         value = $bindable(),

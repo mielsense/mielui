@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { FieldControlProps } from '.';
-    import { getFieldContext } from './context.svelte';
+    import { getFieldContext } from './context';
 
     let { children, describedBy, errorId }: FieldControlProps = $props();
     const field = getFieldContext();

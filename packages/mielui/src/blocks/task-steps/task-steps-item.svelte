@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsItemProps } from '.';
-    import { setTaskStep } from './context.svelte';
+    import { setTaskStepContext } from './context';
 
     let { status = 'pending', children, class: className, ...rest }: TaskStepsItemProps = $props();
-    setTaskStep({
+    setTaskStepContext({
         get status() {
             return status;
         }

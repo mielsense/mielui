@@ -1,5 +1,5 @@
 type MeasureOptions = {
-    getElement: () => HTMLDivElement | undefined;
+    readonly element: HTMLDivElement | undefined;
 };
 
 export function createScrollAreaMeasure(options: MeasureOptions) {
@@ -25,7 +25,7 @@ export function createScrollAreaMeasure(options: MeasureOptions) {
     }
 
     function measure() {
-        const element = options.getElement();
+        const element = options.element;
 
         if (!element) {
             return;
@@ -39,7 +39,7 @@ export function createScrollAreaMeasure(options: MeasureOptions) {
     }
 
     $effect(() => {
-        const viewport = options.getElement();
+        const viewport = options.element;
 
         if (!viewport) {
             return;

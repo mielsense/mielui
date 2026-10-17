@@ -10,7 +10,7 @@ export const manifest: Manifest = {
         'components/chart/area.svelte',
         'components/chart/axis.svelte',
         'components/chart/bar.svelte',
-        'components/chart/context.svelte.ts',
+        'components/chart/context.ts',
         'components/chart/grid.svelte',
         'components/chart/index.ts',
         'components/chart/interaction.svelte',
@@ -25,7 +25,7 @@ export const manifest: Manifest = {
         'components/chart/plot.svelte',
         'components/chart/placeholder.svelte',
         'components/chart/root.svelte',
-        'components/chart/state.svelte.ts',
+        'components/chart/controller.svelte.ts',
         'components/chart/tooltip.svelte',
         'components/chart/x-axis.svelte',
         'components/chart/y-axis.svelte'

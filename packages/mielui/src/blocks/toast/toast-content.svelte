@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { getToastContext } from './context.svelte';
+    import { getToastContext } from './context';
 
     let { children, class: className, ...rest }: HTMLAttributes<HTMLDivElement> = $props();
     const context = getToastContext();

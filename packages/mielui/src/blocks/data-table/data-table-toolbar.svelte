@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { DataTableToolbarProps } from '.';
-    import { type DataTableToolbarSlot, findDataTableContext } from './context.svelte';
+    import { type DataTableToolbarSlot, findDataTableContext } from './context';
 
     let { children, class: className, ...rest }: DataTableToolbarProps = $props();
 

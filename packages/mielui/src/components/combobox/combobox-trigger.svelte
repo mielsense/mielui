@@ -7,7 +7,7 @@
     import { button } from '../button/variants';
     import { input } from '../input/variants';
     import type { ComboboxTriggerProps } from '.';
-    import { findComboboxLabels, getComboboxContext } from './context.svelte';
+    import { findComboboxLabels, getComboboxContext } from './context';
 
     const context = getComboboxContext();
     const labels = findComboboxLabels();

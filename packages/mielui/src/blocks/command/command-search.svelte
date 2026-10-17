@@ -4,7 +4,7 @@
     import { onMount } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { CommandSearchProps } from '.';
-    import { findCommandLabels, getCommandContext, getCommandResults } from './context.svelte';
+    import { findCommandLabels, getCommandContext, getCommandResults } from './context';
     import { DEFAULT_COMMAND_SEARCH_THRESHOLD } from './search';
 
     const controller = getCommandContext();

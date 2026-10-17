@@ -2,14 +2,14 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapMonthLabelsProps } from '.';
     import { weekColumns } from './calendar';
-    import { getHeatmapContext } from './context.svelte';
+    import { getHeatmapContext } from './context';
 
-    let { children, class: className, ...props }: HeatmapMonthLabelsProps = $props();
+    let { children, class: className, ...rest }: HeatmapMonthLabelsProps = $props();
     const context = getHeatmapContext();
 </script>
 
 <div
-    {...props}
+    {...rest}
     aria-hidden="true"
     data-ui="heatmap-month-labels"
     class={cn(className, 'col-start-2 row-start-1 grid gap-1 text-xs text-foreground-muted')}

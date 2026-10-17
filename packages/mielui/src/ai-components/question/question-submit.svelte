@@ -5,7 +5,7 @@
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionSubmitProps } from '.';
-    import { findQuestionLabels, getQuestionContext } from './context.svelte';
+    import { findQuestionLabels, getQuestionContext } from './context';
 
     let {
         children,

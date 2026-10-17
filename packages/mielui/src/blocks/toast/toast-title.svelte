@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion } from 'svelte/motion';
-    import { getToastContext } from './context.svelte';
+    import { getToastContext } from './context';
 
     let { children, class: className, ...rest }: HTMLAttributes<HTMLParagraphElement> = $props();
     const context = getToastContext();

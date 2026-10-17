@@ -3,12 +3,12 @@
     import { Skeleton } from '@mielui/svelte/components/skeleton';
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
-    import { findPieChartLabels, getPieContext } from './context';
+    import { findPieChartLabels, getPieChartContext } from './context';
     import type { PieChartPlotProps } from './index';
 
     let { children, class: className, ...rest }: PieChartPlotProps = $props();
     const labels = findPieChartLabels();
-    const context = getPieContext();
+    const context = getPieChartContext();
     const shimmer = $derived(context.loading && context.motion && context.visible);
 </script>
 

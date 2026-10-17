@@ -1,7 +1,7 @@
 <script lang="ts">
     import { LinkPreview } from 'bits-ui';
     import type { HoverCardProps } from '.';
-    import { setHoverCardContext } from './context.svelte';
+    import { setHoverCardContext } from './context';
 
     let {
         open = $bindable(false),

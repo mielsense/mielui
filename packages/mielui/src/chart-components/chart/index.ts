@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { ChartRow, Config } from './context.svelte';
+import type { ChartRow, Config } from './context';
 
 export type ChartLabels = {
     categories?: string;

@@ -124,3 +124,9 @@ These names now match the components they sit beside. The old names are gone, an
 - Spinner `curved` is `eased`. It varies the speed through each turn.
 
 These props are removed because they did nothing useful from outside: `stateKey` and `state_key` on Popover and Combobox only prefixed DOM ids, `panelIdPrefix` on `Dialog.Content` did the same, `contentClass` landed on the same element as `class`, and `role` on `Dialog.Content` is what AlertDialog is for. Combobox Content ignored `focusTrap`, and `Select.Item` and `Combobox.Item` ignored `variant`, `size`, and `unstyled`, so they are no longer typed.
+
+## Context modules are plain `context.ts` files
+
+Every copied component family now keeps its contexts in `context.ts`, because none of them use runes. Parts import `./context`, not `./context.svelte`. When you re-add a component with `mielui add`, the CLI writes the new `context.ts` and leaves any old `context.svelte.ts` in place. Delete the old file so nothing imports it by mistake. If you edited a copied part to import `./context.svelte`, change the import to `./context`.
+
+Inside copied code, context helpers follow one shape: `getXContext()` and `setXContext()` for the family's main context, plus `findXLabels()` where built-in text has its own context. A few helpers were renamed to match: `getChart` is `getChartContext`, `getPieContext` is `getPieChartContext`, `getFolderCard` is `getFolderCardContext`, `getReorderList` and `getReorderItem` are `getReorderListContext` and `getReorderListItemContext`, `getTaskSteps` and `getTaskStep` are `getTaskStepsContext` and `getTaskStepContext`, and Notch's `notchContext.get()` is `getNotchContext()`. These are internal to the copied files and not exported from the package.

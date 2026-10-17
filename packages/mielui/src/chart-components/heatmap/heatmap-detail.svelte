@@ -1,14 +1,14 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { HeatmapDetailProps } from '.';
-    import { getHeatmapContext } from './context.svelte';
+    import { getHeatmapContext } from './context';
 
-    let { children, class: className, ...props }: HeatmapDetailProps = $props();
+    let { children, class: className, ...rest }: HeatmapDetailProps = $props();
     const context = getHeatmapContext();
 </script>
 
 <p
-    {...props}
+    {...rest}
     data-ui="heatmap-detail"
     role={context.ready ? undefined : 'status'}
     class={cn(className, 'min-h-4 text-xs text-foreground-muted tabular-nums')}

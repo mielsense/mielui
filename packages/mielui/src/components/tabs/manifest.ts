@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/tabs/tabs-trigger.svelte',
         'components/tabs/tabs-content.svelte',
         'components/tabs/id.ts',
-        'components/tabs/context.svelte.ts',
+        'components/tabs/context.ts',
         'components/tabs/indicators.svelte.ts',
         'components/tabs/index.ts',
         'components/tabs/manifest.ts'

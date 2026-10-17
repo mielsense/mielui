@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { SheetFooterProps } from '.';
-    import { getSheetContext } from './context.svelte';
+    import { getSheetContext } from './context';
 
     let { class: className, children, ...rest }: SheetFooterProps = $props();
     const sheet = getSheetContext();

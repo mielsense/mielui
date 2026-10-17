@@ -9,7 +9,7 @@ export const manifest: Manifest = {
     files: [
         'components/radio-group/radio-group.svelte',
         'components/radio-group/radio-group-item.svelte',
-        'components/radio-group/context.svelte.ts',
+        'components/radio-group/context.ts',
         'components/radio-group/index.ts',
         'components/radio-group/manifest.ts'
     ],

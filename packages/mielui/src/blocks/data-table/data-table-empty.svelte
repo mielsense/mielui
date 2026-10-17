@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import * as Table from '../../components/table';
     import type { DataTableEmptyProps } from '.';
-    import { findDataTableLabels } from './context.svelte';
+    import { findDataTableLabels } from './context';
 
     let { columns, loading = false, children, class: className }: DataTableEmptyProps = $props();
     const labels = findDataTableLabels();

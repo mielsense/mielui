@@ -1,7 +1,7 @@
 <script lang="ts">
     import { untrack } from 'svelte';
     import type { DialogFooterProps } from '.';
-    import { getDialogContext } from './context.svelte';
+    import { getDialogContext } from './context';
 
     let { class: className, children, ...rest }: DialogFooterProps = $props();
     const dialog = getDialogContext();

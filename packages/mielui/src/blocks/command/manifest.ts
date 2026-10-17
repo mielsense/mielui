@@ -16,7 +16,7 @@ export const manifest: Manifest = {
         'components/command/command-group.svelte',
         'components/command/command-header.svelte',
         'components/command/command-separator.svelte',
-        'components/command/context.svelte.ts',
+        'components/command/context.ts',
         'components/command/controller.svelte.ts',
         'components/command/index.ts',
         'components/command/manifest.ts'

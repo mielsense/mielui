@@ -3,7 +3,7 @@
     import { Select as BitsSelect } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
     import type { SelectContentProps } from '.';
-    import { getSelectContext } from './context.svelte';
+    import { getSelectContext } from './context';
 
     const context = getSelectContext();
 

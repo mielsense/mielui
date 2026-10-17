@@ -4,7 +4,7 @@
     import { overlaySurface } from '../_internal/surface';
     import type { ComboboxContentProps } from '.';
     import ComboboxSearch from './combobox-search.svelte';
-    import { getComboboxContext } from './context.svelte';
+    import { getComboboxContext } from './context';
 
     let {
         children,

@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import type { MarkdownToken } from './_types';
-    import { findMarkdownLabels } from './context.svelte';
+    import { findMarkdownLabels } from './context';
     import Self from './markdown-token.svelte';
     import {
         alignmentClass,

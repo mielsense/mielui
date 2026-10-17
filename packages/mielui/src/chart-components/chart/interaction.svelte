@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { getChartContext } from 'layerchart';
-    import { getChart } from './context.svelte';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
+    import { getChartContext } from './context';
     import { createChartFollow } from './follow.svelte';
 
-    const layer = getChartContext();
-    const chart = getChart();
+    const layer = getLayerChartContext();
+    const chart = getChartContext();
     let group: SVGGElement;
     const selected = createChartFollow(
         chart,

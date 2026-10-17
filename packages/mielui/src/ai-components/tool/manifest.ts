@@ -12,7 +12,7 @@ export const manifest: Manifest = {
         'components/tool/tool.svelte',
         'components/tool/tool-trigger.svelte',
         'components/tool/tool-content.svelte',
-        'components/tool/context.svelte.ts',
+        'components/tool/context.ts',
         'components/tool/tool-item.svelte',
         'components/tool/tool-input.svelte',
         'components/tool/tool-output.svelte',

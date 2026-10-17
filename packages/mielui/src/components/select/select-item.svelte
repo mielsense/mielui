@@ -7,7 +7,7 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { SelectItemProps } from '.';
-    import { getSelectContext } from './context.svelte';
+    import { getSelectContext } from './context';
 
     const { labels } = getSelectContext();
     let {

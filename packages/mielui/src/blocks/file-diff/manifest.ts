@@ -17,7 +17,7 @@ export const manifest: Manifest = {
         'components/file-diff/file-diff-row.svelte',
         'components/file-diff/file-diff-line-number.svelte',
         'components/file-diff/highlight.ts',
-        'components/file-diff/context.svelte.ts',
+        'components/file-diff/context.ts',
         'components/file-diff/index.ts',
         'components/file-diff/manifest.ts'
     ],

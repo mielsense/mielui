@@ -1,7 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { FieldControlAttributes, FieldIssue } from '.';
 
-type FieldContext = {
+export type FieldContext = {
     readonly controlId: string;
     readonly invalid: boolean;
     readonly disabled: boolean;
@@ -10,6 +10,6 @@ type FieldContext = {
     readonly control: FieldControlAttributes;
 };
 
-const context = createContext<FieldContext>('field');
-export const getFieldContext = context.get;
-export const setFieldContext = context.set;
+const { set: setFieldContext, get: getFieldContext } = createContext<FieldContext>('field');
+
+export { getFieldContext, setFieldContext };

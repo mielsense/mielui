@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import OverlayClose from '../../components/_internal/overlay-close.svelte';
     import type { NotchCloseProps } from '.';
-    import { notchContext } from './context';
+    import { getNotchContext } from './context';
 
     let {
         children,
@@ -11,7 +11,7 @@
         'aria-label': label,
         ...rest
     }: NotchCloseProps = $props();
-    const context = notchContext.get();
+    const context = getNotchContext();
 </script>
 
 <OverlayClose

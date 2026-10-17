@@ -16,7 +16,7 @@ export const manifest: Manifest = {
         'components/task-steps/task-steps-summary.svelte',
         'components/task-steps/index.ts',
         'components/task-steps/task-steps-item.svelte',
-        'components/task-steps/context.svelte.ts',
+        'components/task-steps/context.ts',
         'components/task-steps/manifest.ts'
     ],
     components: ['_internal/utils', 'spinner'],

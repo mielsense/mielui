@@ -2,12 +2,12 @@
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
     import type { ChartPlotProps } from '.';
-    import { getChart } from './context.svelte';
+    import { getChartContext } from './context';
     import Interaction from './interaction.svelte';
     import Placeholder from './placeholder.svelte';
 
     let { children, empty, loading, class: className, ...rest }: ChartPlotProps = $props();
-    const chart = getChart();
+    const chart = getChartContext();
     const categories = $derived(chart.categoryDomain);
     const padding = $derived({
         left: chart.orientation === 'horizontal' ? 88 : 48,

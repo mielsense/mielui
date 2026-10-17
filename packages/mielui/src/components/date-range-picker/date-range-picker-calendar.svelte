@@ -5,7 +5,7 @@
     import Heading from '../calendar/calendar-heading.svelte';
     import NextButton from '../calendar/calendar-next-button.svelte';
     import PrevButton from '../calendar/calendar-prev-button.svelte';
-    import { getDatePickerContext } from '../date-picker/context.svelte';
+    import { getDatePickerContext } from '../date-picker/context';
     import { dateCalendarClasses } from '../date-picker/variants';
     import Month from '../range-calendar/range-calendar-month.svelte';
 

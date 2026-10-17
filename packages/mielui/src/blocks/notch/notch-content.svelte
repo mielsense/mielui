@@ -4,7 +4,7 @@
     import { onMount, tick } from 'svelte';
     import { overlaySurface } from '../../components/_internal/surface';
     import type { NotchContentProps } from '.';
-    import { notchContext } from './context';
+    import { getNotchContext } from './context';
     import { createNotchFrame } from './frame.svelte';
     import { createNotchSwipe } from './swipe.svelte';
 
@@ -29,7 +29,7 @@
         onfocusout,
         ...rest
     }: NotchContentProps = $props();
-    const context = notchContext.get();
+    const context = getNotchContext();
     const reduced = useReducedMotion();
     const uid = $props.id();
     let host = $state<HTMLElement | null>(null);

@@ -14,12 +14,16 @@ export const MAX_VISIBLE = 3;
  * Layout for the toast stack: newest first, fanned behind each other at rest and
  * spread out by measured height while the pointer or focus is inside.
  */
-export function createToastStack(getToasts: () => readonly Toast[]) {
+type StackOptions = {
+    readonly toasts: readonly Toast[];
+};
+
+export function createToastStack(options: StackOptions) {
     let hovered = $state(false);
     let focused = $state(false);
     const heights = $state<Record<number, number>>({});
 
-    const toasts = $derived([...getToasts()].reverse());
+    const toasts = $derived([...options.toasts].reverse());
     const expanded = $derived(hovered || focused);
     const measured = $derived(
         toasts.map((toast) => {

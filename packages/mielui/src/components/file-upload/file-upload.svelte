@@ -3,7 +3,7 @@
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadProps } from '.';
-    import { setFileUploadContext } from './context.svelte';
+    import { setFileUploadContext } from './context';
     import { createFileUploadController } from './controller.svelte';
     import Dropzone from './file-upload-dropzone.svelte';
     import List from './file-upload-list.svelte';

@@ -1,11 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { FolderCardCoverProps } from '.';
-    import { getFolderCard } from './context';
+    import { getFolderCardContext } from './context';
 
     let { src, alt = '', class: className, children, ...rest }: FolderCardCoverProps = $props();
 
-    const folderCard = getFolderCard();
+    const folderCard = getFolderCardContext();
 
     const toneClasses = {
         1: '[--folder-card-tone:var(--chart-1)]',

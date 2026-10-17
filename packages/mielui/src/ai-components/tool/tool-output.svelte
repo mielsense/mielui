@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ToolOutputProps } from '.';
-    import { findToolLabels } from './context.svelte';
+    import { findToolLabels } from './context';
 
     let { label, children, class: className, ...rest }: ToolOutputProps = $props();
     const labels = findToolLabels();

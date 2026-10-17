@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { MessageNameProps } from '.';
-    import { getMessageContext } from './context.svelte';
+    import { getMessageContext } from './context';
 
     let { children, class: className, ...rest }: MessageNameProps = $props();
     const message = getMessageContext();

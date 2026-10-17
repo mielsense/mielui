@@ -1,7 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { NumberFieldLabels } from '.';
 
-type NumberFieldContext = {
+export type NumberFieldContext = {
     readonly id: string;
     readonly labels: NumberFieldLabels | undefined;
     readonly value: number | undefined;
@@ -20,6 +20,7 @@ type NumberFieldContext = {
     setValue: (value: number | undefined) => void;
     change: (direction: 1 | -1) => void;
 };
-const context = createContext<NumberFieldContext>('number-field');
-export const getNumberFieldContext = context.get;
-export const setNumberFieldContext = context.set;
+const { set: setNumberFieldContext, get: getNumberFieldContext } =
+    createContext<NumberFieldContext>('number-field');
+
+export { getNumberFieldContext, setNumberFieldContext };

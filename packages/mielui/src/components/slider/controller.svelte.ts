@@ -9,41 +9,40 @@ type SliderMode = Pick<SingleProps, ModeKey> | Pick<RangeProps, ModeKey>;
 type SliderValue = number | [number, number];
 
 type ControllerOptions = {
-    getValue: () => SliderValue | undefined;
-    setValue: (value: SliderValue) => void;
-    getMin: () => number;
-    getMax: () => number;
-    getStep: () => number;
-    getDisabled: () => boolean;
-    getDir: () => 'ltr' | 'rtl' | undefined;
-    getForm: () => string | undefined;
-    getMode: () => SliderMode;
-    getElement: () => HTMLDivElement | undefined;
-    getFormInput: () => HTMLInputElement | undefined;
-    getEditor: () => HTMLInputElement | undefined;
+    value: SliderValue | undefined;
+    readonly min: number;
+    readonly max: number;
+    readonly step: number;
+    readonly disabled: boolean;
+    readonly dir: 'ltr' | 'rtl' | undefined;
+    readonly form: string | undefined;
+    readonly mode: SliderMode;
+    readonly element: HTMLDivElement | undefined;
+    readonly formInput: HTMLInputElement | undefined;
+    readonly editor: HTMLInputElement | undefined;
 };
 
 export function createSliderController(options: ControllerOptions) {
     const minimum = $derived.by(() => {
-        const min = options.getMin();
+        const min = options.min;
 
         return Number.isFinite(min) ? min : 0;
     });
     const maximum = $derived.by(() => {
-        const max = options.getMax();
+        const max = options.max;
 
         return Math.max(minimum, Number.isFinite(max) ? max : 100);
     });
     const increment = $derived.by(() => {
-        const step = options.getStep();
+        const step = options.step;
 
         return Number.isFinite(step) && step > 0 ? step : 1;
     });
-    const unavailable = $derived(options.getDisabled() || maximum <= minimum);
+    const unavailable = $derived(options.disabled || maximum <= minimum);
     const values = $derived.by(() => {
-        const value = options.getValue();
+        const value = options.value;
 
-        if (options.getMode().range) {
+        if (options.mode.range) {
             const pair = Array.isArray(value) ? value : [minimum, maximum];
             const first = normalizeValue(pair[0], minimum, maximum, increment);
             const second = normalizeValue(pair[1], minimum, maximum, increment);
@@ -57,13 +56,13 @@ export function createSliderController(options: ControllerOptions) {
     });
 
     untrack(() => {
-        if (options.getValue() === undefined) {
-            options.setValue(options.getMode().range ? [values[0], values[1]] : values[0]);
+        if (options.value === undefined) {
+            options.value = options.mode.range ? [values[0], values[1]] : values[0];
         }
     });
 
     const initialValue = untrack(() => {
-        const value = options.getValue();
+        const value = options.value;
 
         return Array.isArray(value) ? [...value] : value;
     });
@@ -78,18 +77,18 @@ export function createSliderController(options: ControllerOptions) {
     let pointerStart: string | undefined;
     let editing = $state(false);
 
-    const direction = $derived(options.getDir() ?? inheritedDirection);
+    const direction = $derived(options.dir ?? inheritedDirection);
     const field = $derived.by(() => {
-        const mode = options.getMode();
+        const mode = options.mode;
 
         return !mode.range && mode.variant === 'field';
     });
     const fieldFill = $derived(valuePercent(values[0], minimum, maximum) / 100);
-    const canEdit = $derived(field && options.getMode().editable === true && !unavailable);
+    const canEdit = $derived(field && options.mode.editable === true && !unavailable);
 
     onMount(() => {
         function updateDirection() {
-            const element = options.getElement();
+            const element = options.element;
 
             if (element) {
                 inheritedDirection = getComputedStyle(element).direction === 'rtl' ? 'rtl' : 'ltr';
@@ -120,14 +119,14 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function updateSingle(next: number) {
-        const mode = options.getMode();
+        const mode = options.mode;
         const normalized = normalizeValue(pointerPosition ?? next, minimum, maximum, increment);
 
         if (unavailable || mode.range || normalized === values[0]) {
             return;
         }
 
-        options.setValue(normalized);
+        options.value = normalized;
         mode.onValueChange?.(normalized);
 
         if (dragPointer === undefined) {
@@ -136,7 +135,7 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function updateRange(next: number[]) {
-        const mode = options.getMode();
+        const mode = options.mode;
 
         if (unavailable || !mode.range) {
             return;
@@ -158,7 +157,7 @@ export function createSliderController(options: ControllerOptions) {
             return;
         }
 
-        options.setValue(pair);
+        options.value = pair;
         mode.onValueChange?.(pair);
 
         if (dragPointer === undefined) {
@@ -167,7 +166,7 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function commitPointer() {
-        const mode = options.getMode();
+        const mode = options.mode;
         const start = pointerStart;
 
         pointerStart = undefined;
@@ -184,7 +183,7 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function trackElement() {
-        return options.getElement()?.querySelector<HTMLElement>('[data-slider-root]');
+        return options.element?.querySelector<HTMLElement>('[data-slider-root]');
     }
 
     function pointerValue(clientX: number, rect: DOMRect) {
@@ -202,8 +201,7 @@ export function createSliderController(options: ControllerOptions) {
                 return;
             }
 
-            options
-                .getElement()
+            options.element
                 ?.querySelector<HTMLElement>(`[data-thumb="${index}"]`)
                 ?.focus({ preventScroll: true });
         });
@@ -222,7 +220,7 @@ export function createSliderController(options: ControllerOptions) {
         event.preventDefault();
         event.stopPropagation();
 
-        if (options.getMode().range) {
+        if (options.mode.range) {
             const index = Number(thumb.dataset.thumb) === 1 ? 1 : 0;
             const pair = [values[0], values[1]];
 
@@ -245,7 +243,7 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function parseTyped(text: string) {
-        const mode = options.getMode();
+        const mode = options.mode;
 
         if (!mode.range && mode.parse) {
             return mode.parse(text);
@@ -322,7 +320,7 @@ export function createSliderController(options: ControllerOptions) {
         }
 
         updatePointerPosition(event);
-        options.getElement()?.setPointerCapture(event.pointerId);
+        options.element?.setPointerCapture(event.pointerId);
 
         const index = pointerThumb ?? 0;
 
@@ -344,7 +342,7 @@ export function createSliderController(options: ControllerOptions) {
 
         pointerPosition = pointerValue(event.clientX, rect) - dragOffset;
 
-        if (options.getMode().range) {
+        if (options.mode.range) {
             updateRange(values);
         } else {
             updateSingle(values[0]);
@@ -356,7 +354,7 @@ export function createSliderController(options: ControllerOptions) {
             return;
         }
 
-        const element = options.getElement();
+        const element = options.element;
 
         dragPointer = undefined;
         dragOffset = 0;
@@ -375,7 +373,7 @@ export function createSliderController(options: ControllerOptions) {
             return;
         }
 
-        const element = options.getElement();
+        const element = options.element;
         const shouldRestoreFocus = element?.contains(document.activeElement) ?? false;
         const pointer = dragPointer;
 
@@ -423,7 +421,7 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function resetValue(): SliderValue {
-        if (options.getMode().range) {
+        if (options.mode.range) {
             return Array.isArray(initialValue)
                 ? [initialValue[0], initialValue[1]]
                 : [minimum, maximum];
@@ -433,15 +431,15 @@ export function createSliderController(options: ControllerOptions) {
     }
 
     function formOwner() {
-        const associated = options.getFormInput()?.form;
+        const associated = options.formInput?.form;
 
         if (associated) {
             return associated;
         }
 
-        const form = options.getForm();
+        const form = options.form;
 
-        return form ? document.getElementById(form) : options.getElement()?.closest('form');
+        return form ? document.getElementById(form) : options.element?.closest('form');
     }
 
     $effect(() => {
@@ -458,7 +456,7 @@ export function createSliderController(options: ControllerOptions) {
                 }
 
                 cancelPointer();
-                options.setValue(resetValue());
+                options.value = resetValue();
             });
         }
 
@@ -477,7 +475,7 @@ export function createSliderController(options: ControllerOptions) {
 
     $effect(() => {
         if (editing) {
-            const editor = options.getEditor();
+            const editor = options.editor;
 
             editor?.focus({ preventScroll: true });
             editor?.select();

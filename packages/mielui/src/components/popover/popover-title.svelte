@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { PopoverTitleProps } from '.';
-    import { getPopoverContext } from './context.svelte';
+    import { getPopoverContext } from './context';
 
     let { children, class: className, ...rest }: PopoverTitleProps = $props();
 

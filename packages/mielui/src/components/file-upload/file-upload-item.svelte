@@ -2,7 +2,7 @@
     import { motion } from '@humanspeak/svelte-motion';
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadItemProps } from '.';
-    import { getFileUploadContext, setFileUploadItem } from './context.svelte';
+    import { getFileUploadContext, setFileUploadItem } from './context';
     import Details from './file-upload-details.svelte';
     import Preview from './file-upload-preview.svelte';
     import Progress from './file-upload-progress.svelte';

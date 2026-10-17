@@ -1,7 +1,7 @@
 <script lang="ts">
     import { DropdownMenu as MenuPrimitive } from 'bits-ui';
     import type { DropdownMenuProps } from '.';
-    import { type DropdownMenuContext, setDropdownMenuContext } from './context.svelte';
+    import { type DropdownMenuContext, setDropdownMenuContext } from './context';
 
     let { children, open = $bindable(false), onOpenChange }: DropdownMenuProps = $props();
 

@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/form/form-submit.svelte',
         'components/form/index.ts',
         'components/form/form-actions.svelte',
-        'components/form/context.svelte.ts',
+        'components/form/context.ts',
         'components/form/manifest.ts'
     ],
     components: ['_internal/utils', 'button'],

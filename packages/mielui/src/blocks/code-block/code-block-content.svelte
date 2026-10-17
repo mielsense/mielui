@@ -1,15 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
-    import { findTabsContext } from '../../components/tabs/context.svelte';
+    import { findTabsContext } from '../../components/tabs/context';
     import { tabContentId, tabTriggerId } from '../../components/tabs/id';
     import type { CodeBlockContentProps } from '.';
     import Copy from './code-block-copy.svelte';
-    import {
-        findCodeBlockLabels,
-        findCodeBlockPanel,
-        findCodeBlockRegistry
-    } from './context.svelte';
+    import { findCodeBlockLabels, findCodeBlockPanel, findCodeBlockRegistry } from './context';
     import { highlight } from './highlight';
 
     const CODE_TOKENS =

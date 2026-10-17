@@ -1,6 +1,6 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
-    import { getDialogContext } from '../dialog/context.svelte';
+    import { getDialogContext } from '../dialog/context';
     import type { AlertDialogContentProps } from '.';
 
     let {

@@ -23,7 +23,7 @@ export const manifest: Manifest = {
         'components/select/select-content.svelte',
         'components/select/select-item.svelte',
         'components/select/select-label.svelte',
-        'components/select/context.svelte.ts',
+        'components/select/context.ts',
         'components/select/index.ts',
         'components/select/manifest.ts'
     ],
