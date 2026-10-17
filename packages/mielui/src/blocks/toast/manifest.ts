@@ -24,6 +24,8 @@ export const manifest: Manifest = {
         'actions/number-shuffle/render.ts',
         'components/toast/lib.svelte.ts',
         'components/toast/toaster.svelte',
+        'components/toast/stack.svelte.ts',
+        'components/toast/transitions.ts',
         'components/toast/notch-host.svelte',
         'components/toast/toast.svelte',
         'components/toast/variants.ts',

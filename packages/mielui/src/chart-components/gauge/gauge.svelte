@@ -7,6 +7,7 @@
     import { fromAction } from 'svelte/attachments';
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
+    import { observeThemeChanges } from '../../components/_internal/theme-changes';
     import type { GaugeProps, GaugeTone } from '.';
     import { gaugeArcPath } from './arc-path';
     import { gaugeLiveMotion } from './live-motion';
@@ -71,15 +72,10 @@
         }
         mounted = true;
         preference?.addEventListener('change', refreshMotion);
-        const observer = new MutationObserver(refreshMotion);
-        let ancestor: Element | null = arc.parentElement;
-        while (ancestor) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
-            ancestor = ancestor.parentElement;
-        }
+        const stopThemeChanges = observeThemeChanges(arc.parentElement, refreshMotion);
         return () => {
             void progress.set(progress.current, { duration: 0 });
-            observer.disconnect();
+            stopThemeChanges();
             preference?.removeEventListener('change', refreshMotion);
         };
     });

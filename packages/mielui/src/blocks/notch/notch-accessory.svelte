@@ -3,6 +3,7 @@
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
+    import { observeThemeChanges } from '../../components/_internal/theme-changes';
     import type { NotchAccessoryProps } from '.';
     import {
         closePopover,
@@ -47,17 +48,14 @@
         const node = host;
         const unregister = context.register(node);
         updateMotion();
-        const observer = new MutationObserver(updateMotion);
-        for (let ancestor = node.parentElement; ancestor; ancestor = ancestor.parentElement) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
-        }
+        const stopThemeChanges = observeThemeChanges(node.parentElement, updateMotion);
         ready = true;
         return () => {
             if (node.contains(document.activeElement)) {
                 context.returnFocus?.focus({ preventScroll: true });
             }
             unregister();
-            observer.disconnect();
+            stopThemeChanges();
         };
     });
 

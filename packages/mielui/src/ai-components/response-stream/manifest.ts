@@ -15,7 +15,7 @@ export const manifest: Manifest = {
         'components/response-stream/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['transition', 'utils.cn'],
+    shared: ['components/_internal/theme-changes', 'transition', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@scritto/core': '^0.1.0',

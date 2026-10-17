@@ -1,6 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { HeatmapLabels } from '.';
 import type { Cell, calendar } from './calendar';
+import type { HeatmapMotion } from './reveal';
 
 type HeatmapContext = {
     readonly labels: HeatmapLabels | undefined;
@@ -11,6 +12,8 @@ type HeatmapContext = {
     readonly empty: boolean;
     readonly ready: boolean;
     readonly animation: 'rows' | 'columns' | 'live' | 'none';
+    /** The theme's motion, or `undefined` when motion is reduced or turned off. */
+    readonly motion: HeatmapMotion | undefined;
     readonly model: ReturnType<typeof calendar>;
     readonly active: Cell | undefined;
     readonly focused: string;

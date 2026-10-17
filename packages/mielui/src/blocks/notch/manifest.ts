@@ -18,12 +18,15 @@ export const manifest: Manifest = {
         'components/notch/notch.svelte',
         'components/notch/notch-peek.svelte',
         'components/notch/notch-side-action.svelte',
+        'components/notch/frame.svelte.ts',
         'components/notch/shape.ts',
+        'components/notch/state.svelte.ts',
         'components/notch/swipe.svelte.ts',
         'components/notch/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'typography'],
     shared: [
+        'components/_internal/theme-changes',
         'utils.cn',
         'utils.createContext',
         'transition',

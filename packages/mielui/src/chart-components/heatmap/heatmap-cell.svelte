@@ -1,11 +1,11 @@
 <script lang="ts">
     import { Skeleton } from '@mielui/svelte/components/skeleton';
-    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { HeatmapCellProps } from '.';
     import { levelClasses } from './calendar';
     import { getHeatmapContext } from './context.svelte';
+    import { revealCell, revealDelay } from './reveal';
 
     let {
         day,
@@ -24,48 +24,14 @@
     let element = $state<HTMLButtonElement>();
 
     $effect(() => {
-        if (!element || !context.ready) {
+        const motion = context.motion;
+        const order = context.animation;
+        if (!element || !context.ready || !motion || order === 'none' || order === 'live') {
             return;
         }
-        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const milliseconds = getCssDuration(element, '--motion-duration-panel', 180);
-        const motionScale = Math.max(0, milliseconds / 180);
-        if (
-            preference.matches ||
-            context.animation === 'none' ||
-            context.animation === 'live' ||
-            motionScale === 0
-        ) {
-            return;
-        }
-        const rows = context.animation === 'rows';
-        const delay = untrack(() => {
-            if (rows) {
-                return (day.row - 1) * 50;
-            }
-            return (day.column - 1) * Math.min(35, 360 / context.model.weeks);
-        });
-        const animation = element.animate(
-            [
-                { opacity: 0, transform: 'translateY(5px) scale(0.82)' },
-                { opacity: 1, transform: 'translateY(0) scale(1)' }
-            ],
-            {
-                duration: 360 * motionScale,
-                delay: delay * motionScale,
-                easing:
-                    getComputedStyle(element).getPropertyValue('--ease-out').trim() || 'ease-out',
-                fill: 'backwards'
-            }
-        );
-        function cancel() {
-            animation.cancel();
-        }
-        preference.addEventListener('change', cancel);
-        return () => {
-            cancel();
-            preference.removeEventListener('change', cancel);
-        };
+        const delay = untrack(() => revealDelay(day, order, context.model.weeks));
+
+        return revealCell(element, motion, delay);
     });
 
     function navigate(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

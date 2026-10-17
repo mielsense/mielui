@@ -15,6 +15,7 @@ export const manifest: Manifest = {
         'components/heatmap/heatmap-summary.svelte',
         'components/heatmap/calendar.ts',
         'components/heatmap/live.ts',
+        'components/heatmap/reveal.ts',
         'components/heatmap/heatmap-grid.svelte',
         'components/heatmap/heatmap-header.svelte',
         'components/heatmap/heatmap-month-labels.svelte',
@@ -27,6 +28,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'skeleton'],
     shared: [
+        'components/_internal/theme-changes',
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
         'utils.cn',

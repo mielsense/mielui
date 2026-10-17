@@ -13,6 +13,7 @@
     import Summary from './heatmap-summary.svelte';
     import Tooltip from './heatmap-tooltip.svelte';
     import WeekdayLabels from './heatmap-weekday-labels.svelte';
+    import { type HeatmapMotion, watchHeatmapMotion } from './reveal';
 
     let {
         days,
@@ -36,6 +37,7 @@
     let focusedElement = $state<HTMLButtonElement>();
     let activeDate = $state('');
     let focusedDate = $state('');
+    let motion = $state<HeatmapMotion>();
     const active = $derived(
         model.cells.find((day) => day.date === activeDate) ?? model.cells.at(-1)
     );
@@ -72,6 +74,9 @@
         },
         get animation() {
             return animation;
+        },
+        get motion() {
+            return motion;
         },
         get model() {
             return model;
@@ -112,6 +117,11 @@
 
 <div
     {...props}
+    {@attach (node) => {
+        return watchHeatmapMotion(node, (next) => {
+            motion = next;
+        });
+    }}
     aria-busy={loading}
     data-state={loading ? 'loading' : empty ? 'empty' : 'ready'}
     data-ui="heatmap"

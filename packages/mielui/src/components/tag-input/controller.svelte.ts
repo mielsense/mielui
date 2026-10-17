@@ -1,5 +1,33 @@
 import type { TagInputProps, TagInputRejection } from '.';
 
+const PASTE_SEPARATORS = [',', ';', '\n'];
+
+/** Splits pasted text into trimmed, non-empty tags on commas, semicolons, newlines, and `delimiters`. */
+export function splitTags(value: string, delimiters: readonly string[]) {
+    const separators = new Set([...PASTE_SEPARATORS, ...delimiters]);
+    const tags: string[] = [];
+    let current = '';
+
+    for (const char of value) {
+        if (!separators.has(char)) {
+            current += char;
+            continue;
+        }
+        const trimmed = current.trim();
+        if (trimmed !== '') {
+            tags.push(trimmed);
+        }
+        current = '';
+    }
+
+    const tail = current.trim();
+    if (tail !== '') {
+        tags.push(tail);
+    }
+
+    return tags;
+}
+
 type ControllerOptions = {
     getTags: () => string[];
     setTags: (tags: string[]) => void;

@@ -25,12 +25,14 @@ export const manifest: Manifest = {
         'components/chart/plot.svelte',
         'components/chart/placeholder.svelte',
         'components/chart/root.svelte',
+        'components/chart/state.svelte.ts',
         'components/chart/tooltip.svelte',
         'components/chart/x-axis.svelte',
         'components/chart/y-axis.svelte'
     ],
     components: ['_internal/utils', 'card', 'skeleton'],
     shared: [
+        'components/_internal/theme-changes',
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
         'transition',

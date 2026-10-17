@@ -1,7 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { PieChartConfig, PieChartDatum, PieChartLabels } from './index';
 
-type PieContext = {
+export type PieContext = {
     readonly element: HTMLElement | undefined;
     anchor: Element | undefined;
     pointer: { x: number; y: number } | undefined;

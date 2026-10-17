@@ -5,6 +5,7 @@
     import { type Component, onMount } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion } from 'svelte/motion';
+    import { observeThemeChanges } from '../../components/_internal/theme-changes';
     import type { ResponseStreamProps } from '.';
     import { createResponseStream } from './stream.svelte';
     import { getRollDuration } from './stream-utils';
@@ -61,17 +62,7 @@
                 getComputedStyle(element).getPropertyValue('--ease-out').trim() || 'ease-out';
         }
         updateMotion();
-        const observer = new MutationObserver(updateMotion);
-        for (
-            let ancestor: HTMLElement | null = element;
-            ancestor;
-            ancestor = ancestor.parentElement
-        ) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
-        }
-        return () => {
-            observer.disconnect();
-        };
+        return observeThemeChanges(element, updateMotion);
     });
 
     type ScrittoComponent = Component<ScrittoProps & HTMLAttributes<HTMLElement>>;

@@ -12,7 +12,12 @@ export const manifest: Manifest = {
         'components/progress/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['components/_internal/motion-loop', 'utils.cn', 'transition'],
+    shared: [
+        'components/_internal/theme-changes',
+        'components/_internal/motion-loop',
+        'utils.cn',
+        'transition'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

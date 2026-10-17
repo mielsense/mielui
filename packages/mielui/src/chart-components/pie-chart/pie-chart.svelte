@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import { setPieChartLabels, setPieContext } from './context';
     import type { PieChartProps } from './index';
+    import { createPieChartState } from './state.svelte';
 
     let {
         data,
@@ -17,52 +17,13 @@
         ...rest
     }: PieChartProps = $props();
     setPieChartLabels(() => labels);
-    const numberFormatter = new Intl.NumberFormat();
     let element = $state<HTMLDivElement>();
-    let active = $state<string>();
-    let anchor = $state<Element>();
-    let pointer = $state<{ x: number; y: number }>();
-    let focused = $state<string>();
-    let allowed = $state(false);
-    let ready = $state(false);
-    let durationScale = $state(1);
-    let visible = $state(false);
-    let foreground = $state(true);
-    const validData = $derived(
-        data.filter((item) => Number.isFinite(item.value) && item.value >= 0)
-    );
-    const total = $derived(validData.reduce((sum, item) => sum + item.value, 0));
-    const colors = [
-        'var(--chart-1)',
-        'var(--chart-2)',
-        'var(--chart-3)',
-        'var(--chart-4)',
-        'var(--chart-5)'
-    ];
-    const context = setPieContext({
-        get element() {
-            return element;
-        },
-        get anchor() {
-            return anchor;
-        },
-        set anchor(value) {
-            anchor = value;
-        },
-        get pointer() {
-            return pointer;
-        },
-        set pointer(value) {
-            pointer = value;
-        },
+    const pie = createPieChartState({
         get data() {
-            return validData;
+            return data;
         },
         get config() {
             return config;
-        },
-        get total() {
-            return total;
         },
         get loading() {
             return loading;
@@ -70,85 +31,16 @@
         get animation() {
             return animation;
         },
-        get durationScale() {
-            return durationScale;
-        },
-        get ready() {
-            return ready;
-        },
-        get motion() {
-            return allowed && animation !== 'none';
-        },
-        get visible() {
-            return visible && foreground;
-        },
-        get live() {
-            return allowed && visible && foreground && animation === 'live' && !loading;
-        },
-        get focused() {
-            return focused;
-        },
-        set focused(value) {
-            focused = value;
-        },
-        get active() {
-            return active;
-        },
-        set active(value) {
-            active = value;
-        },
-        color(key) {
-            return (
-                config[key]?.color ??
-                colors[
-                    Math.max(
-                        0,
-                        validData.findIndex((item) => item.key === key)
-                    ) % colors.length
-                ]
-            );
-        },
-        label(key) {
-            return config[key]?.label ?? key;
-        },
-        format(item) {
-            return config[item.key]?.format?.(item.value) ?? numberFormatter.format(item.value);
-        },
-        percentage(item) {
-            return total > 0 ? (item.value / total) * 100 : 0;
+        get element() {
+            return element;
         }
     });
+    const context = setPieContext(pie.context);
+
     onMount(() => {
-        if (!element) {
-            return;
+        if (element) {
+            return pie.observeMotion(element);
         }
-        const root = element;
-        const preference = matchMedia('(prefers-reduced-motion: reduce)');
-        function update() {
-            durationScale = Math.max(0, getCssDuration(root, '--motion-duration-panel', 180) / 180);
-            allowed = !preference.matches && durationScale > 0;
-            foreground = !document.hidden;
-        }
-        update();
-        ready = true;
-        preference.addEventListener('change', update);
-        document.addEventListener('visibilitychange', update);
-        const observer = new IntersectionObserver(([entry]) => {
-            visible = entry.isIntersecting;
-        });
-        observer.observe(root);
-        const theme = new MutationObserver(update);
-        let ancestor: HTMLElement | null = root;
-        while (ancestor) {
-            theme.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
-            ancestor = ancestor.parentElement;
-        }
-        return () => {
-            preference.removeEventListener('change', update);
-            document.removeEventListener('visibilitychange', update);
-            observer.disconnect();
-            theme.disconnect();
-        };
     });
 </script>
 

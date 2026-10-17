@@ -17,11 +17,13 @@ export const manifest: Manifest = {
         'components/pie-chart/pie-chart-plot.svelte',
         'components/pie-chart/pie-chart-tooltip.svelte',
         'components/pie-chart/pie-chart.svelte',
+        'components/pie-chart/state.svelte.ts',
         'components/pie-chart/slice.svelte',
         'components/pie-chart/manifest.ts'
     ],
     components: ['_internal/utils', 'card', 'skeleton'],
     shared: [
+        'components/_internal/theme-changes',
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
         'transition',

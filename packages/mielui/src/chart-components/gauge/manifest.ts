@@ -17,7 +17,7 @@ export const manifest: Manifest = {
         'actions/number-shuffle/render.ts'
     ],
     components: ['_internal/utils', 'skeleton'],
-    shared: ['transition', 'utils.cn'],
+    shared: ['components/_internal/theme-changes', 'transition', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

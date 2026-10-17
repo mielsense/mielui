@@ -2,7 +2,7 @@ import { createContext } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import type { NotchProps } from '.';
 
-type NotchContext = {
+export type NotchContext = {
     open: boolean;
     readonly labels: NotchProps['labels'];
     readonly actionCount: number;

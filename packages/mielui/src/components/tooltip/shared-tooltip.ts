@@ -15,6 +15,7 @@ import { autoUpdate, computePosition, flip, offset, type Placement, shift } from
 import '@scritto/core';
 import { getCssDuration } from '@mielui/svelte/transition';
 import type { Scritto as ScrittoElement } from '@scritto/core';
+import { observeThemeChanges } from '../_internal/theme-changes';
 import { cloneVisual } from './clone-visual';
 
 export function createTooltipManager() {
@@ -243,13 +244,10 @@ export function createTooltipManager() {
             setLabel(currentText, false);
         }
         refreshMotion();
-        const observer = new MutationObserver(refreshMotion);
-        for (let ancestor: HTMLElement | null = ref; ancestor; ancestor = ancestor.parentElement) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
-        }
+        const stopThemeChanges = observeThemeChanges(ref, refreshMotion);
         preference?.addEventListener('change', refreshMotion);
         stopMotionTracking = () => {
-            observer.disconnect();
+            stopThemeChanges();
             preference?.removeEventListener('change', refreshMotion);
         };
     }

@@ -4,6 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import { overlaySurface } from '../../components/_internal/surface';
+    import { observeThemeChanges } from '../../components/_internal/theme-changes';
     import { Button } from '../../components/button';
     import type { NotchSideActionProps } from '.';
     import {
@@ -13,6 +14,7 @@
         openPopover,
         spacingInPixels
     } from './context';
+    import { sideActionArc, sideActionOrigin } from './shape';
 
     let {
         side = 'end',
@@ -45,15 +47,7 @@
             ? `${context.side}:0;left:50%;translate:-50% 0;`
             : `${context.side}:0;top:50%;translate:0 -50%;`
     );
-    const origin = $derived(
-        context.side === 'top'
-            ? 'center top'
-            : context.side === 'bottom'
-              ? 'center bottom'
-              : context.side === 'left'
-                ? 'left center'
-                : 'right center'
-    );
+    const origin = $derived(sideActionOrigin[context.side]);
     const direction = $derived(side === 'start' ? -1 : 1);
     const edgeDirection = $derived(context.side === 'top' || context.side === 'left' ? 1 : -1);
     const placement = $derived.by(() => {
@@ -63,23 +57,7 @@
         const outward = edgeDirection * gap * 2;
         return horizontal ? { x: along, y: outward } : { x: outward, y: along };
     });
-    const arcRotation = $derived(
-        context.side === 'top'
-            ? side === 'start'
-                ? 270
-                : 180
-            : context.side === 'bottom'
-              ? side === 'start'
-                  ? 0
-                  : 90
-              : context.side === 'left'
-                ? side === 'start'
-                    ? 90
-                    : 180
-                : side === 'start'
-                  ? 0
-                  : 270
-    );
+    const arcRotation = $derived(sideActionArc[context.side][side]);
 
     function updateMotion() {
         const node = host;
@@ -113,10 +91,7 @@
         updateMotion();
         const resize = new ResizeObserver(updateMotion);
         resize.observe(node);
-        const observer = new MutationObserver(updateMotion);
-        for (let ancestor = node.parentElement; ancestor; ancestor = ancestor.parentElement) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
-        }
+        const stopThemeChanges = observeThemeChanges(node.parentElement, updateMotion);
         ready = true;
         return () => {
             if (node.contains(document.activeElement)) {
@@ -124,7 +99,7 @@
             }
             unregister();
             resize.disconnect();
-            observer.disconnect();
+            stopThemeChanges();
         };
     });
 

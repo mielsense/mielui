@@ -1,12 +1,11 @@
 <script lang="ts">
     import { motion, useReducedMotion } from '@humanspeak/svelte-motion';
-    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onMount, tick } from 'svelte';
     import { overlaySurface } from '../../components/_internal/surface';
     import type { NotchContentProps } from '.';
-    import { closePopover, notchContext, openPopover } from './context';
-    import { notchShape } from './shape';
+    import { notchContext } from './context';
+    import { createNotchFrame } from './frame.svelte';
     import { createNotchSwipe } from './swipe.svelte';
 
     type PointerInput = PointerEvent & { currentTarget: EventTarget & HTMLDivElement };
@@ -36,13 +35,6 @@
     let host = $state<HTMLElement | null>(null);
     let body = $state<HTMLDivElement>();
     let surface = $state<HTMLDivElement>();
-    let ready = $state(false);
-    let presented = $state(false);
-    let width = $state(0);
-    let height = $state(0);
-    let drawnWidth = $state(320);
-    let drawnHeight = $state(120);
-    let duration = $state(0);
     const swipe = createNotchSwipe({
         get open() {
             return context.open;
@@ -57,131 +49,33 @@
             context.open = false;
         }
     });
-    const vertical = $derived(context.side === 'top' || context.side === 'bottom');
-    const collapsedWidth = $derived(context.peek ? (vertical ? 160 : 44) : vertical ? 96 : 16);
-    const collapsedHeight = $derived(context.peek ? (vertical ? 36 : 192) : vertical ? 16 : 192);
-    const instant = $derived(reduced.current || duration === 0);
-    const transition = $derived(
-        instant
-            ? { duration: 0 }
-            : {
-                  type: 'spring' as const,
-                  visualDuration: Math.max(0.12, (duration / 200) * (context.open ? 0.27 : 0.22)),
-                  bounce: context.open ? 0.15 : 0
-              }
-    );
-    const outline = $derived(notchShape(drawnWidth, drawnHeight, context.side));
-    let inset = $state(0);
-    const insetTop = $derived(context.side === 'top' ? 0 : inset);
-    const insetRight = $derived(context.side === 'right' ? 0 : inset);
-    const insetBottom = $derived(context.side === 'bottom' ? 0 : inset);
-    const insetLeft = $derived(context.side === 'left' ? 0 : inset);
-    const interior = $derived(
-        notchShape(
-            Math.max(1, drawnWidth - insetLeft - insetRight),
-            Math.max(1, drawnHeight - insetTop - insetBottom),
-            context.side
-        )
-    );
-
-    const frameTarget = $derived({
-        width:
-            context.open && presented
-                ? width
-                : context.mode === 'peek'
-                  ? collapsedWidth
-                  : vertical
-                    ? 96
-                    : 3,
-        height:
-            context.open && presented
-                ? height
-                : context.mode === 'peek'
-                  ? collapsedHeight
-                  : vertical
-                    ? 3
-                    : 96,
-        x: vertical ? 0 : swipe.offset,
-        y: vertical ? swipe.offset : 0
+    const frame = createNotchFrame({
+        context,
+        get reduced() {
+            return reduced.current;
+        },
+        get offset() {
+            return swipe.offset;
+        },
+        get host() {
+            return host;
+        },
+        get body() {
+            return body;
+        },
+        get surface() {
+            return surface;
+        },
+        cancelSwipe: swipe.cancel
     });
+    const vertical = $derived(frame.vertical);
 
-    const frameTransition = $derived({
-        ...transition,
-        x: { duration: context.open || instant ? 0 : 0.16 },
-        y: { duration: context.open || instant ? 0 : 0.16 }
-    });
-
-    const contentTarget = $derived({
-        opacity: context.open && presented ? 1 : 0,
-        filter: context.open && presented ? 'blur(0px)' : 'blur(1.5px)'
-    });
-
-    const contentTransition = $derived({
-        duration: instant ? 0 : context.open ? 0.14 : 0.07,
-        delay: instant || !context.open ? 0 : 0.02
-    });
-
-    function readInset() {
-        if (!surface) {
-            return;
-        }
-        const edge = context.side === 'left' ? 'right' : 'left';
-        inset = Number.parseFloat(getComputedStyle(surface)[edge]) || 0;
-    }
-    function measure() {
-        readInset();
-        if (!body) {
-            return;
-        }
-        width = body.offsetWidth;
-        height = body.offsetHeight;
-    }
-    function finishExit() {
-        if (!context.open && host) {
-            swipe.cancel();
-            if (context.mode === 'peek') {
-                return;
-            }
-            closePopover(host);
-            presented = false;
-        }
-    }
     onMount(() => {
-        if (!host || !body) {
-            return;
+        if (host && body) {
+            return frame.observe(host, body);
         }
-        const node = host;
-        const unregister = context.register(node);
-        function updateMotion() {
-            duration = getCssDuration(node, '--motion-duration-panel', 260);
-            readInset();
-        }
-        updateMotion();
-        let frame = 0;
-        const observer = new ResizeObserver(() => {
-            cancelAnimationFrame(frame);
-            frame = requestAnimationFrame(() => {
-                measure();
-                drawnWidth = node.clientWidth;
-                drawnHeight = node.clientHeight;
-                context.width = drawnWidth;
-                context.height = drawnHeight;
-            });
-        });
-        observer.observe(body);
-        observer.observe(node);
-        const theme = new MutationObserver(updateMotion);
-        for (let ancestor = node.parentElement; ancestor; ancestor = ancestor.parentElement) {
-            theme.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
-        }
-        ready = true;
-        return () => {
-            cancelAnimationFrame(frame);
-            unregister();
-            observer.disconnect();
-            theme.disconnect();
-        };
     });
+
     $effect.pre(() => {
         if (
             !context.open &&
@@ -191,24 +85,9 @@
             context.returnFocus.focus({ preventScroll: true });
         }
     });
+
     $effect(() => {
-        if (!ready || !host) {
-            return;
-        }
-        if (context.open || context.mode === 'peek') {
-            if (!presented && document.activeElement instanceof HTMLElement) {
-                context.returnFocus = document.activeElement;
-            }
-            host.hidden = false;
-            openPopover(host);
-            measure();
-            presented = true;
-        } else if (instant) {
-            finishExit();
-        }
-        if (!context.open) {
-            swipe.cancel();
-        }
+        frame.sync();
     });
 
     async function focusExpanded() {
@@ -303,10 +182,10 @@
 <svg width="0" height="0" aria-hidden="true" class="absolute pointer-events-none">
     <defs>
         <clipPath id={uid} clipPathUnits="userSpaceOnUse">
-            <path d={outline.path} transform={outline.transform} />
+            <path d={frame.outline.path} transform={frame.outline.transform} />
         </clipPath>
         <clipPath id={`${uid}-inner`} clipPathUnits="userSpaceOnUse">
-            <path d={interior.path} transform={interior.transform} />
+            <path d={frame.interior.path} transform={frame.interior.transform} />
         </clipPath>
     </defs>
 </svg>
@@ -320,11 +199,11 @@
     inert={!context.open && context.mode !== 'peek'}
     {tabindex}
     {role}
-    hidden={!presented}
+    hidden={!frame.presented}
     initial={false}
-    animate={frameTarget}
-    transition={frameTransition}
-    onAnimationComplete={finishExit}
+    animate={frame.frameTarget}
+    transition={frame.frameTransition}
+    onAnimationComplete={frame.finishExit}
     onkeydown={handleKeydown}
     onpointerenter={handlePointerEnter}
     onpointerleave={handlePointerLeave}
@@ -391,8 +270,8 @@
         aria-hidden={!context.open}
         class="relative w-[calc(100vw-var(--spacing)*8)]"
         initial={false}
-        animate={contentTarget}
-        transition={contentTransition}
+        animate={frame.contentTarget}
+        transition={frame.contentTransition}
     >
         <div
             bind:this={body}
@@ -415,24 +294,24 @@
     <svg
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 size-full overflow-visible"
-        viewBox={`0 0 ${Math.max(1, drawnWidth)} ${Math.max(1, drawnHeight)}`}
+        viewBox={`0 0 ${Math.max(1, frame.drawnWidth)} ${Math.max(1, frame.drawnHeight)}`}
         preserveAspectRatio="none"
     >
         <path
-            d={outline.path}
-            transform={outline.transform}
+            d={frame.outline.path}
+            transform={frame.outline.transform}
             fill="none"
             stroke="var(--color-border)"
             stroke-width="var(--border-size)"
             vector-effect="non-scaling-stroke"
         />
         <g
-            transform={`translate(${insetLeft} ${insetTop})`}
+            transform={`translate(${frame.insets.left} ${frame.insets.top})`}
             class="opacity-[var(--mielui-border-inset-scale,1)]"
         >
             <path
-                d={interior.path}
-                transform={interior.transform}
+                d={frame.interior.path}
+                transform={frame.interior.transform}
                 fill="none"
                 stroke="var(--color-border)"
                 stroke-width="var(--border-size)"

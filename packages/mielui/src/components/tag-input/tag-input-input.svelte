@@ -3,6 +3,7 @@
     import { mergeDescriptionIds } from '../_internal/field-metadata';
     import type { TagInputInputProps } from '.';
     import { getTagInputContext } from './context.svelte';
+    import { splitTags } from './controller.svelte';
 
     let {
         placeholder = 'Add a tag…',
@@ -78,34 +79,6 @@
         }
     }
 
-    function splitPasted(value: string) {
-        const separators = new Set([',', ';', '\n', ...context.delimiters]);
-        const candidates: string[] = [];
-        let current = '';
-
-        for (const char of value) {
-            if (separators.has(char)) {
-                const trimmed = current.trim();
-
-                if (trimmed !== '') {
-                    candidates.push(trimmed);
-                }
-
-                current = '';
-            } else {
-                current += char;
-            }
-        }
-
-        const tail = current.trim();
-
-        if (tail !== '') {
-            candidates.push(tail);
-        }
-
-        return candidates;
-    }
-
     function handlePaste(
         event: ClipboardEvent & { currentTarget: EventTarget & HTMLInputElement }
     ) {
@@ -121,7 +94,7 @@
             return;
         }
 
-        const candidates = splitPasted(text);
+        const candidates = splitTags(text, context.delimiters);
 
         if (candidates.length < 2) {
             return;

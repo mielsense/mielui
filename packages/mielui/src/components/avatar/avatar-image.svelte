@@ -12,11 +12,6 @@
 
     $effect(() => {
         void source;
-        failedSource = undefined;
-    });
-
-    $effect(() => {
-        void source;
         ctx.loadedImages[id] = Boolean(element?.complete && element.naturalWidth > 0);
         return () => {
             delete ctx.loadedImages[id];
