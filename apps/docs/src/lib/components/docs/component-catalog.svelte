@@ -70,6 +70,8 @@
         return `${catalogTotal} components`;
     });
 
+    const eagerPreviews = new Set(groups.flatMap((group) => group.items).slice(0, 9));
+
     function componentHref(component: string): string {
         return actions.includes(component)
             ? `/docs/actions/${component}`
@@ -167,7 +169,10 @@
                             <div
                                 class="mielui-inset-surface flex h-48 items-center justify-center overflow-hidden"
                             >
-                                <CatalogPreview slug={component} />
+                                <CatalogPreview
+                                    slug={component}
+                                    eager={eagerPreviews.has(component)}
+                                />
                             </div>
                         </div>
                         <div class="flex flex-col gap-0.5 px-1">

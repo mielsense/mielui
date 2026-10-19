@@ -4,22 +4,51 @@
     import Data from './catalog/data.svelte';
     import Surfaces from './catalog/surfaces.svelte';
 
-    let { slug }: { slug: string } = $props();
+    let { slug, eager = false }: { slug: string; eager?: boolean } = $props();
+    let visible = $state(eager);
+
+    function reveal(node: HTMLElement) {
+        if (visible) {
+            return;
+        }
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    visible = true;
+                }
+            },
+            { root: node.closest('[data-docs-scroll]'), rootMargin: '100% 0px' }
+        );
+        observer.observe(node);
+
+        return () => {
+            observer.disconnect();
+        };
+    }
 </script>
 
+<!--
+    @component
+    A decorative preview of one component. Unless `eager`, it mounts only when it
+    nears the viewport, so long catalogs render and hydrate just what is on screen.
+-->
+
 <div
+    {@attach reveal}
     data-component-preview
     aria-hidden="true"
     inert
     class="pointer-events-none flex h-full w-full select-none items-center justify-center overflow-hidden p-4 text-sm text-foreground"
 >
-    {#if ['button', 'calendar', 'range-calendar', 'date-picker', 'date-range-picker', 'checkbox', 'radio-group', 'select', 'native-select', 'combobox', 'dropdown-menu', 'context-menu', 'command', 'input', 'label', 'field', 'textarea', 'number-field', 'tag-input', 'otp-field', 'fieldset', 'form', 'file-upload', 'group', 'toggle-group', 'toolbar', 'toggle', 'progress', 'slider', 'switch', 'color-picker', 'copy-button'].includes(slug)}
-        <Controls {slug} />
-    {:else if ['accordion', 'collapsible', 'alert', 'toast', 'alert-dialog', 'dialog', 'card', 'empty-state', 'hover-card', 'popover', 'tooltip', 'scroll-area', 'sheet', 'drawer', 'notch'].includes(slug)}
-        <Surfaces {slug} />
-    {:else if ['avatar', 'badge', 'breadcrumb', 'kbd', 'pagination', 'separator', 'skeleton', 'spinner', 'tabs', 'typography', 'markdown', 'code-block', 'file-diff', 'folder-card', 'reorder-list', 'task-steps', 'show-more', 'attachment', 'composer', 'conversation', 'message', 'question', 'reasoning', 'response-stream', 'tool', 'morph', 'number-shuffle', 'shimmer'].includes(slug)}
-        <Content {slug} />
-    {:else if ['table', 'data-table', 'chart', 'gauge', 'heatmap', 'pie-chart'].includes(slug)}
-        <Data {slug} />
+    {#if visible}
+        {#if ['button', 'calendar', 'range-calendar', 'date-picker', 'date-range-picker', 'checkbox', 'radio-group', 'select', 'native-select', 'combobox', 'dropdown-menu', 'context-menu', 'command', 'input', 'label', 'field', 'textarea', 'number-field', 'tag-input', 'otp-field', 'fieldset', 'form', 'file-upload', 'group', 'toggle-group', 'toolbar', 'toggle', 'progress', 'slider', 'switch', 'color-picker', 'copy-button'].includes(slug)}
+            <Controls {slug} />
+        {:else if ['accordion', 'collapsible', 'alert', 'toast', 'alert-dialog', 'dialog', 'card', 'empty-state', 'hover-card', 'popover', 'tooltip', 'scroll-area', 'sheet', 'drawer', 'notch'].includes(slug)}
+            <Surfaces {slug} />
+        {:else if ['avatar', 'badge', 'breadcrumb', 'kbd', 'pagination', 'separator', 'skeleton', 'spinner', 'tabs', 'typography', 'markdown', 'code-block', 'file-diff', 'folder-card', 'reorder-list', 'task-steps', 'show-more', 'attachment', 'composer', 'conversation', 'message', 'question', 'reasoning', 'response-stream', 'tool', 'morph', 'number-shuffle', 'shimmer'].includes(slug)}
+            <Content {slug} />
+        {:else if ['table', 'data-table', 'chart', 'gauge', 'heatmap', 'pie-chart'].includes(slug)}
+            <Data {slug} />
+        {/if}
     {/if}
 </div>
