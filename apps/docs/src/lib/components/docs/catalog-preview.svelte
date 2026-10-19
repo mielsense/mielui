@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { untrack } from 'svelte';
     import Content from './catalog/content.svelte';
     import Controls from './catalog/controls.svelte';
     import Data from './catalog/data.svelte';
@@ -6,7 +7,7 @@
     import { revealOnApproach } from './preview';
 
     let { slug, eager = false }: { slug: string; eager?: boolean } = $props();
-    let visible = $state(eager);
+    let visible = $state(untrack(() => eager));
 </script>
 
 <!--

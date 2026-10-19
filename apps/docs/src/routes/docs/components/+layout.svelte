@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import { type Snippet, untrack } from 'svelte';
     import { type ComponentSlug, componentAnatomy } from '$lib/component-anatomy';
     import ComponentReference from '$lib/components/docs/component-reference.svelte';
     import { rendersOnClient, revealAfterPaint } from '$lib/components/docs/preview';
@@ -14,7 +14,7 @@
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join('')
     );
-    let revealedOwner = $state(rendersOnClient() ? undefined : data.owner);
+    let revealedOwner = $state(rendersOnClient() ? undefined : untrack(() => data.owner));
     const referenceReady = $derived(revealedOwner === data.owner);
 </script>
 

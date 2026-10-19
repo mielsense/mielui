@@ -71,7 +71,7 @@
         return `${catalogTotal} components`;
     });
 
-    const eagerPreviews = new Set(groups.flatMap((group) => group.items).slice(0, 9));
+    const eagerPreviews = $derived(new Set(groups.flatMap((group) => group.items).slice(0, 9)));
 
     function componentHref(component: string): string {
         return actions.includes(component)
