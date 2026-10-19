@@ -23,6 +23,18 @@ export const fadeX =
     '[mask-image:linear-gradient(to_right,transparent,black_var(--fade-start,0px),black_calc(100%-var(--fade-end,0px)),transparent)]';
 
 /**
+ * Backdrop blurs that build toward an edge, each shorter and stronger than the last. Anchor
+ * every layer to that edge. Heights shape the blur because Chrome ignores masks on backdrop
+ * blurs inside a rounded overflow clip, such as the shell plate.
+ */
+export const edgeBlurLayers = [
+    'h-full backdrop-blur-[0.5px]',
+    'h-3/4 backdrop-blur-[1px]',
+    'h-1/2 backdrop-blur-[1.5px]',
+    'h-1/4 backdrop-blur-[2.5px]'
+];
+
+/**
  * Fades the edges of a scroller while more content lies beyond them. The fade
  * grows with the distance from each end, so content at rest is never dimmed.
  */

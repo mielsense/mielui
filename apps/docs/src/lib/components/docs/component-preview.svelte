@@ -8,6 +8,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { rendersOnClient, revealAfterPaint } from './preview';
     import PreviewAction from './preview-action.svelte';
     import PreviewCode from './preview-code.svelte';
     import PreviewFullscreen from './preview-fullscreen.svelte';
@@ -32,6 +33,7 @@
     let fullscreen = $state(false);
     let previewVersion = $state(0);
     let expandButton = $state<HTMLButtonElement | HTMLAnchorElement>();
+    let ready = $state(!rendersOnClient());
 </script>
 
 {#snippet preview()}
@@ -41,6 +43,11 @@
 {/snippet}
 
 <div
+    {@attach ready
+        ? undefined
+        : revealAfterPaint(() => {
+              ready = true;
+          })}
     data-component-preview
     class="mielui-inset-frame relative isolate overflow-hidden bg-[var(--docs-chrome)]! has-[iframe]:p-0!"
 >
@@ -53,7 +60,9 @@
                 {@attach scrollFade({ axis: 'x', size: 24 })}
                 class={`-m-1 flex min-w-0 items-center gap-1 overflow-x-auto overscroll-x-contain p-1 ${fadeX}`}
             >
-                {@render controls?.()}
+                {#if ready}
+                    {@render controls?.()}
+                {/if}
             </div>
             <div class="flex shrink-0 items-center gap-0.5">
                 {#if refreshable}
@@ -105,7 +114,7 @@
                 data-preview-canvas
                 class="flex min-h-48 w-full min-w-0 items-center justify-center overflow-x-auto p-6 has-[iframe]:p-0 focus:outline-none sm:p-8 has-[iframe]:sm:p-0"
             >
-                {#if !fullscreen}
+                {#if ready && !fullscreen}
                     {@render preview()}
                 {/if}
             </div>

@@ -1,30 +1,13 @@
 <script lang="ts">
+    import { untrack } from 'svelte';
     import Content from './catalog/content.svelte';
     import Controls from './catalog/controls.svelte';
     import Data from './catalog/data.svelte';
     import Surfaces from './catalog/surfaces.svelte';
+    import { revealOnApproach } from './preview';
 
     let { slug, eager = false }: { slug: string; eager?: boolean } = $props();
-    let visible = $state(eager);
-
-    function reveal(node: HTMLElement) {
-        if (visible) {
-            return;
-        }
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries.some((entry) => entry.isIntersecting)) {
-                    visible = true;
-                }
-            },
-            { root: node.closest('[data-docs-scroll]'), rootMargin: '100% 0px' }
-        );
-        observer.observe(node);
-
-        return () => {
-            observer.disconnect();
-        };
-    }
+    let visible = $state(untrack(() => eager));
 </script>
 
 <!--
@@ -34,7 +17,11 @@
 -->
 
 <div
-    {@attach reveal}
+    {@attach visible
+        ? undefined
+        : revealOnApproach(() => {
+              visible = true;
+          })}
     data-component-preview
     aria-hidden="true"
     inert

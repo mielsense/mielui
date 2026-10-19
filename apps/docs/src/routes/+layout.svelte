@@ -4,6 +4,7 @@
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import Navigation from '$lib/components/docs/navigation.svelte';
     import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
+    import { markHydrated } from '$lib/components/docs/preview';
     import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
     import Header from '$lib/components/shell/header.svelte';
@@ -90,6 +91,7 @@
 
     onMount(() => {
         hydrateLiveThemeCss();
+        markHydrated();
     });
 
     // Toasts and search are never needed for the first paint, so they load once the page is idle.
