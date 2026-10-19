@@ -8,6 +8,7 @@
     import { componentTypes, sanitizeComponent } from '$lib/components';
     import CatalogPreview from '$lib/components/docs/catalog-preview.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { edgeBlurLayers } from '$lib/components/shell/scroll-fade';
 
     type CatalogGroup = {
         id: string;
@@ -83,6 +84,17 @@
     <PageIntro {title}>{description}</PageIntro>
 
     <section data-docs-toolbar aria-label={searchLabel} class="flex flex-col gap-3">
+        <span
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-x-0 top-full h-6 opacity-0 [@container_scroll-state(stuck:top)]:opacity-100"
+        >
+            {#each edgeBlurLayers as layer (layer)}
+                <span class={`absolute inset-x-0 top-0 ${layer}`}></span>
+            {/each}
+            <span
+                class="absolute inset-0 bg-linear-to-b from-[var(--docs-content)] to-transparent [mask-image:linear-gradient(to_bottom,black,transparent)]"
+            ></span>
+        </span>
         <div class="flex min-w-0 items-center justify-between gap-3">
             <div class="min-w-0 flex-1 sm:max-w-sm">
                 <Input

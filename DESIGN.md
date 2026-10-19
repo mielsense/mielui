@@ -641,7 +641,10 @@ corner radius, using the preset's light or dark palette to match the page, with
 the name, description, and three facts underneath.
 
 Navigation between pages is immediate. Do not add page transitions to the docs
-shell.
+shell. Docs sidebar links navigate on mouse press, like a native sidebar; touch,
+keyboard, and modified clicks keep their usual behavior. After client navigation,
+a docs page renders the examples near the screen first and mounts the rest while
+the browser is idle.
 
 A scroller never ends in a hard cut against another region. Use the shared
 `scrollFade` helper with the `fadeY` or `fadeX` mask. The fade grows with the
@@ -655,8 +658,11 @@ In the shell, the top and bottom edges of the page and the bottom edge of the
 sidebar are a short 18px fill to the panel color with a light blur instead of a
 tall mask, so the fade never reaches far into the text and the sticky catalog
 search row is not dimmed. That row gets its own short blurred fade beneath it
-while it is pinned, so cards ease out under it. Skip the top fade only in the
-docs sidebar, where pinned group labels mark the edge. In docs and Studio, wrap
+while it is pinned, so cards ease out under it. Build these blurs from
+`edgeBlurLayers`: stacked backdrop blurs that get shorter and stronger toward the
+edge. Do not shape a backdrop blur with a mask inside the plate; Chrome ignores the
+mask under a rounded overflow clip and draws a hard line. Skip the top fade only in
+the docs sidebar, where pinned group labels mark the edge. In docs and Studio, wrap
 a ScrollArea in `FadeScrollArea` so its edges fade the same way.
 
 Examples demonstrate a useful state change. Label icon controls, keep result

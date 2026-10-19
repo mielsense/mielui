@@ -2,6 +2,7 @@
     import type { Snippet } from 'svelte';
     import { type ComponentSlug, componentAnatomy } from '$lib/component-anatomy';
     import ComponentReference from '$lib/components/docs/component-reference.svelte';
+    import { rendersOnClient, revealAfterPaint } from '$lib/components/docs/preview';
     import type { LayoutData } from './$types';
 
     let { children, data }: { children: Snippet; data: LayoutData } = $props();
@@ -13,10 +14,20 @@
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join('')
     );
+    let revealedOwner = $state(rendersOnClient() ? undefined : data.owner);
+    const referenceReady = $derived(revealedOwner === data.owner);
 </script>
 
 {@render children?.()}
 
-{#if data.reference.length}
-    <ComponentReference parts={data.reference} {title} {anatomy} />
-{/if}
+<div
+    {@attach referenceReady
+        ? undefined
+        : revealAfterPaint(() => {
+              revealedOwner = data.owner;
+          })}
+>
+    {#if referenceReady && data.reference.length}
+        <ComponentReference parts={data.reference} {title} {anatomy} />
+    {/if}
+</div>

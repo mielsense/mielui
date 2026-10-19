@@ -2,8 +2,10 @@
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { goto } from '$app/navigation';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
+    import { edgeBlurLayers } from '$lib/components/shell/scroll-fade';
     import { getShell } from '$lib/components/shell/shell.svelte';
     import TravelingPill from '$lib/components/shell/traveling-pill.svelte';
     import { guides, measurePill, scrollParent, sections, site } from './navigation-items';
@@ -30,7 +32,33 @@
         return href !== page.url.pathname && shell.tabs.tabs.some((tab) => tab.href === href);
     }
 
+    let pressedHref: string | undefined;
+
+    function press(event: PointerEvent, href: string) {
+        pressedHref = undefined;
+        if (
+            event.pointerType !== 'mouse' ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey ||
+            href === page.url.pathname
+        ) {
+            return;
+        }
+        pressedHref = href;
+        close?.();
+        void goto(href);
+    }
+
     function follow(event: MouseEvent, href: string) {
+        if (pressedHref === href) {
+            event.preventDefault();
+            pressedHref = undefined;
+
+            return;
+        }
         if (event.button === 0 && (event.metaKey || event.ctrlKey) && href.startsWith('/docs')) {
             event.preventDefault();
             shell.tabs.openInBackground(href);
@@ -81,6 +109,7 @@
                 data-nav-row
                 class={rowClass}
                 aria-current={page.url.pathname === item.href ? 'page' : undefined}
+                onpointerdown={(event) => press(event, item.href)}
                 onclick={(event) => follow(event, item.href)}
             >
                 {#if siteLinks}
@@ -109,12 +138,20 @@
             >
                 <span
                     aria-hidden="true"
-                    class="pointer-events-none absolute inset-x-0 top-full h-5 bg-linear-to-b from-[var(--docs-side)] to-transparent opacity-0 backdrop-blur-[3px] [mask-image:linear-gradient(to_bottom,black,transparent)] [@container_scroll-state(stuck:top)]:opacity-100"
-                ></span>
+                    class="pointer-events-none absolute inset-x-0 top-full h-5 opacity-0 [@container_scroll-state(stuck:top)]:opacity-100"
+                >
+                    {#each edgeBlurLayers as layer (layer)}
+                        <span class={`absolute inset-x-0 top-0 ${layer}`}></span>
+                    {/each}
+                    <span
+                        class="absolute inset-0 bg-linear-to-b from-[var(--docs-side)] to-transparent [mask-image:linear-gradient(to_bottom,black,transparent)]"
+                    ></span>
+                </span>
                 <a
                     href={section.href}
                     class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] [@container_scroll-state(stuck:top)]:text-foreground`}
                     aria-current={page.url.pathname === section.href ? 'page' : undefined}
+                    onpointerdown={(event) => press(event, section.href)}
                     onclick={(event) => follow(event, section.href)}
                 >
                     {section.label}
@@ -126,6 +163,7 @@
                     data-nav-row
                     class={`${rowClass} ${item.nested ? 'ps-6' : ''}`}
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
+                    onpointerdown={(event) => press(event, item.href)}
                     onclick={(event) => follow(event, item.href)}
                 >
                     <span data-nav-label class="min-w-0 truncate">{item.label}</span>
