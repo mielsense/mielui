@@ -1,0 +1,1 @@
+- Fixed docs pages going partly or fully blank while scrolling the sidebar in Chrome. Pinned sidebar labels now fade without a blur.

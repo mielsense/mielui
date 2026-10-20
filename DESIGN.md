@@ -523,8 +523,8 @@ row: dark with light text in light mode, a lifted grey in dark mode. The highlig
 glides to the next page. Group labels
 are small muted medium text and stay pinned to the top of the sidebar while
 their group scrolls. A pinned label has an opaque panel background and full
-text color, so no row shows behind it, and a short blurred fade directly
-beneath it. The sidebar has no top scroll fade, so the pinned label is never
+text color, so no row shows behind it, and a short fade to the panel color
+directly beneath it, with no blur. The sidebar has no top scroll fade, so the pinned label is never
 dimmed. A small dot marks
 pages that are open in another tab. A bare row pinned at the bottom shows the
 current page's position in the docs: a segmented meter with the page count
@@ -661,7 +661,9 @@ search row is not dimmed. That row gets its own short blurred fade beneath it
 while it is pinned, so cards ease out under it. Build these blurs from
 `edgeBlurLayers`: stacked backdrop blurs that get shorter and stronger toward the
 edge. Do not shape a backdrop blur with a mask inside the plate; Chrome ignores the
-mask under a rounded overflow clip and draws a hard line. Skip the top fade only in
+mask under a rounded overflow clip and draws a hard line. Never put these blurs on
+repeated sticky elements such as sidebar group labels: dozens of sticky backdrop
+blurs exhaust Chrome's compositor and parts of the page stop painting. Skip the top fade only in
 the docs sidebar, where pinned group labels mark the edge. In docs and Studio, wrap
 a ScrollArea in `FadeScrollArea` so its edges fade the same way.
 

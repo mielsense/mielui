@@ -5,7 +5,6 @@
     import { goto } from '$app/navigation';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
-    import { edgeBlurLayers } from '$lib/components/shell/scroll-fade';
     import { getShell } from '$lib/components/shell/shell.svelte';
     import TravelingPill from '$lib/components/shell/traveling-pill.svelte';
     import { guides, measurePill, scrollParent, sections, site } from './navigation-items';
@@ -138,15 +137,8 @@
             >
                 <span
                     aria-hidden="true"
-                    class="pointer-events-none absolute inset-x-0 top-full h-5 opacity-0 [@container_scroll-state(stuck:top)]:opacity-100"
-                >
-                    {#each edgeBlurLayers as layer (layer)}
-                        <span class={`absolute inset-x-0 top-0 ${layer}`}></span>
-                    {/each}
-                    <span
-                        class="absolute inset-0 bg-linear-to-b from-[var(--docs-side)] to-transparent [mask-image:linear-gradient(to_bottom,black,transparent)]"
-                    ></span>
-                </span>
+                    class="pointer-events-none absolute inset-x-0 top-full h-5 bg-linear-to-b from-[var(--docs-side)] to-transparent opacity-0 [mask-image:linear-gradient(to_bottom,black,transparent)] [@container_scroll-state(stuck:top)]:opacity-100"
+                ></span>
                 <a
                     href={section.href}
                     class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] [@container_scroll-state(stuck:top)]:text-foreground`}
