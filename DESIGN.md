@@ -643,8 +643,9 @@ the name, description, and three facts underneath.
 Navigation between pages is immediate. Do not add page transitions to the docs
 shell. Docs sidebar links navigate on mouse press, like a native sidebar; touch,
 keyboard, and modified clicks keep their usual behavior. After client navigation,
-a docs page renders the examples near the screen first and mounts the rest while
-the browser is idle.
+a docs page renders the examples near the screen first and mounts the rest in one
+batch right after that paint. Do not trickle them in over idle time; a reader who
+scrolls quickly reaches empty sections and the page stutters as they mount.
 
 A scroller never ends in a hard cut against another region. Use the shared
 `scrollFade` helper with the `fadeY` or `fadeX` mask. The fade grows with the

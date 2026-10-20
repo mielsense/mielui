@@ -1,13 +1,9 @@
-import { flushSync } from 'svelte';
-
 /** Matches the frame of every live example on a docs page. */
 export const PREVIEW_SELECTOR = '[data-component-preview]';
 
-const IDLE_BUDGET = 6;
-
 let hydrated = false;
-const idleQueue: Array<() => void> = [];
-let draining = false;
+const afterPaint: Array<() => void> = [];
+let scheduled = false;
 
 /** Marks the app as hydrated. Every page rendered after this comes from client navigation. */
 export function markHydrated() {
@@ -22,31 +18,10 @@ export function rendersOnClient() {
     return hydrated;
 }
 
-function scheduleIdle(callback: (deadline: { timeRemaining: () => number }) => void) {
-    if (window.requestIdleCallback) {
-        window.requestIdleCallback(callback);
-        return;
-    }
-    setTimeout(() => {
-        const start = performance.now();
-        callback({
-            timeRemaining: () => {
-                return Math.max(0, IDLE_BUDGET - (performance.now() - start));
-            }
-        });
-    }, 1);
-}
-
-function drainIdleQueue(deadline: { timeRemaining: () => number }) {
-    do {
-        idleQueue.shift()?.();
-        flushSync();
-    } while (idleQueue.length && deadline.timeRemaining() > 0);
-
-    if (idleQueue.length) {
-        scheduleIdle(drainIdleQueue);
-    } else {
-        draining = false;
+function flushAfterPaint() {
+    scheduled = false;
+    for (const reveal of afterPaint.splice(0)) {
+        reveal();
     }
 }
 
@@ -90,9 +65,8 @@ export function revealOnApproach(reveal: () => void) {
 }
 
 /**
- * Reveals near the viewport before the first paint, and everything else in small batches
- * while the browser is idle, in page order. The page settles to its full layout right
- * after it appears instead of growing while the reader scrolls.
+ * Reveals near the viewport before the first paint, and everything else in one batch right
+ * after it. The page is complete before the reader can scroll to it.
  */
 export function revealAfterPaint(reveal: () => void) {
     return (node: HTMLElement) => {
@@ -101,14 +75,16 @@ export function revealAfterPaint(reveal: () => void) {
             return;
         }
         let pending = true;
-        idleQueue.push(() => {
+        afterPaint.push(() => {
             if (pending) {
                 reveal();
             }
         });
-        if (!draining) {
-            draining = true;
-            scheduleIdle(drainIdleQueue);
+        if (!scheduled) {
+            scheduled = true;
+            requestAnimationFrame(() => {
+                setTimeout(flushAfterPaint);
+            });
         }
 
         return () => {
