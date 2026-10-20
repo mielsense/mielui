@@ -4,7 +4,6 @@
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import Navigation from '$lib/components/docs/navigation.svelte';
     import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
-    import { markHydrated } from '$lib/components/docs/preview';
     import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
     import Header from '$lib/components/shell/header.svelte';
@@ -21,9 +20,8 @@
     import '@mielui/svelte/ui.css';
     import '../app.css';
     import { injectAnalytics } from '@vercel/analytics/sveltekit';
-    import { onMount, type Snippet } from 'svelte';
+    import { onMount, type Snippet, untrack } from 'svelte';
     import { dev } from '$app/environment';
-    import { afterNavigate } from '$app/navigation';
     import { page } from '$app/state';
     import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
     import { themeBootScript } from '$lib/theme-boot';
@@ -91,7 +89,6 @@
 
     onMount(() => {
         hydrateLiveThemeCss();
-        markHydrated();
     });
 
     // Toasts and search are never needed for the first paint, so they load once the page is idle.
@@ -111,13 +108,23 @@
 
     let docsScrollEl = $state<HTMLDivElement>();
 
-    afterNavigate(() => {
-        if (window.location.hash) {
+    let scrolledPath = page.url.pathname;
+
+    // Resets before the new page reaches the DOM, so it never paints at the old position.
+    $effect.pre(() => {
+        const path = page.url.pathname;
+        if (path === scrolledPath) {
             return;
         }
-        const readingPane =
-            docsScrollEl?.querySelector<HTMLElement>('[data-docs-scroll]') ?? docsScrollEl;
-        readingPane?.scrollTo({ top: 0, behavior: 'instant' });
+        scrolledPath = path;
+        if (page.url.hash) {
+            return;
+        }
+        untrack(() => {
+            const readingPane =
+                docsScrollEl?.querySelector<HTMLElement>('[data-docs-scroll]') ?? docsScrollEl;
+            readingPane?.scrollTo({ top: 0, behavior: 'instant' });
+        });
         window.scrollTo({ top: 0, behavior: 'instant' });
     });
 </script>

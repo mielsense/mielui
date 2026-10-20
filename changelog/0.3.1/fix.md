@@ -1,2 +1,3 @@
 - Fixed docs pages going partly or fully blank while scrolling the sidebar in Chrome. Pinned sidebar labels now fade without a blur.
-- Component pages finish rendering right after they appear, so scrolling down quickly no longer reaches empty examples or stutters while they load.
+- Component pages appear complete after an in-app link, so scrolling down quickly no longer reaches examples that are still loading.
+- A docs page opened from an in-app link no longer flashes at the previous scroll position or jumps back to the top after scrolling starts.

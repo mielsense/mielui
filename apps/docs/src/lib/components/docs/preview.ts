@@ -1,30 +1,6 @@
 /** Matches the frame of every live example on a docs page. */
 export const PREVIEW_SELECTOR = '[data-component-preview]';
 
-let hydrated = false;
-const afterPaint: Array<() => void> = [];
-let scheduled = false;
-
-/** Marks the app as hydrated. Every page rendered after this comes from client navigation. */
-export function markHydrated() {
-    hydrated = true;
-}
-
-/**
- * Whether this render comes from client navigation. Server-rendered pages must hydrate
- * everything they sent, so only client renders may hold offscreen work back.
- */
-export function rendersOnClient() {
-    return hydrated;
-}
-
-function flushAfterPaint() {
-    scheduled = false;
-    for (const reveal of afterPaint.splice(0)) {
-        reveal();
-    }
-}
-
 function isNearViewport(node: HTMLElement, scroller: HTMLElement | null) {
     const viewport = scroller?.clientHeight ?? window.innerHeight;
     const scrollTop = scroller?.scrollTop ?? window.scrollY;
@@ -60,35 +36,6 @@ export function revealOnApproach(reveal: () => void) {
 
         return () => {
             observer.disconnect();
-        };
-    };
-}
-
-/**
- * Reveals near the viewport before the first paint, and everything else in one batch right
- * after it. The page is complete before the reader can scroll to it.
- */
-export function revealAfterPaint(reveal: () => void) {
-    return (node: HTMLElement) => {
-        if (isNearViewport(node, node.closest<HTMLElement>('[data-docs-scroll]'))) {
-            reveal();
-            return;
-        }
-        let pending = true;
-        afterPaint.push(() => {
-            if (pending) {
-                reveal();
-            }
-        });
-        if (!scheduled) {
-            scheduled = true;
-            requestAnimationFrame(() => {
-                setTimeout(flushAfterPaint);
-            });
-        }
-
-        return () => {
-            pending = false;
         };
     };
 }

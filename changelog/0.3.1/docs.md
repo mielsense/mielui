@@ -4,5 +4,4 @@
 - The components catalog renders a preview when it nears the screen, which cuts the page's HTML by about two thirds.
 - The GitHub star count in the rail updates on each deploy.
 - Docs sidebar links open on mouse press instead of release.
-- After an in-app link, component pages show the examples on screen first and load the rest and the API reference right after, so the new page appears sooner.
 - The blurred fades at the page edges, under pinned sidebar labels, and under the catalog search row ease in instead of ending in a hard line.
