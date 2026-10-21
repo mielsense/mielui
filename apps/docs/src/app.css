@@ -28,6 +28,32 @@ blockquote {
     @apply text-pretty;
 }
 
+/* Scroll fades update every scroll frame. Inherited, each update would restyle the
+   whole scroller, so `scrollFade` writes them only to the elements that read them. */
+@property --fade-start {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+}
+
+@property --fade-end {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+}
+
+@property --fade-start-opacity {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+}
+
+@property --fade-end-opacity {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+}
+
 /* Hide scrollbar on the element and all descendants */
 .hide-scrollbar-all,
 .hide-scrollbar-all * {

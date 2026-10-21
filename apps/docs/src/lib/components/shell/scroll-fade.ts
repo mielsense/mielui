@@ -4,7 +4,7 @@ type ScrollFadeOptions = {
     size?: number;
     start?: boolean;
     end?: boolean;
-    /** Element that receives the fade variables. Use the parent when a sibling edge reads them. */
+    /** Ancestor whose `ScrollEdge` children read the fade. Use the parent when a sibling edge reads them. */
     target?: HTMLElement | 'parent';
 };
 
@@ -45,6 +45,27 @@ export function scrollFade(options: ScrollFadeOptions = {}) {
         const host = target === 'parent' ? (node.parentElement ?? node) : (target ?? node);
         let frame = 0;
 
+        function readers() {
+            const elements = [node];
+            if (host === node) {
+                return elements;
+            }
+            for (
+                let element = node.parentElement;
+                element && element !== host;
+                element = element.parentElement
+            ) {
+                elements.push(element);
+            }
+            elements.push(
+                ...host.querySelectorAll<HTMLElement>(
+                    ':scope > [data-scroll-edge], :scope > [data-scroll-edge] > *'
+                )
+            );
+
+            return elements;
+        }
+
         function update() {
             const vertical = axis === 'y';
             const extent = vertical
@@ -54,10 +75,12 @@ export function scrollFade(options: ScrollFadeOptions = {}) {
             const before = start ? Math.min(size, Math.max(0, position)) : 0;
             const after = end ? Math.min(size, Math.max(0, extent - position)) : 0;
 
-            host.style.setProperty('--fade-start', `${before}px`);
-            host.style.setProperty('--fade-end', `${after}px`);
-            host.style.setProperty('--fade-start-opacity', String(before / size));
-            host.style.setProperty('--fade-end-opacity', String(after / size));
+            for (const element of readers()) {
+                element.style.setProperty('--fade-start', `${before}px`);
+                element.style.setProperty('--fade-end', `${after}px`);
+                element.style.setProperty('--fade-start-opacity', String(before / size));
+                element.style.setProperty('--fade-end-opacity', String(after / size));
+            }
         }
 
         function schedule() {
@@ -86,8 +109,10 @@ export function scrollFade(options: ScrollFadeOptions = {}) {
             resize.disconnect();
             mutation.disconnect();
             node.removeEventListener('scroll', schedule);
-            for (const name of variables) {
-                host.style.removeProperty(name);
+            for (const element of readers()) {
+                for (const name of variables) {
+                    element.style.removeProperty(name);
+                }
             }
         };
     };
