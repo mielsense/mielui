@@ -22,7 +22,8 @@
     import { injectAnalytics } from '@vercel/analytics/sveltekit';
     import { onMount, type Snippet, untrack } from 'svelte';
     import { dev } from '$app/environment';
-    import { page } from '$app/state';
+    import { beforeNavigate } from '$app/navigation';
+    import { page, updated } from '$app/state';
     import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
     import { themeBootScript } from '$lib/theme-boot';
 
@@ -107,6 +108,13 @@
     });
 
     let docsScrollEl = $state<HTMLDivElement>();
+
+    // An open tab keeps running the build it loaded; load the next page in full after a deploy.
+    beforeNavigate(({ willUnload, to }) => {
+        if (updated.current && !willUnload && to?.url) {
+            location.href = to.url.href;
+        }
+    });
 
     let scrolledPath = page.url.pathname;
 

@@ -23,6 +23,7 @@ const config = {
 
     kit: {
         experimental: { remoteFunctions: true },
+        version: { pollInterval: 60_000 },
         adapter: deploymentAdapter,
         prerender: { origin: process.env.DOCS_ORIGIN ?? 'https://ui.miel.my' },
         alias: {
