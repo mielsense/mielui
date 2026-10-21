@@ -1,3 +1,3 @@
 - Fixed docs pages going partly or fully blank while scrolling the sidebar in Chrome. Pinned sidebar labels now fade without a blur.
-- Component pages appear complete after an in-app link, so scrolling down quickly no longer reaches examples that are still loading.
+- Docs pages, including the components catalog, render complete again instead of loading examples in pieces while you scroll.
 - A docs page opened from an in-app link no longer flashes at the previous scroll position or jumps back to the top after scrolling starts.

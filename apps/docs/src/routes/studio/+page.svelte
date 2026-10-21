@@ -3,9 +3,7 @@
     import * as Sheet from '@mielui/svelte/components/sheet';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
-    import { loadGoogleFonts } from '$lib/fonts.svelte';
     import { getStudioContext } from '$lib/studio-context';
     import AiPreview from './ai-preview.svelte';
     import AppPreview from './app-preview.svelte';
@@ -27,8 +25,6 @@
         { value: 'app', label: 'App preview' }
     ];
     const typingTags = ['INPUT', 'TEXTAREA', 'SELECT'];
-
-    onMount(loadGoogleFonts);
 
     const studio = getStudioContext();
     const editor = createThemeEditor();

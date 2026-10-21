@@ -641,12 +641,11 @@ corner radius, using the preset's light or dark palette to match the page, with
 the name, description, and three facts underneath.
 
 Navigation between pages is immediate. Do not add page transitions to the docs
-shell. Docs sidebar links navigate on mouse press, like a native sidebar; touch,
-keyboard, and modified clicks keep their usual behavior. A docs page renders
+shell. Sidebar links navigate on click, like any link. A docs page renders
 complete, examples and API reference included, in the same update that shows it,
-and starts at the top. Do not defer parts of a page until after it appears; a
-reader who scrolls quickly reaches empty sections and the page shifts as they
-mount. Reset the reading pane's scroll in that same update, never after it.
+and starts at the top. Do not defer parts of a page, including catalog previews,
+until after it appears or until they near the screen; a reader who scrolls quickly
+reaches empty sections and the page shifts as they mount. Reset the reading pane's scroll in that same update, never after it.
 
 A scroller never ends in a hard cut against another region. Use the shared
 `scrollFade` helper with the `fadeY` or `fadeX` mask. The fade grows with the
@@ -660,9 +659,9 @@ In the shell, the top and bottom edges of the page and the bottom edge of the
 sidebar are a short 18px fill to the panel color with a light blur instead of a
 tall mask, so the fade never reaches far into the text and the sticky catalog
 search row is not dimmed. That row gets its own short blurred fade beneath it
-while it is pinned, so cards ease out under it. Build these blurs from
-`edgeBlurLayers`: stacked backdrop blurs that get shorter and stronger toward the
-edge. Do not shape a backdrop blur with a mask inside the plate; Chrome ignores the
+while it is pinned, so cards ease out under it. Build the page and sidebar edge
+blurs from `edgeBlurLayers`: stacked backdrop blurs that get shorter and stronger
+toward the edge. Do not shape a backdrop blur with a mask inside the plate; Chrome ignores the
 mask under a rounded overflow clip and draws a hard line. Never put these blurs on
 repeated sticky elements such as sidebar group labels: dozens of sticky backdrop
 blurs exhaust Chrome's compositor and parts of the page stop painting. Skip the top fade only in

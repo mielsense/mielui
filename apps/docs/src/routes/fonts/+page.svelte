@@ -3,17 +3,9 @@
     import { Badge } from '@mielui/svelte/components/badge';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { onMount } from 'svelte';
-    import {
-        DEFAULT_FONT,
-        type FontCategory,
-        fonts,
-        getDocsFontState,
-        loadGoogleFonts
-    } from '$lib/fonts.svelte';
+    import { DEFAULT_FONT, type FontCategory, fonts, getDocsFontState } from '$lib/fonts.svelte';
 
     const selectedFont = getDocsFontState();
-    onMount(loadGoogleFonts);
     const categories: FontCategory[] = ['Sans serif', 'Serif', 'Monospace'];
     const groups = categories.map((category) => ({
         category,

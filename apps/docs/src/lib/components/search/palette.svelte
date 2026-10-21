@@ -50,6 +50,18 @@
         }
     });
 
+    function handleKeydown(event: KeyboardEvent) {
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === 'k' &&
+            !event.altKey &&
+            !event.isComposing
+        ) {
+            event.preventDefault();
+            search.open = !search.open;
+        }
+    }
+
     function run(action: () => void) {
         search.open = false;
         action();
@@ -59,6 +71,8 @@
         search.open = false;
     });
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <Command.Root bind:open={search.open} labels={{ palette: 'Search documentation' }}>
     <Command.Content
