@@ -7,7 +7,7 @@ export const DEFAULT_FONT = 'Inter Tight';
 
 /**
  * Every family the docs can preview. Inter Tight and Geist Mono ship with ui.css;
- * app.html loads the rest from Google Fonts without blocking the first paint.
+ * the rest come from Google Fonts, loaded only by `loadGoogleFonts`.
  * Anything else would fall back to a system font.
  */
 export const fonts: DocsFont[] = [
@@ -55,6 +55,26 @@ export const fonts: DocsFont[] = [
         'Roboto Mono'
     ].map((name) => ({ name, category: 'Monospace' as const, family: `'${name}', monospace` }))
 ];
+
+/** Google Fonts stylesheets for every family in `fonts` that ui.css does not ship. */
+export const googleFontStylesheets = [
+    'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Geist:wght@100..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700;900&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=DM+Serif+Text:ital@0;1&family=EB+Garamond:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400..700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Newsreader:opsz,wght@6..72,400..700&family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Geist+Mono:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@100..800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&display=swap'
+];
+
+/** Adds the Google Fonts stylesheets once, without blocking rendering. */
+export function loadGoogleFonts() {
+    for (const href of googleFontStylesheets) {
+        if (document.querySelector(`link[href="${href}"]`)) {
+            continue;
+        }
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.append(link);
+    }
+}
 
 type DocsFontState = {
     current: string;

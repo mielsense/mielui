@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Toaster } from '@mielui/svelte/components/toast';
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
     import CopyPage from '$lib/components/docs/copy-page.svelte';
@@ -7,7 +6,6 @@
     import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
     import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
-    import SiteSearch from '$lib/components/search/palette.svelte';
     import Header from '$lib/components/shell/header.svelte';
     import PageDock from '$lib/components/shell/page-dock.svelte';
     import { usesDocsSidebar } from '$lib/components/shell/page-icon';
@@ -62,8 +60,50 @@
         }
     });
 
+    let Toaster = $state<typeof import('@mielui/svelte/components/toast').Toaster>();
+    let SiteSearch = $state<typeof import('$lib/components/search/palette.svelte').default>();
+
+    function loadSearch() {
+        void import('$lib/components/search/palette.svelte').then((module) => {
+            SiteSearch = module.default;
+        });
+    }
+
+    $effect(() => {
+        if (search.open) {
+            loadSearch();
+        }
+    });
+
+    function toggleSearch(event: KeyboardEvent) {
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === 'k' &&
+            !event.altKey &&
+            !event.isComposing
+        ) {
+            event.preventDefault();
+            search.open = !search.open;
+        }
+    }
+
     onMount(() => {
         hydrateLiveThemeCss();
+    });
+
+    // Toasts and search are never needed for the first paint, so they load once the page is idle.
+    $effect(() => {
+        if (isPreview) {
+            return;
+        }
+        const whenIdle =
+            window.requestIdleCallback ?? ((callback: () => void) => setTimeout(callback, 200));
+        whenIdle(() => {
+            loadSearch();
+            void import('@mielui/svelte/components/toast').then((module) => {
+                Toaster = module.Toaster;
+            });
+        });
     });
 
     let docsScrollEl = $state<HTMLDivElement>();
@@ -115,6 +155,8 @@
         content="The Mielui landing page: Svelte UI, your way, beside a live Composer preview."
     />
 </svelte:head>
+
+<svelte:window onkeydown={isPreview ? undefined : toggleSearch} />
 
 <ModeWatcher />
 {#if !isPreview}

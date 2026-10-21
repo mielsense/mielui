@@ -9,12 +9,16 @@
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import { applyLiveThemeCss } from '@mielui/svelte/themes/live';
     import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
+    import { onMount } from 'svelte';
+    import { loadGoogleFonts } from '$lib/fonts.svelte';
     import { handOffTheme } from '$lib/studio/handoff';
     import type { PageData } from './$types';
     import ThemeCard from './theme-card.svelte';
     import ThemeDetailDialog from './theme-detail-dialog.svelte';
 
     let { data }: { data: PageData } = $props();
+
+    onMount(loadGoogleFonts);
 
     const builtInSlugs = new Set(builtInThemePresets.map((theme) => theme.slug));
 

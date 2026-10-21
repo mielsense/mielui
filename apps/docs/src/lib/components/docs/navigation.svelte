@@ -2,6 +2,7 @@
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { goto } from '$app/navigation';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
     import { getShell } from '$lib/components/shell/shell.svelte';
@@ -30,7 +31,33 @@
         return href !== page.url.pathname && shell.tabs.tabs.some((tab) => tab.href === href);
     }
 
+    let pressedHref: string | undefined;
+
+    function press(event: PointerEvent, href: string) {
+        pressedHref = undefined;
+        if (
+            event.pointerType !== 'mouse' ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey ||
+            href === page.url.pathname
+        ) {
+            return;
+        }
+        pressedHref = href;
+        close?.();
+        void goto(href);
+    }
+
     function follow(event: MouseEvent, href: string) {
+        if (pressedHref === href) {
+            event.preventDefault();
+            pressedHref = undefined;
+
+            return;
+        }
         if (event.button === 0 && (event.metaKey || event.ctrlKey) && href.startsWith('/docs')) {
             event.preventDefault();
             shell.tabs.openInBackground(href);
@@ -81,6 +108,7 @@
                 data-nav-row
                 class={rowClass}
                 aria-current={page.url.pathname === item.href ? 'page' : undefined}
+                onpointerdown={(event) => press(event, item.href)}
                 onclick={(event) => follow(event, item.href)}
             >
                 {#if siteLinks}
@@ -115,6 +143,7 @@
                     href={section.href}
                     class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] [@container_scroll-state(stuck:top)]:text-foreground`}
                     aria-current={page.url.pathname === section.href ? 'page' : undefined}
+                    onpointerdown={(event) => press(event, section.href)}
                     onclick={(event) => follow(event, section.href)}
                 >
                     {section.label}
@@ -126,6 +155,7 @@
                     data-nav-row
                     class={`${rowClass} ${item.nested ? 'ps-6' : ''}`}
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
+                    onpointerdown={(event) => press(event, item.href)}
                     onclick={(event) => follow(event, item.href)}
                 >
                     <span data-nav-label class="min-w-0 truncate">{item.label}</span>
