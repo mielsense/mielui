@@ -644,9 +644,10 @@ Navigation between pages is immediate. Do not add page transitions to the docs
 shell. Docs sidebar links navigate on mouse press, like a native sidebar; touch,
 keyboard, and modified clicks keep their usual behavior. A docs page renders
 complete, examples and API reference included, in the same update that shows it,
-and starts at the top. Do not defer parts of a page until after it appears; a
-reader who scrolls quickly reaches empty sections and the page shifts as they
-mount. Reset the reading pane's scroll in that same update, never after it.
+and starts at the top. Do not defer parts of a page, including catalog previews,
+until after it appears or until they near the screen; a reader who scrolls
+quickly reaches empty sections and the page shifts as they mount. Reset the
+reading pane's scroll in that same update, never after it.
 
 A scroller never ends in a hard cut against another region. Use the shared
 `scrollFade` helper with the `fadeY` or `fadeX` mask. The fade grows with the

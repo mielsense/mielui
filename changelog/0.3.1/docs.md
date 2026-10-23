@@ -1,7 +1,6 @@
 - Docs pages are prerendered and served as static files, so they no longer wait for a server render on a cold visit or after an in-app link.
 - Docs pages load about a quarter less JavaScript up front. Search and notifications load once the page is idle, and Cmd/Ctrl+K still opens search right away.
 - Google Fonts load only on Fonts, Theme Studio, and Themes, or when a saved font or theme uses them.
-- The components catalog renders a preview when it nears the screen, which cuts the page's HTML by about two thirds.
 - The GitHub star count in the rail updates on each deploy.
 - Docs sidebar links open on mouse press instead of release.
 - The blurred fades at the page edges, under pinned sidebar labels, and under the catalog search row ease in instead of ending in a hard line.
