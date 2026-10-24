@@ -480,7 +480,12 @@ Docs, Studio, Themes, and the Changelog share one shell: a dark frame around
 one panel. The frame is near-black (`#060606`) in both themes and holds the icon
 rail at the start. The panel is one plate with squircle corners and a hairline,
 inset two spacing units from the window's edges, and it holds the sidebar and the
-page together. A single hairline divides the sidebar from the page; nothing else
+page together. The plate draws the squircle but does not clip. An inner wrapper
+clips its contents with plain round corners of the same radius, which stay inside
+the squircle. Chrome can only clip composited layers to a squircle by masking each
+one, and under the page's edge blurs that saturates the GPU until fast scrolling
+leaves regions unpainted. Never clip scrollers or backdrop blurs with a squircle.
+A single hairline divides the sidebar from the page; nothing else
 in the shell draws a rule. In dark mode the panel must read clearly lighter than
 the frame.
 
