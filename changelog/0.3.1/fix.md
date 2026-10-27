@@ -3,8 +3,5 @@
 - A docs page opened from an in-app link no longer flashes at the previous scroll position or jumps back to the top after scrolling starts.
 - Scrolling the docs no longer restyles the whole page on every frame, so it stays smooth on long pages.
 - An open docs tab picks up a new deploy on the next link instead of running the old version until a reload.
-<<<<<<< HEAD
 - Scrolling a docs page quickly in Chrome no longer leaves parts of it blank.
-=======
 - The component catalog renders every preview with the page, so scrolling quickly no longer reaches empty cards that fill in afterwards.
->>>>>>> origin/main
