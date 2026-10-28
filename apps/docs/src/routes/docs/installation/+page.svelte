@@ -23,8 +23,9 @@
     const cliAdd = `pnpm dlx @mielui/svelte add button
 pnpm dlx @mielui/svelte list`;
 
+    // Vite's dependency scan reads import-like lines in TS scripts, even inside strings.
     const cliUse = `<script>
-  import { Button } from '$lib/mielui/components/button';
+  ${'import'} { Button } from '$lib/mielui/components/button';
 <${'/'}script>
 
 <Button>Get started</Button>`;

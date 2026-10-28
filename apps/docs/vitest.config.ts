@@ -52,6 +52,8 @@ export default defineConfig({
             },
             {
                 extends: true,
+                // Each browser project pre-bundles dependencies on its own, so they must not share a cache.
+                cacheDir: 'node_modules/.vite/browser',
                 resolve: {
                     conditions: ['browser']
                 },
@@ -70,6 +72,7 @@ export default defineConfig({
             },
             {
                 extends: true,
+                cacheDir: 'node_modules/.vite/browser-reduced',
                 resolve: {
                     conditions: ['browser']
                 },
