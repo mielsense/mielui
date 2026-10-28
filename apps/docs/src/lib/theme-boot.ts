@@ -1,7 +1,7 @@
 import { DEFAULT_FONT, FONT_STORAGE_KEY, fonts, googleFontStylesheets } from '$lib/fonts.svelte';
 
 /** Where `@mielui/svelte/themes/live` keeps the live theme's CSS and the id of its style tag. */
-const LIVE_THEME_KEY = 'mielui-live-theme-css-v2';
+export const LIVE_THEME_KEY = 'mielui-live-theme-css-v2';
 const LIVE_THEME_STYLE_ID = 'mielui-live-theme-style';
 
 const families = Object.fromEntries(

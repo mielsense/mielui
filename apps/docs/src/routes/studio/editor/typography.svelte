@@ -110,10 +110,10 @@
     {@render sansRow('Font')}
     {@render headerRow('Heading font')}
 {:else}
-    <EditorSection title="Fonts" keywords="typography type family typeface">
+    <EditorSection title="Fonts" keywords="typography type family typeface heading">
         {#if filter.active}
             {@render sansRow('Sans')}
-            {@render headerRow('Header')}
+            {@render headerRow('Heading font')}
         {/if}
         <Row label="Mono" reset={resetFont('selectedMono', 'mono')}>
             <Select.Root bind:value={editor.state.selectedMono}>

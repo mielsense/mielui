@@ -72,3 +72,20 @@ describe('Studio appearance hydration', () => {
         });
     });
 });
+
+describe('Studio draft fonts', () => {
+    it('starts on the Default preset fonts, so no font shows a reset', async () => {
+        const { createThemeEditorState } = await import(
+            '../../src/routes/studio/editor/state.svelte'
+        );
+        const { findHeaderKey, findMonoKey, findSansKey } = await import(
+            '../../src/routes/studio/editor/config'
+        );
+        const state = createThemeEditorState();
+
+        expect(state.selectedSans).toBe(findSansKey(DEFAULT_THEME.fontSans));
+        expect(state.selectedSans).toBe('inter-tight');
+        expect(state.selectedHeader).toBe(findHeaderKey(DEFAULT_THEME.fontHeader));
+        expect(state.selectedMono).toBe(findMonoKey(DEFAULT_THEME.fontMono));
+    });
+});

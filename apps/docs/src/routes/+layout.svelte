@@ -3,7 +3,6 @@
     import { ModeWatcher } from 'mode-watcher';
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import Navigation from '$lib/components/docs/navigation.svelte';
-    import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
     import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
     import Header from '$lib/components/shell/header.svelte';
@@ -240,11 +239,7 @@
         class="fixed inset-0 isolate flex flex-col overflow-clip bg-background [--docs-content:var(--color-background)] [--docs-pill:var(--color-wash)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-background)] [--docs-soft:var(--color-wash)]"
     >
         <div class="lg:hidden">
-            <Header starCount={data.starCount ?? null}>
-                {#snippet leading()}
-                    <NavigationSheet />
-                {/snippet}
-            </Header>
+            <Header starCount={data.starCount ?? null} />
         </div>
         <div class="flex min-h-0 min-w-0 flex-1">
             <Sidebar label="Documentation">

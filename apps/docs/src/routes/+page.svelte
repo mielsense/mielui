@@ -4,8 +4,11 @@
         ArrowRight01Icon,
         ArrowUpRight01Icon,
         BookOpen01Icon,
+        CodeIcon,
         GithubIcon,
         Layers01Icon,
+        Mortarboard01Icon,
+        PaintBoardIcon,
         PuzzleIcon
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
@@ -80,25 +83,33 @@
             href: resolve('/docs/installation'),
             title: 'Copy the source',
             detail: 'pnpm dlx @mielui/svelte add button puts the file in your project.',
-            external: false
+            external: false,
+            icon: CodeIcon,
+            mesh: mesh.indigo
         },
         {
             href: resolve('/docs/agent-skill'),
             title: 'Teach your agent',
             detail: 'The Mielui skill gives coding agents the current component APIs.',
-            external: false
+            external: false,
+            icon: Mortarboard01Icon,
+            mesh: mesh.teal
         },
         {
             href: resolve('/studio'),
             title: 'Make a theme',
             detail: 'Tune color, type, corners, and motion, then export CSS.',
-            external: false
+            external: false,
+            icon: PaintBoardIcon,
+            mesh: mesh.pink
         },
         {
             href: GITHUB_URL,
             title: 'Read the code',
             detail: 'Every component is plain Svelte and Tailwind, MIT licensed.',
-            external: true
+            external: true,
+            icon: GithubIcon,
+            mesh: mesh.lime
         }
     ];
 
@@ -241,33 +252,35 @@
             </div>
             {@render more(resolve('/docs/components'), 'Browse the catalog')}
         </div>
-        <ul class="m-0 grid list-none grid-cols-2 border-b border-border p-0 lg:grid-cols-4">
+        <ul
+            class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-[20px] bg-border p-0 shadow-[0_0_0_1px_var(--color-border)] md:grid-cols-3 lg:grid-cols-4"
+        >
             {#each groups as group (group.id)}
-                <li class="min-w-0 border-t border-border">
+                <li class="flex min-w-0 bg-background">
                     <a
                         href={group.href}
-                        class="group/section flex h-full flex-col gap-3 py-4 pe-3 sm:py-5 sm:pe-6 focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+                        class="group/section flex w-full flex-col gap-4 p-4 hover:bg-[color-mix(in_oklab,var(--color-foreground)_3%,var(--color-background))] focus-visible:shadow-[inset_var(--focus-ring)] focus-visible:outline-none sm:p-6"
                     >
-                        <span class="flex items-center gap-2.5">
-                            <Sticker icon={group.icon} mesh={group.mesh} />
-                            <span class="min-w-0 text-base font-medium text-foreground">
-                                {group.title}
-                                <span
-                                    class="ms-1.5 text-sm font-normal text-foreground-muted tabular-nums"
-                                >
-                                    {group.items.length}
-                                </span>
+                        <span class="flex items-start justify-between gap-3">
+                            <Sticker icon={group.icon} mesh={group.mesh} size={32} />
+                            <span
+                                class="flex items-center gap-1 text-sm text-foreground-muted tabular-nums"
+                            >
+                                {group.items.length}
+                                <HugeiconsIcon
+                                    icon={ArrowRight01Icon}
+                                    size={13}
+                                    class="-me-1 opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover/section:translate-x-0.5 group-hover/section:opacity-100 group-focus-visible/section:opacity-100 motion-reduce:transition-none"
+                                />
                             </span>
-                            <HugeiconsIcon
-                                icon={ArrowRight01Icon}
-                                size={13}
-                                class="ms-auto text-foreground-muted opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover/section:translate-x-0.5 group-hover/section:opacity-100 group-focus-visible/section:opacity-100 motion-reduce:transition-none"
-                            />
                         </span>
-                        <span
-                            class="line-clamp-2 text-sm leading-relaxed text-foreground-muted max-sm:hidden"
-                        >
-                            {group.items.map(sanitizeComponent).join(', ')}
+                        <span class="flex flex-col gap-1.5">
+                            <span class="text-base font-medium text-foreground">{group.title}</span>
+                            <span
+                                class="text-sm leading-relaxed text-foreground-muted max-sm:hidden"
+                            >
+                                {group.items.map(sanitizeComponent).join(', ')}
+                            </span>
                         </span>
                     </a>
                 </li>
@@ -323,53 +336,55 @@
                 Free and MIT licensed. Svelte 5.56 or newer, Tailwind CSS v4.
             </p>
         </div>
-        <ol class="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-8 p-0 lg:grid-cols-3 lg:gap-6">
+        <ol class="mx-auto m-0 flex w-full max-w-[40rem] list-none flex-col gap-8 p-0">
             <li class="flex min-w-0 flex-col gap-3">
                 <span class="text-sm text-foreground-muted">
                     <span class="font-medium text-foreground tabular-nums">1</span>
                     Add the package
                 </span>
-                <CodeBlock code={installCommand} lang="sh" copy="overlay" class="flex-1" />
+                <CodeBlock code={installCommand} lang="sh" copy="overlay" />
             </li>
             <li class="flex min-w-0 flex-col gap-3">
                 <span class="text-sm text-foreground-muted">
                     <span class="font-medium text-foreground tabular-nums">2</span>
                     Import the stylesheet in your app.css
                 </span>
-                <CodeBlock
-                    code="@import '@mielui/svelte/ui.css';"
-                    lang="css"
-                    copy="overlay"
-                    class="flex-1"
-                />
+                <CodeBlock code="@import '@mielui/svelte/ui.css';" lang="css" copy="overlay" />
             </li>
             <li class="flex min-w-0 flex-col gap-3">
                 <span class="text-sm text-foreground-muted">
                     <span class="font-medium text-foreground tabular-nums">3</span>
                     Use a component
                 </span>
-                <CodeBlock code={firstComponent} lang="svelte" copy="overlay" class="flex-1" />
+                <CodeBlock code={firstComponent} lang="svelte" copy="overlay" />
             </li>
         </ol>
-        <ul class="m-0 grid list-none grid-cols-[minmax(0,1fr)] p-0 sm:grid-cols-2 lg:grid-cols-4">
+        <ul
+            class="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-px overflow-hidden rounded-[20px] bg-border p-0 shadow-[0_0_0_1px_var(--color-border)] sm:grid-cols-2 lg:grid-cols-4"
+        >
             {#each next as link (link.title)}
-                <li class="min-w-0 border-t border-border">
+                <li class="flex min-w-0 bg-background">
                     <a
                         href={link.href}
                         target={link.external ? '_blank' : undefined}
                         rel={link.external ? 'noreferrer' : undefined}
-                        class="group flex h-full flex-col gap-1 py-5 pe-6 focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+                        class="group group/section flex w-full items-start gap-4 p-5 hover:bg-[color-mix(in_oklab,var(--color-foreground)_3%,var(--color-background))] focus-visible:shadow-[inset_var(--focus-ring)] focus-visible:outline-none sm:p-6"
                     >
-                        <span class="flex items-center gap-1 text-base font-medium text-foreground">
-                            {link.title}
-                            <HugeiconsIcon
-                                icon={link.external ? ArrowUpRight01Icon : ArrowRight01Icon}
-                                size={13}
-                                class={link.external ? leanOut : lean}
-                            />
-                        </span>
-                        <span class="text-sm leading-relaxed text-foreground-muted">
-                            {link.detail}
+                        <Sticker icon={link.icon} mesh={link.mesh} size={32} />
+                        <span class="flex min-w-0 flex-col gap-1">
+                            <span
+                                class="flex items-center gap-1 text-base font-medium text-foreground"
+                            >
+                                {link.title}
+                                <HugeiconsIcon
+                                    icon={link.external ? ArrowUpRight01Icon : ArrowRight01Icon}
+                                    size={13}
+                                    class={`text-foreground-muted ${link.external ? leanOut : lean}`}
+                                />
+                            </span>
+                            <span class="text-sm leading-relaxed text-foreground-muted">
+                                {link.detail}
+                            </span>
                         </span>
                     </a>
                 </li>

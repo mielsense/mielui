@@ -241,9 +241,9 @@
                 </Card.Footer>
             </Card.Root>
 
-            <Card.Root class="{lift} max-md:hidden">
-                <Card.Content class="flex justify-center py-5">
-                    <Calendar.Root calendarLabel="Release date" class="w-fit p-0" />
+            <Card.Root class="{lift} flex flex-col max-md:hidden">
+                <Card.Content class="flex flex-1 items-center justify-center py-5">
+                    <Calendar.Root calendarLabel="Release date" class="mx-auto w-fit p-0" />
                 </Card.Content>
             </Card.Root>
 
@@ -314,14 +314,14 @@
                 </Card.Content>
             </Card.Root>
 
-            <Card.Root class="{lift} max-lg:hidden">
-                <Card.Content class="flex flex-col gap-3 pt-5">
-                    <div class="flex flex-wrap gap-2">
+            <Card.Root class="{lift} flex flex-col max-lg:hidden">
+                <Card.Content class="flex flex-1 flex-col items-center justify-center gap-3 py-5">
+                    <div class="flex flex-wrap justify-center gap-2">
                         <Button>Primary</Button>
                         <Button variant="secondary">Secondary</Button>
                         <Button variant="outline">Outline</Button>
                     </div>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap justify-center gap-2">
                         <Button variant="ghost">Ghost</Button>
                         <Button loading labels={{ loading: 'Saving' }}>Save</Button>
                         <Button disabled>Unavailable</Button>

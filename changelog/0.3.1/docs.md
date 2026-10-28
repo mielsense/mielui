@@ -25,3 +25,5 @@
 - The browser toolbar color follows the light or dark mode chosen on the site and any live theme, not only the system setting.
 - Hover highlights in the docs sidebar, links, and page chrome appear instantly, and sidebar links give a slight press.
 - A new Theme Studio draft starts on the default theme's fonts, so Font and Mono no longer show a reset button before anything changes.
+- On phones, the docs navigation unfolds in place from a button named after the current page, and scrolls inside itself so part of the page stays in view.
+- Opening Theme Studio without changing anything no longer replaces the site's colors and font on every page.

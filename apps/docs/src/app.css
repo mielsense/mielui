@@ -29,14 +29,15 @@ blockquote {
     @apply text-pretty;
 }
 
-/* Scroll fades update every scroll frame. Inherited, each update would restyle the
-   whole scroller, so `scrollFade` writes them only to the elements that read them. */
+/* Registered so the homepage wall's mesh glides to a new theme's brand color. */
 @property --wall-tint {
     syntax: '<color>';
     inherits: true;
     initial-value: #ba7ca5;
 }
 
+/* Scroll fades update every scroll frame. Inherited, each update would restyle the
+   whole scroller, so `scrollFade` writes them only to the elements that read them. */
 @property --fade-start {
     syntax: '<length>';
     inherits: false;
