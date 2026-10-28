@@ -6,7 +6,7 @@ export type DocsFont = { name: string; category: FontCategory; family: string };
 export const DEFAULT_FONT = 'System';
 
 /** The platform's own sans: SF Pro on Apple devices, Inter Tight elsewhere. Keep identical to `--font-sans` in app.css. */
-export const SYSTEM_FONT_FAMILY =
+const SYSTEM_FONT_FAMILY =
     "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Tight', system-ui, sans-serif";
 
 /**

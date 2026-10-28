@@ -261,25 +261,6 @@ pre {
         }
     }
 
-    /* A key cap in running text. */
-    .key {
-        display: inline-flex;
-        min-width: 1.6em;
-        align-items: center;
-        justify-content: center;
-        border: var(--border-size, 1px) solid var(--color-border);
-        border-radius: 6px;
-        padding: 0.15em 0.4em;
-        background-color: var(--color-card);
-        box-shadow: 0 1px 0 var(--color-border);
-        color: var(--color-foreground);
-        font-family: var(--font-sans);
-        font-size: 0.86em;
-        font-weight: 500;
-        line-height: 1.25;
-        white-space: nowrap;
-    }
-
     /* Film grain over whatever background the element has, blended into the color only. */
     .grain {
         position: relative;

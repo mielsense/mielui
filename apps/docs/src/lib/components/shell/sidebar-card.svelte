@@ -1,5 +1,6 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
+    import { fromAction } from 'svelte/attachments';
     import { page } from '$app/state';
     import { allDocPages } from '$lib/docs-pages';
 
@@ -26,7 +27,10 @@
             <span class="sr-only">Page</span>
             <span
                 class="min-w-[3ch] text-end font-medium text-foreground"
-                use:numberShuffle={{ value: position, format: (value) => String(value) }}
+                {@attach fromAction(numberShuffle, () => ({
+                    value: position,
+                    format: (value: number) => String(value)
+                }))}
             >
                 {position}
             </span>

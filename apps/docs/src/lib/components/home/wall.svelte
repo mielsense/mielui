@@ -16,6 +16,7 @@
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
+    import { fromAction } from 'svelte/attachments';
     import { resolve } from '$app/paths';
     import { loadGoogleFonts } from '$lib/fonts.svelte';
     import { handOffTheme } from '$lib/studio/handoff';
@@ -193,10 +194,10 @@
                             <span>Alert volume</span>
                             <span
                                 class="text-foreground-muted tabular-nums"
-                                use:numberShuffle={{
+                                {@attach fromAction(numberShuffle, () => ({
                                     value: volume,
-                                    format: (value) => `${Math.round(value)}%`
-                                }}
+                                    format: (value: number) => `${Math.round(value)}%`
+                                }))}
                             >
                                 {volume}%
                             </span>
