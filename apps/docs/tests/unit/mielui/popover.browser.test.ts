@@ -227,3 +227,37 @@ describe('Popover -- hover behavior (hoverable=true)', () => {
         await expect.element(page.getByText('Popover Title')).toBeInTheDocument();
     });
 });
+
+function wait(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
+describe('Popover -- reopening while it closes', () => {
+    it('turns the same panel around from its current opacity', async () => {
+        const root = document.documentElement.style;
+        const screen = render(PopoverFixture, { open: true });
+        await wait(400);
+        root.setProperty('--motion-duration-panel-in', '2000ms');
+        root.setProperty('--motion-duration-panel-out', '2000ms');
+        try {
+            await screen.rerender({ open: false });
+            await wait(500);
+            const closing = document.querySelector<HTMLElement>('[data-ui="popover-content"]');
+            const closingOpacity = Number(getComputedStyle(closing as HTMLElement).opacity);
+            expect(closingOpacity).toBeGreaterThan(0.1);
+            expect(closingOpacity).toBeLessThan(0.9);
+
+            await screen.rerender({ open: true });
+            await wait(50);
+
+            expect(document.querySelector('[data-ui="popover-content"]')).toBe(closing);
+            const reopenedOpacity = Number(getComputedStyle(closing as HTMLElement).opacity);
+            expect(reopenedOpacity).toBeGreaterThanOrEqual(closingOpacity - 0.05);
+        } finally {
+            root.removeProperty('--motion-duration-panel-in');
+            root.removeProperty('--motion-duration-panel-out');
+        }
+    });
+});

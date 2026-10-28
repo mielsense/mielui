@@ -21,8 +21,8 @@
 </script>
 
 {#snippet step(item: Page, direction: 'Previous' | 'Next')}
-    {const look = lookFor(item.href)}
-    {const next = direction === 'Next'}
+    {const look = $derived(lookFor(item.href))}
+    {const next = $derived(direction === 'Next')}
     <a
         href={item.href}
         class={`tile group/section press-soft flex min-w-0 items-center gap-3.5 p-4 hover:shadow-[0_0_0_1px_var(--color-border-strong),0_6px_20px_-10px_rgb(0_0_0/0.2)] focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none ${next ? 'flex-row-reverse text-end sm:col-start-2' : ''}`}
