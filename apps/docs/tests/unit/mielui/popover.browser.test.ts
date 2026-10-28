@@ -239,8 +239,8 @@ describe('Popover -- reopening while it closes', () => {
         const root = document.documentElement.style;
         const screen = render(PopoverFixture, { open: true });
         await wait(400);
-        root.setProperty('--motion-duration-panel-in', '2000ms');
-        root.setProperty('--motion-duration-panel-out', '2000ms');
+        root.setProperty('--motion-duration-panel-in', '6000ms');
+        root.setProperty('--motion-duration-panel-out', '6000ms');
         try {
             await screen.rerender({ open: false });
             await wait(500);

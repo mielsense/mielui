@@ -369,9 +369,12 @@ button uses it.
   Composer send button.
 - No fill: text fields, select and combobox triggers, outline, ghost, and quiet
   buttons, tracks, progress fills, badges, and metadata.
-- A selected segment on a track also carries selection in its text: foreground
-  color and medium weight against muted regular text. A white fill on a grey
-  track cannot reach 3:1 on its own.
+- A selected segment on a track also carries selection in its text color:
+  foreground against muted text, at the same weight, so labels never change
+  width. A white fill on a grey track cannot reach 3:1 on its own.
+- In light mode, checked checkbox, radio, and Question marks and the Switch-on
+  track fill with the primary mixed 92% with the ink, so a pale brand still
+  reaches 3:1 against the page. Dark mode uses the primary as it is.
 
 ### Control geometry
 
