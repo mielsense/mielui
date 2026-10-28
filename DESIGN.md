@@ -111,7 +111,7 @@ palette in `look.ts`. Never copy them into a component or an example.
 Do not ship:
 
 - All-caps or widely tracked eyebrows, kickers, and overlines.
-- Decorative gradients, blobs, textures, or ornamental shadows. The lit
+- Decorative gradients, blobs, textures, or ornamental shadows. The fill
   material (`.mielui-glow`) belongs to controls, not decoration: do not put it
   on a surface or a label.
 - A generic centered hero followed by a grid of cards.
@@ -185,7 +185,7 @@ navigation, or content visibility to finish an animation.
 
 White plates with continuous-curvature corners rest on a quiet grey stage, drawn
 in a single ink. Everything pressable shares one control radius, filled actions
-are lit, and one spring family moves it all.
+are flat and uniform, and one spring family moves it all.
 
 ## The ten rules
 
@@ -201,9 +201,12 @@ are lit, and one spring family moves it all.
    corners. Everything pressable that is not a plate takes `--radius-control`:
    a 12px rounded rectangle by default, 4px in the sharp scale, and a pill in
    the rounded scale. Never hand-pick a radius for a control.
-4. **Filled actions are lit.** Primary, secondary, destructive, and glow
-   buttons, moving thumbs, and selected segments share one material,
-   `.mielui-glow`. Fields, outline, ghost, and quiet controls stay flat.
+4. **Filled actions are flat.** Primary, secondary, and destructive buttons,
+   moving thumbs, and selected segments share one material, `.mielui-glow`: a
+   solid fill held by a hairline ring, with no gradient, inner light, or drop
+   shadow. The `glow` button is the one lit action. A theme's edge highlight
+   lights every fill at once. Fields, outline, ghost, and quiet controls carry
+   no fill.
 5. **One spring family.** Panel 550/38, layout 550/40, pop 400/26, flick 900/50.
    Do not invent another curve.
 6. **Weight stops at 500.** The default theme sets Inter Tight at 400 and 500
@@ -215,8 +218,9 @@ are lit, and one spring family moves it all.
    dots, not panel fills.
 8. **Elevation is binary.** A thing is resting (`--elevation-1`) or floating
    (`--elevation-float`). There is no ramp and no glow halo. The default theme
-   turns both off, so cards and menus are held by their hairline alone.
-   Controls, dialogs, and sheets keep their own shadows.
+   turns both off, so cards and menus are held by their hairline alone, and
+   turns control shadows off, so fields and buttons are held by their hairline
+   too. Only dialogs and sheets cast a shadow.
 9. **Exits are faster than entrances.** Things arrive with presence and leave
    without ceremony.
 10. **Quality floor, always.** Focus rings, `role="status"`, `aria-hidden`
@@ -334,29 +338,40 @@ the same contracts; a visual exception must have a specific functional reason.
 - Do not add a hardcoded white border, an inner ring, or a second shadow to a
   surface. The contracts already draw every edge.
 
-### The lit material
+### The fill material
 
-`.mielui-glow` is a gradient of the control's own color under faint white light
-layers, with every edge drawn by box-shadow and no drop shadow. It takes the
-control radius, brightens on hover, and darkens on press.
-`.mielui-glow-neutral` is the white selected fill on a grey track, and a lifted
-grey in dark mode.
+`.mielui-glow` is the one material for filled controls. By default it is flat: a
+solid fill of the control's own color held by a hairline ring, with no gradient,
+inner light, or drop shadow. It takes the control radius. Hover shifts the whole
+fill a few percent toward the ink at once, with no fade, and press shifts it
+further while the press scale runs. `.mielui-glow-neutral` is the white selected
+fill on a grey track, and a lifted grey in dark mode.
+
+The theme's edge highlight lights it. Above 0, the fill becomes the lit look: a
+gradient of the control's own color under faint white light layers, every edge
+drawn by box-shadow, a hover light that fades in, and a top-shaded press.
+`.mielui-glow-lit` keeps a control lit when the theme is flat, at the strength
+of the default lit look or the theme's own, whichever is higher. Only the `glow`
+button uses it.
 
 - Set `--mielui-glow-color` for the fill. Set `--mielui-glow-light` from 0 to 1
-  for how much light it catches. Lower it on dark fills. Set
+  for how much light it catches when lit. Lower it on dark fills. Set
   `--mielui-glow-ring` when the outer edge should be a hairline instead of a
   darker tint of the fill.
 - Always pair it with `shadow-[var(--mielui-glow-shadow)]` and
   `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`, so the
-  focus ring adds to the edge instead of replacing it.
-- The theme's edge highlight (`chrome.edgeHighlight`, 0 to 1, default 0.33)
-  scales the light on every lit control at once.
-- Lit: primary, secondary, destructive, and glow buttons; switch and slider
+  focus ring adds to the ring instead of replacing it.
+- The fill sits on `background-image`, so a control that hides its unselected
+  fill uses `bg-none` and `before:hidden`, as Calendar days do.
+- Filled: primary, secondary, destructive, and glow buttons; switch and slider
   thumbs; the selected item in Tabs, ToggleGroup, Toggle, and Pagination; the
   selected Calendar day; the checked checkbox, radio, and Question mark; the
   Composer send button.
-- Flat: text fields, select and combobox triggers, outline, ghost, and quiet
+- No fill: text fields, select and combobox triggers, outline, ghost, and quiet
   buttons, tracks, progress fills, badges, and metadata.
+- A selected segment on a track also carries selection in its text: foreground
+  color and medium weight against muted regular text. A white fill on a grey
+  track cannot reach 3:1 on its own.
 
 ### Control geometry
 
@@ -407,8 +422,10 @@ Frequency decides whether something moves at all:
 - Keyboard-driven changes never animate. The traveling highlight glides for a
   pointer and snaps for arrow keys, selection changes, and resizes. The command
   palette opens and closes without motion, and its result count is plain text.
-- A tooltip fades in from its trigger's side once. Moving to the next trigger
-  repositions it instantly.
+- A tooltip waits 500ms for a resting pointer, so passing over a toolbar does
+  not flash labels, and opens at once for keyboard focus (`:focus-visible`). A
+  click that focuses the trigger still waits. It fades in from its trigger's
+  side once. Moving to the next trigger repositions it instantly.
 - The sidebar toggle snaps. Do not animate a width that re-lays-out the page.
 
 - Panels spring open from 0.98 scale and a 4px offset on their trigger's side,
@@ -429,7 +446,7 @@ Frequency decides whether something moves at all:
 - Hover changes color only, and instantly: never transition a hover background,
   text color, border, or underline. Cards do not lift, scale, or glow. The press
   effect on a control is the only geometry change a pointer causes. The lit
-  glow's hover light and the gliding highlights are the exceptions.
+  material's hover light and the gliding highlights are the exceptions.
 - Use the shared helpers in `transition.ts` and the `--ease-spring-*` tokens.
   Do not add another animation or dismissal controller around an existing
   primitive, and do not write a local `cubic-bezier`.
@@ -483,11 +500,13 @@ border and concentric inner radius in both styles. Never set
 
 ## Edge highlight strength
 
-The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.33.
-Studio presents it as a percentage under Edges. It scales the light on lit
-controls and the light inset edge on thumbs and keycaps. Structural borders, focus rings,
-and cast shadows stay intact. Do not add fixed white inset shadows to individual
-components. Shadow switches still disable their corresponding elevation tokens.
+The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0, the
+flat look. Studio presents it as a switch under Edges with a strength in
+percent; turning it on restores 33%, the strength of the original lit look. Any
+value above 0 lights every `.mielui-glow` fill and scales the light inset edge
+on keycaps and toolbar keys. Structural borders, focus rings, and cast shadows
+stay intact. Do not add fixed white inset shadows to individual components.
+Shadow switches still disable their corresponding elevation tokens.
 
 ## Documentation composition
 
@@ -533,9 +552,8 @@ hovered. Each group label links to that group's own catalog page at
 `/docs/components/<id>`, including Blocks, AI components and Chart components.
 Do not link a group to an anchor on the Components index. Rows are 8 spacing
 units tall in muted regular text with a faint ink wash on hover. The current
-page is medium text on a lit highlight sized to its label, not the full row:
-dark with light text in light mode, a lifted grey in dark mode. The highlight
-glides to the next page. Group labels stay pinned to the top of the sidebar
+page is medium foreground text on a soft wash (`--color-wash`) sized to its
+label, not the full row. The wash glides to the next page. Group labels stay pinned to the top of the sidebar
 while their group scrolls. A pinned label has an opaque page-color background
 and full text color, so no row shows behind it, and a short fade to the page
 color directly beneath it, with no blur. The sidebar has no top scroll fade, so
@@ -826,7 +844,7 @@ shared item padding at the separator rather than removing padding from menu item
 Keep separators square at the panel edges.
 
 Toolbar.Root is flat by default: a track in the secondary color with ghost
-keys, one traveling hover wash, and the neutral lit fill on selected keys. Opt
+keys, one traveling hover wash, and the neutral fill on selected keys. Opt
 into depth with `variant="depth"`; its Button, Link, and Item inherit the
 choice. Depth uses the shared floating elevation for its shell and the
 theme-owned `--mielui-toolbar-raised` relief for its keys: a shallow key face, a
@@ -834,7 +852,7 @@ directional top edge, a thin dark sidewall, and a short contact shadow. Selected
 keys use `--mielui-toolbar-pressed`, which trades the contact shadow for an
 inward top shade, and the background fill. Compose focus rings with that
 relief. The face gradient follows the edge highlight, and both relief tokens
-flatten when control shadows are disabled. Keep the compact key size and avoid
+flatten when control shadows are off, as they are by default. Keep the compact key size and avoid
 thick bevels or stacked outlines.
 
 Composer is the one two-layer surface
@@ -986,8 +1004,8 @@ column. Keep navigation available, show the status beside the message, and omit
 pagination until content loads successfully.
 
 The default appearance uses single borders, bottom inset strips, solid surfaces,
-and a 33% edge highlight. Cards and menus have no shadow and are held by their
-hairline; control and dialog shadows, which also cover sheets, remain enabled.
-Studio has no primary button border setting, because lit buttons draw their own
-edge. Explicit theme settings and per-component surface choices override these
+and no edge highlight, so filled controls are flat. Cards, menus, and controls
+have no shadow and are held by their hairline; dialog shadows, which also cover
+sheets, remain enabled. Studio has no primary button border setting, because
+filled buttons draw their own ring. Explicit theme settings and per-component surface choices override these
 defaults.

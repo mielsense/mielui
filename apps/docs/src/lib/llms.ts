@@ -422,7 +422,9 @@ function themingMarkdown(): string {
         '',
         '## Edge highlights',
         '',
-        'Set `chrome.edgeHighlight` to adjust the light on lit pills: filled buttons, moving thumbs, and selected segments. It also scales the light edge on keycaps. Text fields, selection triggers, and outline buttons stay flat. The default is 0.33. Use 0 to remove that light or 1 for full strength.',
+        'Filled controls are flat by default: buttons, moving thumbs, and selected segments take one solid fill held by a hairline, with no gradient or inner light. Set `chrome.edgeHighlight` above 0 to light them all at once. It also scales the light edge on keycaps. The default is 0, the flat look; 0.33 is the original lit look and 1 is full strength. Text fields, selection triggers, and outline buttons carry no fill either way.',
+        '',
+        'The `glow` button variant stays lit in a flat theme. To light another control on its own, add the `mielui-glow-lit` class next to `mielui-glow`. A near-white primary button with dark text is a theme choice: apply the built-in Open preset, whose dark primary is near-white, or set the brand color.',
         '',
         fence(
             'ts',

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { panelMotion } from '@mielui/svelte/transition';
     import { cn, dynamicWidth, travelingHighlight } from '@mielui/svelte/utils';
     import { DropdownMenu as MenuPrimitive } from 'bits-ui';
     import type { Snippet } from 'svelte';
@@ -29,8 +29,7 @@
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
                     <div
                         {...props}
-                        in:panelIn
-                        out:panelOut
+                        transition:panelMotion={open}
                         data-ui="dropdown-menu-sub-content"
                         data-surface={surface}
                         class={cn(

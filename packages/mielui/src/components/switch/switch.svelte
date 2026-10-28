@@ -83,7 +83,7 @@
             class={cn(
                 'mielui-glow mielui-glow-neutral block h-full w-6 shrink-0 rounded-full shadow-[var(--mielui-glow-shadow)] dark:[--mielui-glow-color:var(--color-foreground)] will-change-transform transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none',
                 isOn
-                    ? 'translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)] rtl:-translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)]'
+                    ? 'translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)] rtl:-translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)] [--mielui-glow-ring:color-mix(in_srgb,var(--color-on-primary)_40%,transparent)]'
                     : 'translate-x-0'
             )}
         ></span>

@@ -283,7 +283,7 @@ export function createTooltipManager() {
         ref: HTMLElement,
         text: string,
         placement: Placement = 'top',
-        delay = 125,
+        delay = 500,
         className = '',
         source?: HTMLElement
     ) {

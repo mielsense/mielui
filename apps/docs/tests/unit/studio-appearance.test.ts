@@ -1,13 +1,14 @@
 import { DEFAULT_THEME } from '@mielui/svelte/themes/theme';
 import { describe, expect, it } from 'vitest';
 import { readThemeAppearance } from '../../src/routes/studio/editor/appearance';
+import { createThemeEditorState } from '../../src/routes/studio/editor/state.svelte';
 
 const defaults = {
     borders: 'single',
     insetPosition: 'bottom',
-    edgeHighlight: 0.33,
+    edgeHighlight: 0,
     surfaceShadows: false,
-    controlShadows: true,
+    controlShadows: false,
     dialogShadows: true,
     glassSurfaces: false,
     travelingHighlight: true,
@@ -33,9 +34,9 @@ describe('Studio appearance hydration', () => {
                 ...DEFAULT_THEME,
                 chrome: {
                     borders: 'double',
-                    edgeHighlight: 0,
+                    edgeHighlight: 0.5,
                     surfaceShadows: true,
-                    controlShadows: false,
+                    controlShadows: true,
                     dialogShadows: false,
                     primaryStroke: false
                 },
@@ -50,9 +51,9 @@ describe('Studio appearance hydration', () => {
             ...defaults,
             borders: 'double',
             insetPosition: 'top',
-            edgeHighlight: 0,
+            edgeHighlight: 0.5,
             surfaceShadows: true,
-            controlShadows: false,
+            controlShadows: true,
             dialogShadows: false,
             glassSurfaces: true,
             primaryStroke: false
@@ -87,5 +88,17 @@ describe('Studio draft fonts', () => {
         expect(state.selectedSans).toBe('inter-tight');
         expect(state.selectedHeader).toBe(findHeaderKey(DEFAULT_THEME.fontHeader));
         expect(state.selectedMono).toBe(findMonoKey(DEFAULT_THEME.fontMono));
+    });
+});
+
+describe('Studio edge highlight switch', () => {
+    it('starts flat on the Default preset and turns on at 33%', () => {
+        const state = createThemeEditorState();
+
+        expect(state.edgeHighlight).toBe(0);
+
+        state.edgeHighlight = state.rememberedEdgeHighlight;
+
+        expect(Math.round(state.edgeHighlight * 100)).toBe(33);
     });
 });

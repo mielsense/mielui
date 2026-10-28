@@ -54,7 +54,7 @@ Treat the interface as white plates on a grey stage, drawn in one ink. Add a pla
 Do not ship:
 
 - All-caps or widely tracked eyebrows, kickers, and overlines.
-- Decorative gradients, blobs, textures, hand-rolled glass effects, or ornamental shadows. Use the theme's glass surface setting instead. The lit material (`mielui-glow`) belongs to controls: do not put it on a surface or a label.
+- Decorative gradients, blobs, textures, hand-rolled glass effects, or ornamental shadows. Use the theme's glass surface setting instead. The fill material (`mielui-glow`) belongs to controls: do not put it on a surface or a label.
 - A generic centered hero followed by a uniform card grid.
 - A rounded container around every section or metric.
 - Pills for ordinary metadata, labels, or status that does not need badge semantics.
@@ -91,7 +91,7 @@ Use the installed token sheet for color, shape, elevation, insets, focus, press 
 - One ink. Borders (`--color-border`), inputs (`--color-input`), and the hover wash (`--color-wash`) are the foreground mixed into transparency. Do not pick a grey by eye.
 - `--color-background` is the grey stage, `--color-card` the white plate, and `--color-panel` the floating panel.
 - Everything pressable shares one radius: use `rounded-[var(--radius-control)]`, which is 12px by default, 4px in the sharp scale, and a pill only in the rounded scale. Never write `rounded-full` or a fixed radius on a control. Menu rows use the control radius too. Multi-line fields use `--radius-xl`, list rows `--radius-md`, and plates `--radius-2xl`. Floating panels and two-layer frames compute their radius from the control radius plus their padding, so nested corners stay concentric; use `mielui-float-frame` and `mielui-inset-frame` rather than picking one.
-- Filled actions are lit. Primary, secondary, destructive, and glow Buttons, Switch and Slider thumbs, and selected segments share the `mielui-glow` material. Keep text fields, selection triggers, outline and ghost buttons, tracks, progress fills, and badges flat.
+- Filled actions are flat. Primary, secondary, destructive, and glow Buttons, Switch and Slider thumbs, and selected segments share the `mielui-glow` material: one solid fill held by a hairline, with no gradient or drop shadow. The theme's edge highlight lights them all; the glow Button stays lit in every theme. Keep text fields, selection triggers, outline and ghost buttons, tracks, progress fills, and badges without a fill.
 - Weight stops at 500. `font-semibold` and `font-bold` resolve to 500, so build hierarchy from size, `text-foreground` against `text-foreground-muted`, and spacing. Use `tabular-nums` for numbers in columns.
 - Elevation is binary: `--elevation-1` for a resting plate, `--elevation-float` for anything floating. The default theme turns both off and holds cards and menus with a hairline. Do not add another shadow.
 - Status colors are text tints and small dots. Do not fill a panel with a status color.

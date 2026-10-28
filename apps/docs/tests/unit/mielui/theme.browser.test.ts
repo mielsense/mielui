@@ -113,7 +113,7 @@ it('scales light-catching edges in both modes without changing cast shadows or f
                 install(
                     themeToCss({
                         ...DEFAULT_THEME,
-                        chrome: { edgeHighlight, surfaceShadows: true }
+                        chrome: { edgeHighlight, surfaceShadows: true, controlShadows: true }
                     })
                 );
                 const root = getComputedStyle(document.documentElement);
@@ -134,5 +134,29 @@ it('scales light-catching edges in both modes without changing cast shadows or f
         }
     } finally {
         probe.remove();
+    }
+});
+
+it('draws .mielui-glow flat by default and lit with .mielui-glow-lit', () => {
+    const flat = document.createElement('button');
+    const lit = document.createElement('button');
+    flat.className = 'mielui-glow';
+    lit.className = 'mielui-glow mielui-glow-lit';
+    document.body.append(flat, lit);
+    const fill = (node: HTMLElement) => {
+        const layers = getComputedStyle(node).backgroundImage.split(/, (?=linear|radial)/);
+
+        return layers.at(-1)?.match(/(?:rgb|oklab|color)\([^)]*\)/g) ?? [];
+    };
+    try {
+        const flatFill = fill(flat);
+        const litFill = fill(lit);
+
+        expect(flatFill).toHaveLength(2);
+        expect(flatFill[0]).toBe(flatFill[1]);
+        expect(litFill[0]).not.toBe(litFill[1]);
+    } finally {
+        flat.remove();
+        lit.remove();
     }
 });

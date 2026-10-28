@@ -121,6 +121,7 @@ describe('ui.css Tier 3 + structure', () => {
             '.mielui-float-frame',
             '.mielui-glow',
             '.mielui-glow-neutral',
+            '.mielui-glow-lit',
             '.mielui-card-frame',
             '.mielui-card-surface',
             '.mielui-modal-frame',

@@ -64,7 +64,7 @@
         'relative inline-flex items-center gap-1 rounded-[min(var(--radius-control),calc(var(--mielui-toggle-group-item)/2+var(--spacing)))] bg-secondary p-1 data-[size=sm]:[--mielui-toggle-group-item:var(--size-control-sm)] data-[size=md]:[--mielui-toggle-group-item:var(--size-control-md)] data-[size=lg]:[--mielui-toggle-group-item:var(--size-control-lg)]';
 
     /**
-     * Dresses the shared traveling highlight as the neutral lit pill. Must run
+     * Dresses the shared traveling highlight as the neutral fill. Must run
      * after `travelingHighlight`, which creates the element.
      */
     function litPill(node: HTMLElement) {

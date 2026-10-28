@@ -264,6 +264,14 @@ export function panelOut(node: Element) {
     });
 }
 
+/**
+ * Panel enter or exit, picked from `open`. Use it as `transition:panelMotion={open}` so a
+ * panel reopened while it closes reverses from where it is instead of restarting.
+ */
+export function panelMotion(node: Element, open: boolean) {
+    return open ? panelIn(node) : panelOut(node);
+}
+
 /** Dialog enter: pops from a slight shrink (pop spring, 400/26). It never slides from an edge. */
 export function dialogIn(node: Element) {
     return panelTransition(node, '--motion-duration-modal-in', 400, {

@@ -46,7 +46,7 @@ export function createThemeEditorState() {
             dark: DEFAULT_THEME.brand
         } as BrandColors,
         ...readThemeAppearance(DEFAULT_THEME),
-        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight ?? DEFAULT_EDGE_HIGHLIGHT,
+        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight || DEFAULT_EDGE_HIGHLIGHT,
         appliedRevision: 0,
         pendingPreset: null as string | null,
         presetDialogOpen: false,

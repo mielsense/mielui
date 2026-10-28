@@ -8,3 +8,5 @@
 - Hover colors on Button, Badge, table rows, calendar days, breadcrumbs, disclosure rows, and other hover-only controls change instantly instead of fading in.
 - The press scale on buttons and menu items settles in 120ms instead of 160ms, and no longer delays hover colors.
 - Closing a Sheet or Dialog while it opens, or reopening it while it closes, turns it around from where it is instead of jumping or snapping into place.
+- Reopening a Popover, DropdownMenu, ContextMenu, HoverCard, or DatePicker while it closes turns it around from where it is instead of restarting its entrance.
+- Clicking a DropdownMenu trigger while its menu closes reopens the menu instead of being swallowed.

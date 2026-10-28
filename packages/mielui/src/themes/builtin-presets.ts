@@ -139,6 +139,7 @@ export const bitsyTheme: Theme = {
     chrome: {
         edgeHighlight: 0.7,
         surfaceShadows: false,
+        controlShadows: true,
         primaryStroke: true,
         interactiveCursor: 'pointer'
     }
@@ -738,6 +739,7 @@ const emberTheme: Theme = {
     chrome: {
         edgeHighlight: 0.6,
         surfaceShadows: false,
+        controlShadows: true,
         primaryStroke: true
     }
 };

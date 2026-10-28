@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { panelMotion } from '@mielui/svelte/transition';
     import { cn, travelingHighlight } from '@mielui/svelte/utils';
     import { ContextMenu as MenuPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
@@ -22,8 +22,7 @@
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
                     <div
                         {...props}
-                        in:panelIn
-                        out:panelOut
+                        transition:panelMotion={open}
                         data-ui="context-menu-sub-content"
                         data-surface={surface}
                         class={cn(

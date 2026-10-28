@@ -38,7 +38,7 @@ export const checkboxBox = tv({
             lg: 'size-[calc(var(--size-hairline)*11)] [&_svg]:size-[calc(var(--size-hairline)*8)]'
         },
         /**
-         * Checked is the primary lit fill: `.mielui-glow` draws the fill and its
+         * Checked is the primary fill: `.mielui-glow` draws the fill and its
          * edges, so the border turns transparent and the focus ring adds to the
          * glow shadow instead of replacing it.
          */

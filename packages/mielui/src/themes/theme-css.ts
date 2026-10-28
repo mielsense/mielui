@@ -385,7 +385,7 @@ export function themeToCss(themeInput: Theme): string {
         '--chart-4: #8ed8b0;',
         '--chart-5: #f2d77d;',
         `--mielui-border-inset-scale: ${borderInsetScale};`,
-        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0.33};`,
+        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0};`,
         ...tokenMapDeclarations(DEFAULT_THEME.tokens?.shared),
         `--font-sans: ${theme.fontSans};`,
         `--font-mono: ${theme.fontMono};`,

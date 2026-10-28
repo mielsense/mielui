@@ -52,13 +52,18 @@
         {/if}
     </EditorSection>
 
-    <EditorSection title="Edges" keywords="highlight light rim">
+    <EditorSection title="Edges" keywords="highlight light rim lit flat">
         <Row label="Edge highlight" reset={editor.appearanceReset('edgeHighlight')}>
             <Switch
                 bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
                 aria-label="Edge highlight"
             />
         </Row>
+        {#if editor.state.edgeHighlight === 0 && !filter.active}
+            <p class="m-0 ps-3 text-xs text-foreground-muted">
+                Off is flat, the default. On lights filled controls.
+            </p>
+        {/if}
         {#if editor.state.edgeHighlight > 0}
             <Row
                 label="Strength"

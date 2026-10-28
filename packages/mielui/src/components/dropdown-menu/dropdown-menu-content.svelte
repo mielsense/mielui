@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { panelMotion } from '@mielui/svelte/transition';
     import { cn, dynamicWidth, travelingHighlight } from '@mielui/svelte/utils';
     import { DropdownMenu as MenuPrimitive } from 'bits-ui';
     import type { Snippet } from 'svelte';
@@ -58,10 +58,10 @@
         }}
     >
         {#snippet child({ props, wrapperProps, open })}
+            {#if open && dismissLayer && allowClickOutside}
+                <div data-overlay-root aria-hidden="true" class="fixed inset-0 z-[129]"></div>
+            {/if}
             {#if open}
-                {#if dismissLayer && allowClickOutside}
-                    <div data-overlay-root aria-hidden="true" class="fixed inset-0 z-[129]"></div>
-                {/if}
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
                     <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                     <div
@@ -69,8 +69,7 @@
                         dir={rest.dir}
                         {role}
                         {tabindex}
-                        in:panelIn
-                        out:panelOut
+                        transition:panelMotion={open}
                         data-ui="dropdown-menu-content"
                         data-surface={surface}
                         class={cn(

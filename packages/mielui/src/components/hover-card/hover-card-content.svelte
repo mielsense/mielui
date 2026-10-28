@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { panelMotion } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { LinkPreview } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
@@ -35,8 +35,7 @@
                         aria-describedby={context.state.description
                             ? `${context.id}-description`
                             : undefined}
-                        in:panelIn
-                        out:panelOut
+                        transition:panelMotion={open}
                         class={cn(
                             className,
                             overlaySurface(surface),

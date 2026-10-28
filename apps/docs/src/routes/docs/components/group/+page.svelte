@@ -189,7 +189,7 @@
             Controls keep their own sizes, variants, focus rings, events, and disabled states.
             Joined controls share one hairline seam and flat inner corners; the outer ends keep the
             control radius, and a focused control sits above its neighbors. Filled buttons keep
-            their lit edge. Hidden form inputs do not affect which visible control gets the rounded
+            their ring. Hidden form inputs do not affect which visible control gets the rounded
             ends.
         </Typography.Text>
         <Typography.Text variant="supporting">

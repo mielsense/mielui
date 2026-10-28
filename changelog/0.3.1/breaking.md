@@ -1,0 +1,9 @@
+- The default theme is flat. Primary, secondary, and destructive buttons, switch and slider thumbs, checked checkboxes and radios, selected tabs, toggles, pagination pages, and calendar days take one solid fill held by a hairline, with no gradient, inner light, or drop shadow. This release should ship as 0.4.0.
+- `chrome.edgeHighlight` defaults to 0 instead of 0.33. Set it above 0 to light every filled control again; 0.33 restores the previous look.
+- `chrome.controlShadows` defaults to off, so fields, outline buttons, keycaps, and toolbar keys are held by their hairline without an edge light or contact shadow.
+- Flat filled controls change tone on hover at once and darken further on press, instead of fading in a light.
+- The `glow` button variant stays lit in every theme, including flat ones. Add the new `mielui-glow-lit` class to light any other `.mielui-glow` control.
+- The `glow` variant is now lit in Ink, Console, and Daydream, which set the edge highlight to 0.
+- The Magic, Open, Functional, Honey, Forest, Ocean, Lilac, Profitable, Raven, Clawd, Inspiration, and Government presets now render flat. Bitsy and Ember keep their lit look.
+- The `panel` button variant no longer carries a resting elevation.
+- Tooltips wait 500ms for a resting pointer instead of 125ms. Keyboard focus opens them at once, and `delay` applies to the pointer only.

@@ -8,7 +8,10 @@ import Trigger from './tooltip-trigger.svelte';
 export type TooltipPlacement = 'top' | 'left' | 'bottom' | 'right';
 
 export type TooltipProps = {
-    /** Milliseconds the pointer rests on the trigger before the tooltip opens. */
+    /**
+     * Milliseconds the pointer rests on the trigger before the tooltip opens.
+     * Keyboard focus opens it at once, and a neighbour opens at once while one is showing.
+     */
     delay?: number;
     /** Milliseconds after the pointer leaves before it closes. */
     closeDelay?: number;

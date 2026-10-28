@@ -16,7 +16,7 @@
     } = $props();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-[11px] rounded-[var(--radius-control)] px-2.5 text-start text-[13px] press-soft text-foreground-muted hover:not-aria-[current=page]:bg-[color-mix(in_oklab,var(--color-foreground)_5%,transparent)] hover:text-foreground aria-[current=page]:transition-[color,transform] aria-[current=page]:[transition-duration:var(--motion-duration-item),120ms] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-foreground [[data-pill-ready]_&]:aria-[current=page]:text-card dark:[[data-pill-ready]_&]:aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-8 w-full min-w-0 items-center gap-[11px] rounded-[var(--radius-control)] px-2.5 text-start text-[13px] press-soft text-foreground-muted hover:not-aria-[current=page]:bg-[color-mix(in_oklab,var(--color-foreground)_5%,transparent)] hover:text-foreground aria-[current=page]:transition-[color,transform] aria-[current=page]:[transition-duration:var(--motion-duration-item),120ms] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
         'flex h-8 items-center gap-2.5 rounded-[var(--radius-control)] px-2 text-[13px] font-medium text-foreground';
 

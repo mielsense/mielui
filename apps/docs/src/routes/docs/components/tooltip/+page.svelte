@@ -77,13 +77,13 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={'Wrap a focusable control in Trigger and put its hint in Content. The hint opens on hover or focus and Escape closes it. Root and Provider add no element, and Trigger wraps its child in an inline span.'}
+                text={'Wrap a focusable control in Trigger and put its hint in Content. The hint opens when the pointer rests or the keyboard focuses, and Escape closes it. Root and Provider add no element, and Trigger wraps its child in an inline span.'}
             />
         </Typography.Text>
         <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
             <InlineText
-                text={'`placement` on Root picks the side, `top` by default, and the bubble flips when it would leave the viewport. `delay` and `closeDelay` are in milliseconds, 125 and 100 by default. Moving to another trigger while a tooltip is open skips the delay. Set `showOnClick` on Trigger to also show the tooltip on click, for touch screens or to confirm a copy.'}
+                text={'`placement` on Root picks the side, `top` by default, and the bubble flips when it would leave the viewport. `delay` and `closeDelay` are in milliseconds, 500 and 100 by default. `delay` is how long the pointer rests on the trigger: keyboard focus opens the tooltip at once, while a click that focuses the trigger still waits. Moving to another trigger while a tooltip is open skips the delay. Set `showOnClick` on Trigger to also show the tooltip on click, for touch screens or to confirm a copy.'}
             />
         </Typography.Text>
     </section>

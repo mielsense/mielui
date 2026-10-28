@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { panelMotion } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
@@ -36,8 +36,7 @@
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
                     <div
                         {...props}
-                        in:panelIn
-                        out:panelOut
+                        transition:panelMotion={open}
                         data-ui="date-picker-content"
                         data-surface={surface}
                         class={cn(className, overlaySurface(surface), 'z-[130] mielui-float-frame max-h-[var(--bits-popover-content-available-height)] max-w-[var(--bits-popover-content-available-width)] overflow-auto text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-popover-content-transform-origin)]')}

@@ -260,8 +260,8 @@
                 {' '}
                 to keep the input on its own surface with the toolbar on the frame under it. Toolbar
                 controls are ghost buttons and triggers. Outline ones render as flat pills at the
-                same height. Send is the one lit pill, and it turns neutral while it stops a
-                response.
+                same height. Send is the one filled primary pill, and it turns neutral while it
+                stops a response.
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
         </div>
