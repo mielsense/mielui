@@ -73,7 +73,7 @@
             aria-label={eyedropperLabel}
             title={eyedropperLabel}
             data-ui="color-picker-eyedropper"
-            class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+            class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)]"
             onclick={pickFromScreen}
         >
             <HugeiconsIcon icon={Pipette} size={13} aria-hidden="true" />

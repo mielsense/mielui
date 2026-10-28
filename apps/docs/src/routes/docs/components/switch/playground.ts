@@ -1,4 +1,4 @@
-import { attributes, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import { attributes, type PlaygroundValues, toggle } from '#lib/components/docs/playground.js';
 
 export const controls = {
     label: toggle('Label', 'Content', true),

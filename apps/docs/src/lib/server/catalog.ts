@@ -1,4 +1,4 @@
-import { catalogPages, sanitizeComponent } from '$lib/components';
+import { catalogPages, sanitizeComponent } from '#lib/components.js';
 
 type CatalogManifest = {
     name: string;

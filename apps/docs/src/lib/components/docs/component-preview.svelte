@@ -7,7 +7,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
-    import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { fadeX, scrollFade } from '#lib/components/shell/scroll-fade.js';
     import PreviewAction from './preview-action.svelte';
     import PreviewCode from './preview-code.svelte';
     import PreviewFullscreen from './preview-fullscreen.svelte';

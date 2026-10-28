@@ -66,12 +66,12 @@
     /* One base scale. Plates take 2xl, floating panels and multi-line fields xl,
        rows md. Everything pressable takes the control radius, which the rounded
        scale turns into a pill. */
-    --radius-sm: 8px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 18px;
-    --radius-2xl: 26px;
-    --radius-control: 12px;
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 28px;
+    --radius-control: 14px;
     --mielui-squircle: 1;
     --font-size-header: 16px;
     --font-size-body: 14px;
@@ -111,32 +111,20 @@
     --tracking-button: 0em;
     --tracking-badge: 0em;
 
-    /* Elevation is binary: resting or floating. The default theme draws cards and
-       menus with a hairline alone and keeps shadows for dialogs; themes can turn
-       surface shadows on. */
-    --mielui-edge-highlight: 0.33;
-    --elevation-control-edge:
-        inset 0 1px 0 0 rgb(255 255 255 / calc(0.7 * var(--mielui-edge-highlight))),
-        inset 0 -1px 0 0 rgb(0 0 0 / 0.05);
-    --mielui-toolbar-face: linear-gradient(
-        to bottom,
-        rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))),
-        rgb(0 0 0 / 0.04)
-    );
-    --mielui-toolbar-raised:
-        var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border),
-        0 1px 0 var(--color-border), 0 2px 2px rgb(0 0 0 / 0.08);
-    --mielui-toolbar-pressed:
-        inset 0 0 0 var(--border-size) var(--color-border), inset 0 1px 2px rgb(0 0 0 / 0.1);
+    /* Elevation is binary: resting or floating. The default theme is flat: cards
+       and menus take a hairline alone, controls take no edge light or shadow, and
+       only dialogs cast a shadow. Themes can turn the light and each shadow on. */
+    --mielui-edge-highlight: 0;
+    --elevation-control-edge: 0 0 0 0 transparent;
+    --mielui-toolbar-face: none;
+    --mielui-toolbar-raised: inset 0 0 0 var(--border-size) var(--color-border);
+    --mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border);
     --elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / 0);
     --elevation-1: 0 0 0 0 transparent;
     --elevation-float: 0 0 0 0 transparent;
     --elevation-modal: 0 1px 2px rgb(0 0 0 / 0.08), 0 16px 48px -8px rgb(0 0 0 / 0.16);
     --elevation-control: inset 0 0 0 var(--border-size) var(--color-input);
-    --elevation-button-outline:
-        inset 0 0 0 var(--border-size) var(--color-input),
-        inset 0 1px 0 0 rgb(255 255 255 / calc(0.9 * var(--mielui-edge-highlight))),
-        0 1px 2px rgb(0 0 0 / 0.05);
+    --elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-input);
     --focus-ring: 0 0 0 3px var(--color-ring);
 
     /* One spring family, expressed as linear() curves so CSS and the transition
@@ -242,7 +230,7 @@
     --motion-duration-modal-in: 400ms;
     --motion-duration-modal-out: 150ms;
     --motion-press-px: var(--size-hairline);
-    --motion-duration-press: 160ms;
+    --motion-duration-press: 120ms;
     --motion-duration-item: 110ms;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-press: cubic-bezier(0.22, 1, 0.36, 1);
@@ -355,32 +343,17 @@
     --color-code-builtin: #ffa657;
     --color-code-entity: #7ee787;
     --color-code-meta: #79c0ff;
-    --elevation-control-edge:
-        inset 0 1px 0 0 rgb(255 255 255 / calc(0.14 * var(--mielui-edge-highlight))),
-        inset 0 -1px 0 0 rgb(0 0 0 / 0.2);
-    --mielui-toolbar-face: linear-gradient(
-        to bottom,
-        rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))),
-        rgb(0 0 0 / 0.04)
-    );
-    --mielui-toolbar-raised:
-        inset 0 1px 0 rgb(255 255 255 / calc(0.18 * var(--mielui-edge-highlight))), inset 0 -1px 0 rgb(
-            0 0 0 / 0.2
-        ), 0 0 0 var(--border-size) rgb(0 0 0 / 0.6), 0 1px 0 1px rgb(0 0 0 / 0.45), 0 2px 3px rgb(
-            0 0 0 / 0.2
-        );
-    --mielui-toolbar-pressed:
-        inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.35), inset 0 1px 2px rgb(0 0 0 / 0.3);
+    --elevation-control-edge: 0 0 0 0 transparent;
+    --mielui-toolbar-face: none;
+    --mielui-toolbar-raised: inset 0 0 0 var(--border-size) var(--color-border);
+    --mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border);
     --elevation-surface-edge: inset 0 1px 0 0
         rgb(255 255 255 / calc(0.08 * var(--mielui-edge-highlight)));
     --elevation-1: 0 0 0 0 transparent;
     --elevation-float: 0 0 0 0 transparent;
     --elevation-modal:
         var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4), 0 24px 56px -8px rgb(0 0 0 / 0.6);
-    --elevation-button-outline:
-        inset 0 0 0 var(--border-size) var(--color-input),
-        inset 0 1px 0 0 rgb(255 255 255 / calc(0.1 * var(--mielui-edge-highlight))),
-        0 1px 2px rgb(0 0 0 / 0.3);
+    --elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-input);
 }
 
 /* Plates take continuous-curvature corners where the browser can draw them. The
@@ -583,20 +556,34 @@
         background-color: transparent;
     }
 
-    /* The lit material, after the Lime design system's "glow" on design.how. A gradient
-       of the control's own color under faint white light layers, with every edge
-       drawn by box-shadow and no drop shadow. It is the one material for filled
-       actions and moving thumbs. Set --mielui-glow-color for the fill and lower
-       --mielui-glow-light on dark fills so the light stays soft. The theme's edge
-       highlight scales the light everywhere at once. */
+    /* The filled material for actions and moving thumbs. It is flat by default: one
+       solid fill held by a hairline ring. The theme's edge highlight lights it, after
+       the Lime design system's "glow" on design.how: a gradient of the control's own
+       color under faint white light layers, every edge drawn by box-shadow, and no
+       drop shadow. Set --mielui-glow-color for the fill and lower --mielui-glow-light
+       on dark fills so the light stays soft. --mielui-glow-on is 1 when lit, 0 when
+       flat. The fill stays on background-image so `bg-none` can hide it. */
     .mielui-glow {
         --mielui-glow-color: color-mix(in oklab, var(--color-primary) 55%, #fff);
         --mielui-glow-light: 1;
-        --mielui-glow-l: calc(var(--mielui-glow-light) * var(--mielui-edge-highlight, 0.5) * 2);
-        --mielui-glow-top: color-mix(in oklab, var(--mielui-glow-color) 95%, #000);
+        --mielui-glow-strength: var(--mielui-edge-highlight, 0);
+        --mielui-glow-l: calc(var(--mielui-glow-light) * var(--mielui-glow-strength) * 2);
+        --mielui-glow-on: clamp(0, calc(var(--mielui-glow-strength) * 1000), 1);
+        --mielui-glow-tone: 0;
+        --mielui-glow-tone-l: -0.55;
+        --mielui-glow-fill: color-mix(
+            in oklab,
+            var(--mielui-glow-color),
+            var(--color-foreground) calc(var(--mielui-glow-tone) * 100%)
+        );
+        --mielui-glow-top: color-mix(
+            in oklab,
+            var(--mielui-glow-fill) calc(100% - 5% * var(--mielui-glow-on)),
+            #000
+        );
         --mielui-glow-bottom: color-mix(
             in oklab,
-            var(--mielui-glow-color) calc(100% - 30% * var(--mielui-glow-l)),
+            var(--mielui-glow-fill) calc(100% - 30% * var(--mielui-glow-l)),
             #fff
         );
         --mielui-glow-ring: color-mix(
@@ -634,16 +621,36 @@
             linear-gradient(180deg, var(--mielui-glow-top), var(--mielui-glow-bottom));
     }
 
-    /* The neutral lit material: selected segments and moving thumbs. A white fill on a
+    /* The neutral material: selected segments and moving thumbs. A white fill on a
        grey track in light mode, a lifted grey one in dark mode. */
     .mielui-glow-neutral {
         --mielui-glow-color: var(--color-card);
         --mielui-glow-ring: var(--color-border);
     }
 
+    .mielui-glow:where(.dark, .dark *) {
+        --mielui-glow-tone-l: 0.7;
+    }
+
+    /* Shift lightness by the same amount on every fill, so mid-tone fills in dark mode
+       move as much as grey ones. The color-mix above is the fallback. */
+    @supports (color: oklch(from red l c h)) {
+        .mielui-glow {
+            --mielui-glow-fill: oklch(
+                from var(--mielui-glow-color)
+                    calc(l + var(--mielui-glow-tone) * var(--mielui-glow-tone-l)) c h
+            );
+        }
+    }
+
     .mielui-glow-neutral:where(.dark, .dark *) {
         --mielui-glow-color: color-mix(in srgb, var(--color-foreground) 16%, var(--color-card));
         --mielui-glow-light: 0.12;
+    }
+
+    /* Lit whatever the theme says: at least the default light strength. */
+    .mielui-glow-lit {
+        --mielui-glow-strength: max(0.3, var(--mielui-edge-highlight, 0));
     }
 
     .mielui-glow::before {
@@ -673,16 +680,28 @@
         box-shadow: inset 0 -1px 3px 0 rgb(255 255 255 / calc(0.9 * var(--mielui-glow-l)));
     }
 
+    /* Lit hover fades in more light. Flat hover shifts the whole fill toward the ink
+       at once, and press shifts it further. */
+    .mielui-glow:hover:not(:disabled):not([aria-disabled='true']),
+    .mielui-glow[data-state='open'] {
+        --mielui-glow-tone: calc(0.06 * (1 - var(--mielui-glow-on)));
+    }
+
     .mielui-glow:hover::before,
     .mielui-glow[data-state='open']::before {
-        opacity: 1;
+        opacity: var(--mielui-glow-on);
     }
 
     .mielui-glow:active:not(:disabled):not([aria-disabled='true']) {
-        --mielui-glow-top: color-mix(in oklab, var(--mielui-glow-color) 86%, #000);
+        --mielui-glow-tone: calc(0.12 * (1 - var(--mielui-glow-on)));
+        --mielui-glow-top: color-mix(
+            in oklab,
+            var(--mielui-glow-fill) calc(100% - 14% * var(--mielui-glow-on)),
+            #000
+        );
         --mielui-glow-bottom: color-mix(
             in oklab,
-            var(--mielui-glow-color) calc(100% - 12% * var(--mielui-glow-l)),
+            var(--mielui-glow-fill) calc(100% - 12% * var(--mielui-glow-l)),
             #fff
         );
     }

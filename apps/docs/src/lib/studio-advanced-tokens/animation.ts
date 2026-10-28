@@ -170,7 +170,7 @@ export const animationTokenDefinitions = [
         name: '--motion-duration-press',
         label: 'Press duration',
         group: 'Speed',
-        fallback: '160ms',
+        fallback: '120ms',
         kind: 'duration',
         min: 0,
         max: 600,

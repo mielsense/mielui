@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants';
 export const DISCLOSURE_ICON_SIZE = 14;
 
 export const disclosureTrigger = tv({
-    base: 'mielui-press min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-md)] px-2 text-start hover:cursor-[var(--ui-cursor-interactive)] transition-[background-color,color,transform,scale] [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-press),var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none enabled:hover:bg-[var(--color-wash)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
+    base: 'mielui-press min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-md)] px-2 text-start hover:cursor-[var(--ui-cursor-interactive)] transition-[transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none enabled:hover:bg-[var(--color-wash)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
     variants: {
         layout: {
             row: 'flex w-full',

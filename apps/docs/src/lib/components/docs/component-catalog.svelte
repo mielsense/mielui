@@ -4,11 +4,11 @@
     import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import CatalogPreview from '#lib/components/docs/catalog-preview.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import { edgeBlurLayers } from '#lib/components/shell/scroll-fade.js';
+    import { componentTypes, sanitizeComponent } from '#lib/components.js';
     import { resolve } from '$app/paths';
-    import { componentTypes, sanitizeComponent } from '$lib/components';
-    import CatalogPreview from '$lib/components/docs/catalog-preview.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import { edgeBlurLayers } from '$lib/components/shell/scroll-fade';
 
     type CatalogGroup = {
         id: string;

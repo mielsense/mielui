@@ -1,0 +1,13 @@
+- Fixed docs pages going partly or fully blank while scrolling the sidebar in Chrome. Pinned sidebar labels now fade without a blur.
+- Component pages appear complete after an in-app link, so scrolling down quickly no longer reaches examples that are still loading.
+- A docs page opened from an in-app link no longer flashes at the previous scroll position or jumps back to the top after scrolling starts.
+- Scrolling the docs no longer restyles the whole page on every frame, so it stays smooth on long pages.
+- An open docs tab picks up a new deploy on the next link instead of running the old version until a reload.
+- Scrolling a docs page quickly in Chrome no longer leaves parts of it blank.
+- The component catalog renders every preview with the page, so scrolling quickly no longer reaches empty cards that fill in afterwards.
+- Hover colors on Button, Badge, table rows, calendar days, breadcrumbs, disclosure rows, and other hover-only controls change instantly instead of fading in.
+- The press scale on buttons and menu items settles in 120ms instead of 160ms, and no longer delays hover colors.
+- Closing a Sheet or Dialog while it opens, or reopening it while it closes, turns it around from where it is instead of jumping or snapping into place.
+- Reopening a Popover, DropdownMenu, ContextMenu, HoverCard, or DatePicker while it closes turns it around from where it is instead of restarting its entrance.
+- Clicking a DropdownMenu trigger while its menu closes reopens the menu instead of being swallowed.
+- In light mode, checked Checkbox and Radio fills and the on Switch track are slightly darker, so the default brand color reaches 3:1 against the page.

@@ -7,10 +7,10 @@ import {
     changelogLlmVersions,
     changelogMarkdown,
     changelogVersions
-} from '$lib/changelog';
-import { componentGroups, components, sanitizeComponent } from '$lib/components';
-import { brandMarkMarkdown, componentMarkdown, componentsMarkdown } from '$lib/llms';
-import { mieluiGuideMarkdown, skillMarkdown } from '$lib/skill';
+} from '#lib/changelog.js';
+import { componentGroups, components, sanitizeComponent } from '#lib/components.js';
+import { brandMarkMarkdown, componentMarkdown, componentsMarkdown } from '#lib/llms.js';
+import { mieluiGuideMarkdown, skillMarkdown } from '#lib/skill.js';
 import { GET as getChangelog } from '../../../src/routes/changelog/[version].md/+server';
 import { GET as getLlms } from '../../../src/routes/llms.txt/+server';
 import { GET as getRobots } from '../../../src/routes/robots.txt/+server';
@@ -48,7 +48,7 @@ describe('docs release contracts', () => {
         const homepage = readFileSync(resolve(root, 'apps/docs/src/routes/+page.svelte'), 'utf8');
         const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
         expect(homepage).toContain(`\${components.length} Svelte`);
-        expect(homepage).toMatch(/\{components\.length\}\s+components\. One theme\./);
+        expect(homepage).toMatch(/Mielui is \{components\.length\}\s+components for Svelte 5/);
         expect(readme).toContain(`badge/Components-${components.length}-`);
     });
 
@@ -243,7 +243,6 @@ describe('docs release contracts', () => {
         const compose = readFileSync(resolve(root, 'docker-compose.yml'), 'utf8');
         const dockerfile = readFileSync(resolve(root, 'apps/docs/Dockerfile'), 'utf8');
         const registryDockerfile = readFileSync(resolve(root, 'apps/registry/Dockerfile'), 'utf8');
-        const config = readFileSync(resolve(root, 'apps/docs/svelte.config.js'), 'utf8');
         const viteConfig = readFileSync(resolve(root, 'apps/docs/vite.config.ts'), 'utf8');
 
         // Compose still wires registry for local full-stack dev; v1 public docs do not require it.
@@ -254,7 +253,6 @@ describe('docs release contracts', () => {
         expect(dockerfile).toContain('pnpm install --frozen-lockfile --ignore-scripts');
         expect(dockerfile).toContain('COPY apps/installer-lab/package.json');
         expect(dockerfile).not.toContain('/repo/node_modules ./node_modules');
-        expect(config).toContain("process.env.DOCS_ADAPTER === 'node'");
         expect(viteConfig).toContain("process.env.DOCS_ADAPTER === 'node'");
         expect(viteConfig).toMatch(/noExternal:\s*\[/);
         for (const dependency of [

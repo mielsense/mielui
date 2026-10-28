@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { overlayIn, overlayOut, sheetIn, sheetOut } from '@mielui/svelte/transition';
+    import { overlayIn, type SheetSide, sheetIn, sheetOut } from '@mielui/svelte/transition';
     import { cn, inertOutside, lockBodyScroll, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import { tick } from 'svelte';
@@ -26,6 +26,10 @@
         panelEl: () => element
     });
     const mounted = useDeferredClose(() => sheetState.open);
+
+    function sheetMotion(node: Element, params: { side: SheetSide }) {
+        return sheetState.open ? sheetIn(node, params) : sheetOut(node, params);
+    }
 
     /**
      * Moves the host to `<body>` before the sheet opens, so it escapes ancestor
@@ -88,8 +92,7 @@
                     class="pointer-events-none fixed inset-x-0 top-[var(--mielui-viewport-top)] z-[115] h-[var(--mielui-viewport-height)] [&>*]:pointer-events-auto"
                 >
                     <div
-                        in:overlayIn
-                        out:overlayOut
+                        transition:overlayIn
                         data-ui="sheet-overlay"
                         class="mielui-overlay-scrim absolute inset-0"
                         aria-hidden="true"
@@ -102,8 +105,7 @@
                         data-side={side}
                         data-motion="sheet"
                         data-orientation="vertical"
-                        in:sheetIn={{ side }}
-                        out:sheetOut={{ side }}
+                        transition:sheetMotion={{ side }}
                         class={cn(
                             className,
                             overlaySurface(surface),

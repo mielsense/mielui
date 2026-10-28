@@ -4,9 +4,9 @@
     import * as Collapsible from '@mielui/svelte/components/collapsible';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Default from './examples/default.svelte';
     import DefaultSrc from './examples/default.svelte?raw';
     import Hero from './examples/hero.svelte';

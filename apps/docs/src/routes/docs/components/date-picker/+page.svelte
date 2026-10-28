@@ -4,9 +4,9 @@
     import * as DatePicker from '@mielui/svelte/components/date-picker';
     import * as Group from '@mielui/svelte/components/group';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import {
         hasTime,
         isBooked,
@@ -15,7 +15,7 @@
         startDate,
         startTime,
         weekendMatcher
-    } from '$lib/components/docs/playground/calendar';
+    } from '#lib/components/docs/playground/calendar.js';
     import CalendarOptionsExample from './examples/calendar-options.svelte';
     import CalendarOptionsExampleSrc from './examples/calendar-options.svelte?raw';
     import DisabledExample from './examples/disabled.svelte';

@@ -1,40 +1,75 @@
 <script lang="ts">
     import {
-        ArrowRight02Icon as ArrowRight,
-        Menu01Icon as Menu,
-        Cancel01Icon as X
+        AiChat02Icon,
+        ArrowRight01Icon,
+        ArrowUpRight01Icon,
+        BookOpen01Icon,
+        CodeIcon,
+        GithubIcon,
+        Layers01Icon,
+        Mortarboard01Icon,
+        PaintBoardIcon,
+        PuzzleIcon
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import * as Sheet from '@mielui/svelte/components/sheet';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import HomeDemos from '#lib/components/demos/demos.svelte';
+    import HomeCompose from '#lib/components/home/compose.svelte';
+    import HomeWall from '#lib/components/home/wall.svelte';
+    import Logo from '#lib/components/logo.svelte';
+    import { groupLook, mesh } from '#lib/components/shell/look.js';
+    import type { ShellIcon } from '#lib/components/shell/page-icon.js';
+    import Sticker from '#lib/components/shell/sticker.svelte';
+    import ThemeToggle from '#lib/components/shell/theme-toggle.svelte';
+    import {
+        catalogPages,
+        components,
+        componentTypeHref,
+        navigationGroups,
+        sanitizeComponent
+    } from '#lib/components.js';
+    import { formatStarCount, GITHUB_URL, githubLabel } from '#lib/github.js';
     import { resolve } from '$app/paths';
-    import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
-    import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { components } from '$lib/components';
-    import PackageCommand from '$lib/components/docs/package-command.svelte';
-    import Rows from '$lib/components/docs/rows.svelte';
-    import { catalogSections } from '$lib/docs-pages';
-    import '$lib/components/docs/docs-layout.css';
-    import HomeDemos from '$lib/components/demos/demos.svelte';
-    import HomeShowcase from '$lib/components/home/showcase.svelte';
-    import Logo from '$lib/components/logo.svelte';
-    import ThemeToggle from '$lib/components/shell/theme-toggle.svelte';
-    import { formatStarCount, GITHUB_URL } from '$lib/github';
+    import pkg from '../../../../packages/mielui/package.json';
 
     import type { PageData } from './$types';
 
     let { data }: { data: PageData } = $props();
 
+    const stars = $derived(formatStarCount(data.starCount ?? null));
+
     const title = 'Mielui · Svelte components you own';
     const description = `${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`;
+    const installCommand = 'pnpm add @mielui/svelte';
 
-    let mobileMenuOpen = $state(false);
+    const nav = [
+        {
+            href: resolve('/docs/introduction'),
+            label: 'Docs'
+        },
+        {
+            href: resolve('/studio'),
+            label: 'Studio'
+        }
+    ];
 
-    const links = [
-        { href: resolve('/docs/components'), label: 'Components' },
-        { href: resolve('/docs/introduction'), label: 'Documentation' },
-        { href: resolve('/studio'), label: 'Studio' }
+    const actions = navigationGroups.find((group) => group.id === 'actions');
+    const groups = [
+        ...catalogPages.map((group) => {
+            return {
+                ...groupLook(group.id, group.heading, componentTypeHref(group.id)),
+                items: group.items
+            };
+        }),
+        ...(actions
+            ? [
+                  {
+                      ...groupLook(actions.id, actions.heading, '/docs/actions'),
+                      items: actions.items
+                  }
+              ]
+            : [])
     ];
 
     const firstComponent = `<script>
@@ -45,39 +80,44 @@
 
     const next = [
         {
-            label: 'Theme Studio',
-            value: 'Set color, type, corners, spacing, and motion, then export CSS or JSON.',
-            href: resolve('/studio')
+            href: resolve('/docs/installation'),
+            title: 'Copy the source',
+            detail: 'pnpm dlx @mielui/svelte add button puts the file in your project.',
+            external: false,
+            icon: CodeIcon,
+            mesh: mesh.indigo
         },
         {
-            label: 'Theming',
-            value: 'Apply a preset or connect the tokens to your own design.',
-            href: resolve('/docs/theming')
+            href: resolve('/docs/agent-skill'),
+            title: 'Teach your agent',
+            detail: 'The Mielui skill gives coding agents the current component APIs.',
+            external: false,
+            icon: Mortarboard01Icon,
+            mesh: mesh.teal
         },
         {
-            label: 'Agent skill',
-            value: 'Give your coding agent the current APIs and patterns.',
-            href: resolve('/docs/agent-skill')
+            href: resolve('/studio'),
+            title: 'Make a theme',
+            detail: 'Tune color, type, corners, and motion, then export CSS.',
+            external: false,
+            icon: PaintBoardIcon,
+            mesh: mesh.pink
+        },
+        {
+            href: GITHUB_URL,
+            title: 'Read the code',
+            detail: 'Every component is plain Svelte and Tailwind, MIT licensed.',
+            external: true,
+            icon: GithubIcon,
+            mesh: mesh.lime
         }
     ];
 
-    const sections = [
-        {
-            id: 'home-install',
-            title: 'Get started',
-            description: 'Install the package, import one stylesheet, and use a component.'
-        },
-        {
-            id: 'home-inside',
-            title: `${components.length} components`,
-            description: 'Native controls, overlays, charts, and AI interfaces on one theme.'
-        },
-        {
-            id: 'home-next',
-            title: 'Make it yours',
-            description: 'Every component reads the same tokens, so one theme restyles all of them.'
-        }
-    ];
+    const lean =
+        'transition-transform duration-150 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none';
+    const leanOut = `${lean} group-hover:-translate-y-0.5`;
+    const heading = 'display m-0 text-3xl sm:text-4xl';
+    const intro = 'm-0 max-w-[36rem] text-base leading-relaxed text-foreground-muted';
 </script>
 
 <svelte:head>
@@ -89,167 +129,282 @@
     <meta name="twitter:description" content={description} />
 </svelte:head>
 
-<div class="@container flex min-h-dvh flex-col bg-background p-3 pt-0 sm:p-4 sm:pt-0">
-    <a
-        href="#home-content"
-        class="sr-only z-50 rounded-md bg-card px-4 py-2 text-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
-    >
-        Skip to content
-    </a>
-    <Sheet.Root bind:open={mobileMenuOpen}>
-        <header
-            class="relative z-20 mx-auto grid h-16 w-full grid-cols-[1fr_auto] items-center gap-4 px-2 @3xl:grid-cols-[1fr_auto_1fr] @3xl:px-6"
-        >
-            <Logo />
-            <nav aria-label="Primary" class="hidden items-center gap-0.5 @3xl:flex">
-                {#each links as link (link.href)}
-                    <Button
-                        variant="ghost"
-                        href={link.href}
-                        class="font-normal text-foreground-muted hover:text-foreground"
-                    >
-                        {link.label}
-                    </Button>
-                {/each}
-            </nav>
-            <div class="flex items-center justify-end gap-2">
-                <Button
-                    variant="outline"
-                    href={GITHUB_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Star mielui on GitHub"
-                    class="gap-2"
-                >
-                    <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
-                    <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
-                    <span class="tabular-nums">{formatStarCount(data.starCount ?? null)}</span>
-                </Button>
-                <ThemeToggle class="size-[var(--size-icon-md)]" />
-                <Sheet.Trigger
-                    class="@3xl:hidden"
-                    aria-label="Open navigation menu"
-                    variant="ghost"
-                    size="icon"
-                >
-                    <HugeiconsIcon icon={Menu} size={18} />
-                </Sheet.Trigger>
-            </div>
-        </header>
-        <Sheet.Content side="left" class="p-0">
-            <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
-            <Sheet.Description class="sr-only">
-                Documentation, components, and Theme Studio.
-            </Sheet.Description>
-            <div class="flex items-center justify-between px-5 py-4">
-                <Logo />
-                <Sheet.Close aria-label="Close navigation menu" variant="ghost" size="icon">
-                    <HugeiconsIcon icon={X} size={18} />
-                </Sheet.Close>
-            </div>
-            <nav aria-label="Mobile navigation" class="flex flex-col gap-2 p-4">
-                {#each links as link (link.href)}
-                    <Button
-                        variant="ghost"
-                        class="justify-start"
-                        href={link.href}
-                        onclick={() => {
-                            mobileMenuOpen = false;
-                        }}
-                    >
-                        {link.label}
-                    </Button>
-                {/each}
-            </nav>
-        </Sheet.Content>
-    </Sheet.Root>
+{#snippet label(text: string, icon: ShellIcon, background: string)}
+    <p class="m-0 flex items-center gap-2 text-sm font-medium text-foreground">
+        <Sticker {icon} mesh={background} />
+        {text}
+    </p>
+{/snippet}
 
-    <section
-        id="home-content"
-        aria-labelledby="home-title"
-        class="relative isolate grid w-full shrink-0 grid-cols-1 overflow-hidden rounded-[var(--radius-xl)] bg-[color-mix(in_oklab,var(--color-primary)_18%,#18181b)] text-white @5xl:h-[clamp(32rem,calc(100svh-11rem),44rem)] @5xl:grid-cols-[0.9fr_1.1fr]"
-    >
-        <div
-            aria-hidden="true"
-            class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_95%_10%,color-mix(in_oklab,var(--color-primary)_30%,transparent),transparent_60%),linear-gradient(115deg,color-mix(in_oklab,var(--color-primary)_8%,#18181b)_20%,color-mix(in_oklab,var(--color-primary)_28%,#18181b)_75%,color-mix(in_oklab,var(--color-primary)_45%,#18181b))]"
-        ></div>
-        <div
-            class="relative z-10 flex flex-col justify-center px-7 pt-12 pb-5 @xl:px-10 @5xl:py-12 @6xl:px-14"
+{#snippet more(href: string, text: string)}
+    <a {href} class="group inline-flex items-center gap-1 self-start text-sm text-foreground">
+        <span
+            class="underline decoration-border-strong decoration-1 underline-offset-4 group-hover:decoration-current"
         >
-            <h1
-                id="home-title"
-                class="text-4xl leading-[1.1] font-medium tracking-[-0.035em] @xl:text-5xl"
-            >
-                Svelte UI.<br />
-                Your way.
-            </h1>
-            <p class="mt-5 max-w-xs text-base leading-relaxed text-white/70">
-                {components.length}
-                components. One theme.<br />
-                The source is yours.
-            </p>
-            <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-                <Button
-                    href={resolve('/docs/components')}
-                    variant="glow"
-                    class="h-10 px-4 text-[color-mix(in_oklab,var(--color-primary)_25%,#18181b)] [--mielui-glow-color:color-mix(in_oklab,var(--color-primary)_16%,white)] [--mielui-glow-light:1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                    Browse components<HugeiconsIcon icon={ArrowRight} size={15} />
-                </Button>
-                <a
-                    href={resolve('/studio')}
-                    class="rounded-sm text-sm text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                    Open Studio
-                </a>
-            </div>
+            {text}
+        </span>
+        <HugeiconsIcon icon={ArrowRight01Icon} size={13} class={lean} />
+    </a>
+{/snippet}
+
+<a
+    href="#home-content"
+    class="sr-only z-50 rounded-md bg-card px-4 py-2 text-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
+>
+    Skip to content
+</a>
+
+<header>
+    <div class="wrap flex h-16 items-center gap-2">
+        <div class="me-auto">
+            <Logo />
         </div>
-        <div class="relative min-w-0 px-7 pb-5 @xl:px-10 @5xl:py-6 @5xl:pl-3 @5xl:pr-10 @6xl:pr-14">
-            <HomeShowcase />
+        <nav aria-label="Site" class="flex items-center gap-1.5">
+            {#each nav as link, index (link.href)}
+                <a
+                    href={link.href}
+                    class={[
+                        'press h-8 items-center rounded-[9px] px-3 text-sm text-foreground-muted hover:bg-[color-mix(in_oklab,var(--color-foreground)_5%,transparent)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none',
+                        index === 0 ? 'flex' : 'hidden md:flex'
+                    ]}
+                >
+                    {link.label}
+                </a>
+            {/each}
+            <Button
+                variant="ghost"
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={githubLabel(data.starCount ?? null)}
+                class="hidden h-8 gap-1.5 px-2.5 text-foreground-muted hover:text-foreground md:inline-flex"
+            >
+                <HugeiconsIcon icon={GithubIcon} size={16} />
+                <span class="text-sm tabular-nums">{stars}</span>
+            </Button>
+            <ThemeToggle />
+            <Button
+                href={resolve('/docs/installation')}
+                size="sm"
+                class="ms-1.5 hidden md:inline-flex"
+            >
+                Get started
+            </Button>
+        </nav>
+    </div>
+</header>
+
+<main id="home-content" class="flex flex-col">
+    <section
+        aria-labelledby="home-title"
+        class="stagger wrap flex flex-col items-center gap-5 pt-10 pb-20 text-center sm:pt-20 sm:pb-28"
+    >
+        <a
+            href={resolve('/docs/changelog')}
+            class="group press inline-flex h-7 items-center gap-1.5 rounded-full bg-card ps-1 pe-2.5 text-xs text-foreground-muted shadow-[0_0_0_1px_var(--color-border)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+        >
+            <span
+                class="rounded-full bg-secondary px-2 py-0.5 font-medium text-foreground tabular-nums"
+            >
+                {pkg.version}
+            </span>
+            What's new
+            <HugeiconsIcon icon={ArrowRight01Icon} size={12} class={lean} />
+        </a>
+        <h1 id="home-title" class="display m-0 max-w-[52rem] text-5xl sm:text-6xl lg:text-7xl">
+            Svelte components you can <span class="accent">own</span>
+        </h1>
+        <p class="m-0 max-w-[40rem] text-lg leading-relaxed text-foreground-muted">
+            Mielui is {components.length} components for Svelte 5 and Tailwind v4. They read one set
+            of design tokens, so a theme restyles all of them. Pick one below and watch.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-2">
+            <Button href={resolve('/docs/components')} size="lg" class="ps-4">
+                <HugeiconsIcon icon={Layers01Icon} size={16} />
+                Browse components
+            </Button>
+            <Button
+                href={resolve('/docs/introduction')}
+                variant="glow"
+                size="lg"
+                class="glow-plain ps-4 max-sm:hidden"
+            >
+                <HugeiconsIcon icon={BookOpen01Icon} size={16} />
+                Read the docs
+            </Button>
+        </div>
+        <div class="mt-5 w-full text-start sm:mt-7" data-rise>
+            <HomeWall />
         </div>
     </section>
-    <div class="mx-auto w-full max-w-[84rem] px-2 pt-20 @3xl:px-6">
-        <HomeDemos />
-    </div>
-    <div
-        class="docs-article mx-auto flex w-full max-w-[84rem] flex-col gap-20 px-2 py-20 @3xl:px-6"
-    >
-        {#each sections as section (section.id)}
-            <section
-                aria-labelledby={section.id}
-                class="grid grid-cols-1 gap-x-12 gap-y-5 @4xl:grid-cols-[18rem_minmax(0,1fr)]"
-            >
-                <div class="flex flex-col gap-2">
-                    <h2
-                        id={section.id}
-                        class="m-0 text-xl leading-7 font-semibold tracking-[-0.015em] text-foreground"
-                    >
-                        {section.title}
-                    </h2>
-                    <p class="m-0 max-w-[36ch] text-[15px] leading-7 text-foreground-muted">
-                        {section.description}
-                    </p>
-                </div>
-                <div class="flex min-w-0 flex-col gap-3">
-                    {#if section.id === 'home-install'}
-                        <PackageCommand command="pnpm add @mielui/svelte" />
-                        <CodeBlock code={firstComponent} lang="svelte" copy="overlay" />
-                    {:else if section.id === 'home-inside'}
-                        <Rows items={catalogSections} label="Component categories" />
-                    {:else}
-                        <Rows items={next} label="Where to go next" />
-                    {/if}
-                </div>
-            </section>
-        {/each}
-    </div>
-    <footer
-        class="mx-auto flex w-full flex-wrap items-center justify-between gap-3 px-2 pt-4 pb-1 text-xs text-foreground-muted @3xl:px-6"
-    >
-        <span>Mielui · Made for Svelte</span>
-        <div class="flex items-center gap-5">
-            <a href={resolve('/docs/installation')} class="hover:text-foreground">Get started</a>
-            <a href={resolve('/docs/changelog')} class="hover:text-foreground">Changelog</a>
+
+    <section aria-labelledby="home-components" class="wrap flex flex-col gap-10 pb-20 sm:pb-28">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div class="flex flex-col gap-4">
+                <h2 id="home-components" class={heading}>
+                    From a button to a <span class="accent">coding agent</span>
+                </h2>
+                <p class={intro}>
+                    {components.length}
+                    components in {groups.length - 1} groups, plus actions for motion. Native
+                    controls keep their browser behavior.
+                </p>
+            </div>
+            {@render more(resolve('/docs/components'), 'Browse the catalog')}
         </div>
-    </footer>
-</div>
+        <ul
+            class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-[20px] bg-border p-0 shadow-[0_0_0_1px_var(--color-border)] md:grid-cols-3 lg:grid-cols-4"
+        >
+            {#each groups as group (group.id)}
+                <li class="flex min-w-0 bg-background">
+                    <a
+                        href={group.href}
+                        class="group/section flex w-full flex-col gap-4 p-4 hover:bg-[color-mix(in_oklab,var(--color-foreground)_3%,var(--color-background))] focus-visible:shadow-[inset_var(--focus-ring)] focus-visible:outline-none sm:p-6"
+                    >
+                        <span class="flex items-start justify-between gap-3">
+                            <Sticker icon={group.icon} mesh={group.mesh} size={32} />
+                            <span
+                                class="flex items-center gap-1 text-sm text-foreground-muted tabular-nums"
+                            >
+                                {group.items.length}
+                                <HugeiconsIcon
+                                    icon={ArrowRight01Icon}
+                                    size={13}
+                                    class="-me-1 opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover/section:translate-x-0.5 group-hover/section:opacity-100 group-focus-visible/section:opacity-100 motion-reduce:transition-none"
+                                />
+                            </span>
+                        </span>
+                        <span class="flex flex-col gap-1.5">
+                            <span class="text-base font-medium text-foreground">{group.title}</span>
+                            <span
+                                class="text-sm leading-relaxed text-foreground-muted max-sm:hidden"
+                            >
+                                {group.items.map(sanitizeComponent).join(', ')}
+                            </span>
+                        </span>
+                    </a>
+                </li>
+            {/each}
+        </ul>
+    </section>
+
+    <section
+        aria-labelledby="home-compose"
+        class="group/section wrap grid grid-cols-[minmax(0,1fr)] gap-10 pb-20 sm:pb-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:gap-16"
+    >
+        <div class="flex flex-col gap-4 lg:pt-1">
+            {@render label('Composition', PuzzleIcon, mesh.indigo)}
+            <h2 id="home-compose" class={heading}>
+                Made of parts you can <span class="accent">rearrange</span>
+            </h2>
+            <p class={intro}>
+                Larger components are named subparts. Omit one, reorder them, or pass a class to any
+                of them. What you write is what renders.
+            </p>
+            {@render more(resolve('/docs/introduction'), 'How components are built')}
+        </div>
+        <HomeCompose />
+    </section>
+
+    <section
+        aria-labelledby="home-demos"
+        class="group/section wrap flex flex-col gap-8 pb-20 sm:pb-28"
+    >
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div class="flex max-w-[40rem] flex-col gap-4">
+                {@render label('Live demos', AiChat02Icon, mesh.mauve)}
+                <h2 id="home-demos" class={heading}>Whole screens, still working</h2>
+                <p class={intro}>
+                    Each screen is put together from components in the docs. Pick another thread,
+                    send a follow-up, or change the issue's labels.
+                </p>
+            </div>
+            {@render more(resolve('docs/components/ai-components'), 'AI components')}
+        </div>
+        <HomeDemos />
+    </section>
+
+    <section
+        aria-labelledby="home-get"
+        class="wrap flex flex-col gap-12 border-t border-border pt-20 pb-20 sm:pt-28 sm:pb-28"
+    >
+        <div class="mx-auto flex max-w-[40rem] flex-col items-center gap-4 text-center">
+            <h2 id="home-get" class="display m-0 text-4xl sm:text-5xl">
+                Start with one <span class="accent">command</span>
+            </h2>
+            <p class="m-0 text-base text-foreground-muted">
+                Free and MIT licensed. Svelte 5.56 or newer, Tailwind CSS v4.
+            </p>
+        </div>
+        <ol class="mx-auto m-0 flex w-full max-w-[40rem] list-none flex-col gap-8 p-0">
+            <li class="flex min-w-0 flex-col gap-3">
+                <span class="text-sm text-foreground-muted">
+                    <span class="font-medium text-foreground tabular-nums">1</span>
+                    Add the package
+                </span>
+                <CodeBlock code={installCommand} lang="sh" copy="overlay" />
+            </li>
+            <li class="flex min-w-0 flex-col gap-3">
+                <span class="text-sm text-foreground-muted">
+                    <span class="font-medium text-foreground tabular-nums">2</span>
+                    Import the stylesheet in your app.css
+                </span>
+                <CodeBlock code="@import '@mielui/svelte/ui.css';" lang="css" copy="overlay" />
+            </li>
+            <li class="flex min-w-0 flex-col gap-3">
+                <span class="text-sm text-foreground-muted">
+                    <span class="font-medium text-foreground tabular-nums">3</span>
+                    Use a component
+                </span>
+                <CodeBlock code={firstComponent} lang="svelte" copy="overlay" />
+            </li>
+        </ol>
+        <ul
+            class="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-px overflow-hidden rounded-[20px] bg-border p-0 shadow-[0_0_0_1px_var(--color-border)] sm:grid-cols-2 lg:grid-cols-4"
+        >
+            {#each next as link (link.title)}
+                <li class="flex min-w-0 bg-background">
+                    <a
+                        href={link.href}
+                        target={link.external ? '_blank' : undefined}
+                        rel={link.external ? 'noreferrer' : undefined}
+                        class="group group/section flex w-full items-start gap-4 p-5 hover:bg-[color-mix(in_oklab,var(--color-foreground)_3%,var(--color-background))] focus-visible:shadow-[inset_var(--focus-ring)] focus-visible:outline-none sm:p-6"
+                    >
+                        <Sticker icon={link.icon} mesh={link.mesh} size={32} />
+                        <span class="flex min-w-0 flex-col gap-1">
+                            <span
+                                class="flex items-center gap-1 text-base font-medium text-foreground"
+                            >
+                                {link.title}
+                                <HugeiconsIcon
+                                    icon={link.external ? ArrowUpRight01Icon : ArrowRight01Icon}
+                                    size={13}
+                                    class={`text-foreground-muted ${link.external ? leanOut : lean}`}
+                                />
+                            </span>
+                            <span class="text-sm leading-relaxed text-foreground-muted">
+                                {link.detail}
+                            </span>
+                        </span>
+                    </a>
+                </li>
+            {/each}
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <div class="wrap flex h-16 items-center justify-between gap-6 text-xs text-foreground-muted">
+        <span>
+            MIT licensed. Made by
+            <a class="link" href="https://miel.my" target="_blank" rel="noreferrer">mielsense</a>.
+        </span>
+        <nav aria-label="Elsewhere" class="flex items-center gap-4">
+            <a href={resolve('/docs/introduction')} class="hover:text-foreground">Docs</a>
+            <a href={resolve('/docs/changelog')} class="hover:text-foreground">Changelog</a>
+            <a href={GITHUB_URL} target="_blank" rel="noreferrer" class="hover:text-foreground">
+                GitHub
+            </a>
+        </nav>
+    </div>
+</footer>

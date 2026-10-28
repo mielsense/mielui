@@ -132,7 +132,7 @@
     }
 
     const fieldThumbClasses =
-        'h-3.5 w-0.5 shrink-0 rounded-full bg-[var(--color-border-strong)] outline-none transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground-muted data-active:bg-foreground motion-reduce:transition-none';
+        'h-3.5 w-0.5 shrink-0 rounded-full bg-[var(--color-border-strong)] outline-none group-hover:bg-foreground-muted data-active:bg-foreground';
     const thumbClasses =
         'mielui-glow mielui-glow-neutral h-4 w-6 shrink-0 cursor-grab rounded-full shadow-[var(--mielui-glow-shadow)] outline-none transition-shadow [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] [--mielui-glow-ring:var(--color-border-strong)] dark:[--mielui-glow-color:var(--color-foreground)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)] data-active:cursor-grabbing data-active:shadow-[var(--focus-ring),var(--mielui-glow-shadow)] data-disabled:cursor-not-allowed motion-reduce:transition-none';
 </script>
@@ -233,7 +233,7 @@
             <span
                 data-ui="slider-range"
                 aria-hidden="true"
-                class="pointer-events-none absolute inset-y-0 start-0 bg-[var(--color-border)] transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-[var(--color-input)] motion-reduce:transition-none"
+                class="pointer-events-none absolute inset-y-0 start-0 bg-[var(--color-border)] group-hover:bg-[var(--color-input)]"
                 style:width={`calc(${slider.fieldFill} * (100% - 0.75rem) + 0.75rem)`}
             ></span>
         {/if}

@@ -1,4 +1,4 @@
-import { markdownResponse } from '$lib/markdown-response';
+import { markdownResponse } from '#lib/markdown-response.js';
 
 export const prerender = true;
 export function GET() {

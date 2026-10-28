@@ -18,7 +18,7 @@
     data-ui="toast-close"
     class={cn(
         className,
-        'mielui-press absolute top-1.5 right-1.5 z-10 inline-flex size-[var(--size-control-sm)] shrink-0 items-center justify-center rounded-[var(--radius-control)] text-foreground-muted transition-[color,background-color,scale] [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-press)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none'
+        'mielui-press absolute top-1.5 right-1.5 z-10 inline-flex size-[var(--size-control-sm)] shrink-0 items-center justify-center rounded-[var(--radius-control)] text-foreground-muted transition-[scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none'
     )}
     onclick={(event) => {
         onclick?.(event);

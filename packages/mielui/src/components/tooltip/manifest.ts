@@ -6,13 +6,15 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  * the public composition API while Content supplies the accessible label.
  *
  * 2.1.0 -- in-place re-labels (e.g. Copy→Copied) roll via @scritto/core.
+ * 2.2.0 -- the pointer waits 500ms; keyboard focus opens at once, and `delay`
+ *          applies to the pointer only.
  */
 export const manifest: Manifest = {
     name: 'tooltip',
-    version: '2.1.1',
+    version: '2.2.0',
     visibility: 'public',
     description:
-        'Hover-revealed inline guidance with a shared Tailwind-styled surface, role="tooltip", and small default delays.',
+        'Hover-revealed inline guidance with a shared Tailwind-styled surface, role="tooltip", a 500ms pointer delay, and immediate keyboard focus.',
     role: 'tooltip',
     files: [
         'components/tooltip/tooltip.svelte',

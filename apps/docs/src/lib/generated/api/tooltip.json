@@ -62,8 +62,8 @@
                 "type": "number | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "125",
-                "description": "Milliseconds the pointer rests on the trigger before the tooltip opens.",
+                "default": "500",
+                "description": "Milliseconds the pointer rests on the trigger before the tooltip opens. Keyboard focus opens it at once, and a neighbour opens at once while one is showing.",
                 "inherited": false
             },
             {

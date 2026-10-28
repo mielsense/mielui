@@ -107,3 +107,52 @@ describe('DropdownMenu -- item activation', () => {
         expect(onItem3).not.toHaveBeenCalled();
     });
 });
+
+describe('DropdownMenu -- reopening while it closes', () => {
+    const root = document.documentElement.style;
+
+    function slowPanel() {
+        root.setProperty('--motion-duration-panel-in', '2000ms');
+        root.setProperty('--motion-duration-panel-out', '2000ms');
+    }
+
+    function restorePanel() {
+        root.removeProperty('--motion-duration-panel-in');
+        root.removeProperty('--motion-duration-panel-out');
+    }
+
+    function wait(ms: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    function content() {
+        return document.querySelector<HTMLElement>('[data-ui="dropdown-menu-content"]');
+    }
+
+    async function clickTrigger() {
+        await page.getByTestId('dropdown-trigger').click({ force: true });
+    }
+
+    it('reopens on a trigger click during the exit', async () => {
+        render(DropdownMenuFixture, {});
+        await flush();
+        await openMenu();
+        await wait(300);
+        slowPanel();
+        try {
+            await clickTrigger();
+            await wait(200);
+            await clickTrigger();
+            await flush();
+
+            await expect
+                .element(page.getByRole('button', { name: 'Open menu' }))
+                .toHaveAttribute('aria-expanded', 'true');
+            expect(content()?.dataset.state).toBe('open');
+        } finally {
+            restorePanel();
+        }
+    });
+});

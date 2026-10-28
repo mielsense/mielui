@@ -21,27 +21,27 @@
         "generate:api": "node scripts/generate-api-reference.mjs"
     },
     "devDependencies": {
-        "@sveltejs/adapter-node": "5.5.7",
-        "@sveltejs/adapter-vercel": "6.3.4",
-        "@sveltejs/kit": "2.70.3",
-        "@sveltejs/vite-plugin-svelte": "7.1.2",
+        "@sveltejs/adapter-node": "6.0.0",
+        "@sveltejs/adapter-vercel": "7.0.1",
+        "@sveltejs/kit": "3.1.0",
+        "@sveltejs/vite-plugin-svelte": "7.3.1",
         "@tailwindcss/vite": "4.3.0",
         "@testing-library/jest-dom": "6.9.1",
         "@testing-library/svelte": "5.3.1",
         "@testing-library/user-event": "14.6.1",
         "@types/node": "22.19.19",
-        "@vitest/browser": "4.1.11",
-        "@vitest/browser-playwright": "4.1.11",
+        "@vitest/browser": "4.1.12",
+        "@vitest/browser-playwright": "4.1.12",
         "axe-core": "4.11.4",
         "jsdom": "29.1.1",
         "motion": "12.40.0",
-        "playwright": "1.60.0",
+        "playwright": "1.64.1",
         "svelte": "5.57.1",
-        "svelte-check": "4.7.6",
+        "svelte-check": "4.7.7",
         "tailwindcss": "4.3.0",
-        "typescript": "5.9.3",
-        "vite": "8.1.4",
-        "vitest": "4.1.11",
+        "typescript": "6.0.3",
+        "vite": "8.3.5",
+        "vitest": "4.1.12",
         "vitest-browser-svelte": "2.1.1"
     },
     "dependencies": {
@@ -59,5 +59,8 @@
         "svelte-persisted-state": "1.4.1",
         "tailwind-variants": "3.2.2",
         "valibot": "^1.5.0"
+    },
+    "imports": {
+        "#lib/*": "./src/lib/*"
     }
 }

@@ -43,13 +43,18 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *   4.0.0:
  *           - Replace `loadingLabel`, `successLabel`, and `errorLabel` with a
  *             `labels` object typed by `ButtonLabels`.
+ *   5.0.0:
+ *           - Primary, secondary, and destructive are flat fills by default and
+ *             take light only from the theme's edge highlight.
+ *           - The `glow` variant stays lit in every theme (`.mielui-glow-lit`).
+ *           - `panel` drops its default elevation.
  */
 export const manifest: Manifest = {
     name: 'button',
-    version: '4.0.0',
+    version: '5.0.0',
     visibility: 'public',
     description:
-        'Click target with eight variants: primary, secondary, glow, ghost, quiet, outline, destructive, and panel. Quiet matches ghost text color without a hover fill. Supports four sizes and stable loading, success, and error states. Renders as <button> by default or <a> when `href` is provided.',
+        'Click target with eight variants: primary, secondary, glow, ghost, quiet, outline, destructive, and panel. Primary, secondary, and destructive are flat fills; glow is the lit headline action. Quiet matches ghost text color without a hover fill. Supports four sizes and stable loading, success, and error states. Renders as <button> by default or <a> when `href` is provided.',
     files: [
         'components/button/button.svelte',
         'components/button/index.ts',

@@ -68,7 +68,7 @@
 
 <!--
     @component
-    The lit pill that slides to the current item of a list. The parent positions the list
+    The soft wash that slides to the current item of a list. The parent positions the list
     `relative isolate`; `measure` returns the current item's box inside `container`, or nothing
     when no item is current. The container gets `data-pill-ready` once the pill is placed, so
     items can keep their resting colors until the pill sits behind them.
@@ -79,7 +79,7 @@
     class={cn(
         className,
         AXIS_CLASS[axis],
-        'mielui-glow pointer-events-none absolute -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] [--mielui-glow-color:var(--color-foreground)] [--mielui-glow-light:0.16] [--mielui-glow-ring:transparent] motion-reduce:transition-none dark:[--mielui-glow-color:color-mix(in_srgb,var(--color-foreground)_16%,var(--color-card))] dark:[--mielui-glow-light:0.12] dark:[--mielui-glow-ring:var(--color-border)]'
+        'pointer-events-none absolute -z-10 rounded-[var(--radius-control)] bg-[var(--color-wash)] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none'
     )}
     style:translate={`${box?.left ?? 0}px ${box?.top ?? 0}px`}
     style:width={sizesWidth ? `${box?.width ?? 0}px` : undefined}

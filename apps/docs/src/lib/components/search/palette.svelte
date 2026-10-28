@@ -3,7 +3,6 @@
         CodeIcon as Code,
         HashtagIcon as Hash,
         Moon02Icon as Moon,
-        Add01Icon as Plus,
         Sun03Icon as Sun
     } from '@hugeicons/core-free-icons';
     import * as Command from '@mielui/svelte/components/command';
@@ -11,29 +10,15 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { afterNavigate } from '$app/navigation';
-    import { resolve } from '$app/paths';
-    import { pageIcon } from '$lib/components/shell/page-icon';
-    import { getShell } from '$lib/components/shell/shell.svelte';
 
     import { getSearch } from './context';
     import { components, guides, matchEntries, type PaletteEntry, places } from './entries';
     import { createSearchIndex } from './search-index.svelte';
 
     const search = getSearch();
-    const shell = getShell();
     const index = createSearchIndex();
     let query = $state('');
 
-    const openTabs = $derived(
-        shell.tabs.tabs
-            .filter((tab) => tab.id !== shell.tabs.active)
-            .map((tab) => ({
-                label: tab.label,
-                href: tab.href,
-                hint: 'Open tab',
-                icon: pageIcon(tab.href)
-            }))
-    );
     const themeLabel = $derived(
         mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
     );
@@ -89,13 +74,6 @@
         <Command.Results
             class="[mask-image:linear-gradient(to_bottom,transparent,black_calc(var(--spacing)*4),black_calc(100%-var(--spacing)*6),transparent)] px-2 py-2"
         >
-            {#if !query && openTabs.length}
-                <Command.Group heading="Open tabs">
-                    {#each openTabs as entry (entry.href)}
-                        {@render row(entry)}
-                    {/each}
-                </Command.Group>
-            {/if}
             <Command.Group heading="Guides">
                 {#each guides as entry (entry.href)}
                     {@render row(entry)}
@@ -114,13 +92,6 @@
                         class="shrink-0 text-foreground-muted"
                     />
                     <span class="min-w-0 flex-1 truncate">{themeLabel}</span>
-                </Command.Item>
-                <Command.Item
-                    name="Open a new tab"
-                    callback={() => run(() => shell.tabs.open(resolve('/docs/components')))}
-                >
-                    <HugeiconsIcon icon={Plus} size={16} class="shrink-0 text-foreground-muted" />
-                    <span class="min-w-0 flex-1 truncate">Open a new tab</span>
                 </Command.Item>
             </Command.Group>
             {#if query}

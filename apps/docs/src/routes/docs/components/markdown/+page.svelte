@@ -2,10 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import SectionHeading from '#lib/components/docs/section-heading.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import SafeHtml from './examples/safe-html.svelte';

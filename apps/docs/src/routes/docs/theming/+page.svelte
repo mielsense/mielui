@@ -2,11 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-    import { resolve } from '$app/paths';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PackageCommand from '$lib/components/docs/package-command.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Rows from '$lib/components/docs/rows.svelte';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PackageCommand from '#lib/components/docs/package-command.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import Rows from '#lib/components/docs/rows.svelte';
     import {
         classExample,
         dataUiExample,
@@ -15,7 +14,8 @@
         themeImport,
         themeJsonFields,
         tokenGroups
-    } from '$lib/theming';
+    } from '#lib/theming.js';
+    import { resolve } from '$app/paths';
 
     const presetSlugs = builtInThemePresets.map((preset) => `\`${preset.slug}\``);
 
@@ -272,7 +272,12 @@ const css = themeToCss(theme);`}
         <Typography.H2 class="docs-section-heading">Edge highlights</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Set `chrome.edgeHighlight` to adjust the light on lit pills: filled buttons, moving thumbs, and selected segments. It also scales the light edge on keycaps. Text fields, selection triggers, and outline buttons stay flat. The default is 0.33. Use 0 to remove that light or 1 for full strength. Focus rings, borders, and drop shadows keep their existing colors and opacity. Shadow switches still take precedence."
+                text="Filled controls are flat by default: buttons, moving thumbs, and selected segments take one solid fill held by a hairline, with no gradient or inner light. Set `chrome.edgeHighlight` above 0 to light them all at once. It also scales the light edge on keycaps. The default is 0, the flat look; 0.33 is the original lit look and 1 is full strength. Text fields, selection triggers, and outline buttons carry no fill either way. Focus rings, borders, and drop shadows keep their existing colors and opacity. Shadow switches still take precedence."
+            />
+        </Typography.Text>
+        <Typography.Text variant="body" class="m-0">
+            <InlineText
+                text="The `glow` button variant stays lit in a flat theme. To light another control on its own, add the `mielui-glow-lit` class next to `mielui-glow`."
             />
         </Typography.Text>
         <CodeBlock
@@ -286,10 +291,15 @@ const css = themeToCss(theme);`}
 const css = themeToCss(theme);`}
         />
         <Typography.Text variant="body" class="m-0">
-            Studio exposes Edge highlight on the Surface tab. Turn it off to remove the highlight,
-            or adjust its strength while enabled. Turning it back on restores the last strength used
-            in that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve
+            Studio exposes Edge highlight on the Surface tab. It is off by default. Turning it on
+            restores 30%, or the last strength used in that session, and you can adjust the strength
+            while it is on. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve
             it.
+        </Typography.Text>
+        <Typography.Text variant="body" class="m-0">
+            A near-white primary button with dark text, common in dark app interfaces, is a theme
+            choice rather than a variant. Apply the built-in Open preset, whose dark primary is
+            near-white, or set the brand color yourself.
         </Typography.Text>
     </section>
 

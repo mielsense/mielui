@@ -1,4 +1,9 @@
-import { attributes, type PlaygroundValues, quote, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    type PlaygroundValues,
+    quote,
+    toggle
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     quote: toggle('Quote', 'Content'),

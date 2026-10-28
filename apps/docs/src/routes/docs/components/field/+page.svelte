@@ -4,8 +4,8 @@
     import * as Field from '@mielui/svelte/components/field';
     import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Composite from './examples/composite.svelte';
     import CompositeSrc from './examples/composite.svelte?raw';
     import HeroSrc from './examples/hero.svelte?raw';

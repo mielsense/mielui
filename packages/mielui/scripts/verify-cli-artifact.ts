@@ -73,7 +73,8 @@ async function writeCliConsumer(cwd: string, tarball: string) {
                     'tailwind-variants': '^3.2.2'
                 },
                 devDependencies: {
-                    '@sveltejs/kit': versions['@sveltejs/kit'],
+                    // The CLI writes $lib imports, which SvelteKit 3 no longer provides.
+                    '@sveltejs/kit': '^2.70.3',
                     '@sveltejs/vite-plugin-svelte': versions['@sveltejs/vite-plugin-svelte'],
                     '@tailwindcss/vite': versions['@tailwindcss/vite'],
                     '@types/node': versions['@types/node'],

@@ -65,7 +65,7 @@
         <span
             data-ui="tag-input-tag-remove"
             aria-hidden="true"
-            class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-[var(--color-wash)] group-hover:text-foreground motion-reduce:transition-none"
+            class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted group-hover:bg-[var(--color-wash)] group-hover:text-foreground"
         >
             <HugeiconsIcon
                 icon={X}

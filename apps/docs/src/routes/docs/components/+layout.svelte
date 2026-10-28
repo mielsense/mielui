@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
-    import { type ComponentSlug, componentAnatomy } from '$lib/component-anatomy';
-    import ComponentReference from '$lib/components/docs/component-reference.svelte';
+    import { type ComponentSlug, componentAnatomy } from '#lib/component-anatomy.js';
+    import ComponentReference from '#lib/components/docs/component-reference.svelte';
     import type { LayoutData } from './$types';
 
     let { children, data }: { children: Snippet; data: LayoutData } = $props();

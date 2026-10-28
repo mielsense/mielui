@@ -1,31 +1,29 @@
 <script lang="ts">
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
-    import CopyPage from '$lib/components/docs/copy-page.svelte';
-    import Navigation from '$lib/components/docs/navigation.svelte';
-    import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
-    import { stayOnPage } from '$lib/components/docs/stay-on-page';
-    import { setSearch } from '$lib/components/search/context';
-    import Header from '$lib/components/shell/header.svelte';
-    import PageDock from '$lib/components/shell/page-dock.svelte';
-    import { usesDocsSidebar } from '$lib/components/shell/page-icon';
-    import Rail from '$lib/components/shell/rail.svelte';
-    import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
-    import { fadeYStart, scrollFade } from '$lib/components/shell/scroll-fade';
-    import SectionTrail from '$lib/components/shell/section-trail.svelte';
-    import { createShell, setShell } from '$lib/components/shell/shell.svelte';
-    import Sidebar from '$lib/components/shell/sidebar.svelte';
-    import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
-    import { setStudioContext } from '$lib/studio-context';
+    import CopyPage from '#lib/components/docs/copy-page.svelte';
+    import Navigation from '#lib/components/docs/navigation.svelte';
+    import { stayOnPage } from '#lib/components/docs/stay-on-page.js';
+    import { setSearch } from '#lib/components/search/context.js';
+    import Header from '#lib/components/shell/header.svelte';
+    import { floatingCluster } from '#lib/components/shell/look.js';
+    import ScrollEdge from '#lib/components/shell/scroll-edge.svelte';
+    import { fadeYStart, scrollFade } from '#lib/components/shell/scroll-fade.js';
+    import SectionTrail from '#lib/components/shell/section-trail.svelte';
+    import { createShell, setShell } from '#lib/components/shell/shell.svelte.js';
+    import Sidebar from '#lib/components/shell/sidebar.svelte';
+    import SidebarCard from '#lib/components/shell/sidebar-card.svelte';
+    import SidebarTop from '#lib/components/shell/sidebar-top.svelte';
+    import { setStudioContext } from '#lib/studio-context.js';
     import '@mielui/svelte/ui.css';
     import '../app.css';
-    import { injectAnalytics } from '@vercel/analytics/sveltekit';
+    import { inject as injectAnalytics } from '@vercel/analytics';
     import { onMount, type Snippet, untrack } from 'svelte';
-    import { dev } from '$app/environment';
-    import { beforeNavigate } from '$app/navigation';
+    import { createDocsFontState, DEFAULT_FONT, fonts } from '#lib/fonts.svelte.js';
+    import { themeBootScript } from '#lib/theme-boot.js';
+    import { dev } from '$app/env';
+    import { beforeNavigate, onNavigate } from '$app/navigation';
     import { page, updated } from '$app/state';
-    import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
-    import { themeBootScript } from '$lib/theme-boot';
 
     import type { LayoutData } from './$types';
 
@@ -37,7 +35,10 @@
     setSearch(search);
     setShell(createShell());
 
-    injectAnalytics({ mode: dev ? 'development' : 'production' });
+    injectAnalytics({
+        mode: dev ? 'development' : 'production',
+        framework: 'sveltekit'
+    });
 
     let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
@@ -45,11 +46,11 @@
     const isHome = $derived(page.url.pathname === '/');
     const isDocs = $derived(page.url.pathname.startsWith('/docs'));
     const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
-    const hasSidebar = $derived(usesDocsSidebar(page.url.pathname));
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.
+    // Reading `isThemeStudio` re-applies the font after an untouched Studio clears its theme.
     $effect(() => {
-        if (getStoredLiveThemeCss()) {
+        if (isThemeStudio || getStoredLiveThemeCss()) {
             document.documentElement.style.removeProperty('--font-sans');
             return;
         }
@@ -62,10 +63,10 @@
     });
 
     let Toaster = $state<typeof import('@mielui/svelte/components/toast').Toaster>();
-    let SiteSearch = $state<typeof import('$lib/components/search/palette.svelte').default>();
+    let SiteSearch = $state<typeof import('#lib/components/search/palette.svelte').default>();
 
     function loadSearch() {
-        void import('$lib/components/search/palette.svelte').then((module) => {
+        void import('#lib/components/search/palette.svelte').then((module) => {
             SiteSearch = module.default;
         });
     }
@@ -92,6 +93,32 @@
         hydrateLiveThemeCss();
     });
 
+    // The browser chrome takes the page color the visitor sees: their chosen mode and any
+    // live theme, not only the system preference the static tags in app.html follow.
+    $effect(() => {
+        const metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+        function syncThemeColor() {
+            const color = getComputedStyle(document.documentElement).backgroundColor;
+            for (const meta of metas) {
+                meta.content = color;
+            }
+        }
+        syncThemeColor();
+        const observer = new MutationObserver(syncThemeColor);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class', 'style']
+        });
+        observer.observe(document.head, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
+        return () => {
+            observer.disconnect();
+        };
+    });
+
     // Toasts and search are never needed for the first paint, so they load once the page is idle.
     $effect(() => {
         if (isPreview) {
@@ -110,10 +137,37 @@
     let docsScrollEl = $state<HTMLDivElement>();
 
     // An open tab keeps running the build it loaded; load the next page in full after a deploy.
-    beforeNavigate(({ willUnload, to }) => {
-        if (updated.current && !willUnload && to?.url) {
+    beforeNavigate(({ willUnload, to, shallow }) => {
+        if (updated.current && !willUnload && !shallow && to?.url) {
             location.href = to.url.href;
         }
+    });
+
+    // The landing page's reveal runs on the first load only; after that pages just appear.
+    beforeNavigate(() => {
+        document.documentElement.classList.add('revealed');
+    });
+
+    // Between the landing page and the docs, the old page fades back, the new one rises, and
+    // the brand glides between the header and the sidebar. Docs pages swap without a transition.
+    onNavigate((navigation) => {
+        const from = navigation.from?.url.pathname;
+        const to = navigation.to?.url.pathname;
+        const crossesHome = (from === '/') !== (to === '/');
+        if (
+            !crossesHome ||
+            !document.startViewTransition ||
+            matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) {
+            return;
+        }
+
+        return new Promise((resolve) => {
+            document.startViewTransition(async () => {
+                resolve();
+                await navigation.complete;
+            });
+        });
     });
 
     let scrolledPath = page.url.pathname;
@@ -181,86 +235,69 @@
         {@render children()}
     </main>
 {:else if isHome}
-    <main
-        class="min-h-dvh w-screen bg-background [--docs-rule:var(--color-border)] [--docs-soft:var(--color-wash)]"
-    >
-        <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
-            {@render children()}
-        </div>
-    </main>
+    <div class="flex min-h-dvh flex-col bg-background">
+        {@render children()}
+    </div>
 {:else}
     <div
-        class="fixed inset-0 isolate flex overflow-clip [--docs-row-height:calc(var(--spacing)*14)] [--docs-content:var(--color-card)] [--docs-pill:var(--color-wash)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-card)] [--docs-soft:var(--color-wash)]"
+        class="fixed inset-0 isolate flex flex-col overflow-clip bg-background [--docs-content:var(--color-background)] [--docs-pill:var(--color-wash)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-background)] [--docs-soft:var(--color-wash)]"
     >
-        <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[#060606]"></div>
-        <Rail starCount={data.starCount ?? null} />
-        <div class="flex min-h-0 min-w-0 flex-1 flex-col">
-            <div class="dark text-foreground lg:hidden">
-                <Header starCount={data.starCount ?? null}>
-                    {#snippet leading()}
-                        <NavigationSheet />
-                    {/snippet}
-                </Header>
-            </div>
-            <div
-                class="flex min-h-0 min-w-0 flex-1 overflow-clip px-1.5 pb-1.5 sm:px-2 sm:pb-2 lg:ps-0 lg:pt-2"
-            >
-                <div class="mielui-plate flex min-h-0 min-w-0 flex-1">
-                    <div class="flex min-h-0 min-w-0 flex-1 overflow-clip rounded-[inherit]">
-                        {#if isThemeStudio}
+        <div class="lg:hidden">
+            <Header starCount={data.starCount ?? null} />
+        </div>
+        <div class="flex min-h-0 min-w-0 flex-1">
+            <Sidebar label="Documentation">
+                {#snippet header()}
+                    <SidebarTop starCount={data.starCount ?? null} />
+                {/snippet}
+                <Navigation />
+                {#snippet footer()}
+                    <SidebarCard />
+                {/snippet}
+            </Sidebar>
+            {#if isThemeStudio}
+                {@render children()}
+            {:else}
+                <main class="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip">
+                    {#if isDocs}
+                        <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
                             {@render children()}
-                        {:else}
-                            {#if hasSidebar}
-                                <Sidebar label="Documentation">
-                                    <Navigation />
-                                    {#snippet footer()}
-                                        <SidebarCard />
-                                    {/snippet}
-                                </Sidebar>
-                            {/if}
-                            <main
-                                data-shell-plate
-                                class="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip"
+                        </div>
+                    {:else}
+                        <div class="relative min-h-0 min-w-0 flex-1">
+                            <div
+                                bind:this={docsScrollEl}
+                                {@attach scrollFade({ size: 44, target: 'parent' })}
+                                class={`h-full overflow-y-auto overscroll-contain ${fadeYStart}`}
                             >
-                                {#if isDocs}
-                                    <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
+                                <div class="flex justify-center px-5 pt-8 pb-24 sm:px-10 lg:pt-14">
+                                    <div
+                                        class="flex min-w-0 flex-[0_1_60rem] flex-col gap-5 lg:flex-row lg:gap-0"
+                                    >
                                         {@render children()}
                                     </div>
-                                {:else}
-                                    <div class="relative min-h-0 min-w-0 flex-1">
-                                        <div
-                                            bind:this={docsScrollEl}
-                                            {@attach scrollFade({ size: 44, target: 'parent' })}
-                                            class={`h-full overflow-y-auto overscroll-contain ${fadeYStart}`}
-                                        >
-                                            <div
-                                                class="flex w-full flex-col gap-5 px-5 pt-8 pb-24 sm:px-10 lg:flex-row lg:gap-0"
-                                            >
-                                                {@render children()}
-                                            </div>
-                                        </div>
-                                        <ScrollEdge edge="top" />
-                                        <ScrollEdge edge="bottom" fill />
-                                    </div>
-                                {/if}
-                                {#if isDocs && page.status < 400}
                                     <div
-                                        class="absolute end-3 top-3 z-30 hidden items-center rounded-[calc(var(--radius-control)+var(--spacing)*0.5)] p-0.5 border-[length:var(--border-size)] border-border bg-card/75 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card"
-                                    >
-                                        <div class="hidden min-w-0 lg:block">
-                                            <SectionTrail />
-                                        </div>
-                                        <CopyPage />
-                                    </div>
-                                {/if}
-                                {#if hasSidebar}
-                                    <PageDock />
-                                {/if}
-                            </main>
-                        {/if}
-                    </div>
-                </div>
-            </div>
+                                        aria-hidden="true"
+                                        class="hidden flex-[0_1000_16.5rem] lg:block"
+                                    ></div>
+                                </div>
+                            </div>
+                            <ScrollEdge edge="top" />
+                            <ScrollEdge edge="bottom" fill />
+                        </div>
+                    {/if}
+                    {#if isDocs && page.status < 400}
+                        <div
+                            class={`absolute end-4 top-4 z-30 hidden items-center rounded-[calc(var(--radius-control)+var(--spacing)*0.5)] bg-card/80 p-0.5 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card ${floatingCluster}`}
+                        >
+                            <div class="hidden min-w-0 lg:block">
+                                <SectionTrail />
+                            </div>
+                            <CopyPage />
+                        </div>
+                    {/if}
+                </main>
+            {/if}
         </div>
     </div>
 {/if}

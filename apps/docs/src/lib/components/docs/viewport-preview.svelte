@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import type { PreviewExample } from '$lib/preview-examples';
+    import type { PreviewExample } from '#lib/preview-examples.js';
 
     let {
         example,

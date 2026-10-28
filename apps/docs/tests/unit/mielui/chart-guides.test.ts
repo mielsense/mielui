@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { components } from '$lib/components';
+import { components } from '#lib/components.js';
 import {
     componentDocPages,
     componentGuide,
     componentGuidePages,
     componentOwner
-} from '$lib/docs-pages';
-import { chartGuideMarkdown, componentMarkdown, llmsTxt } from '$lib/llms';
-import { htmlDocPaths, llmDocPaths } from '$lib/sitemap';
+} from '#lib/docs-pages.js';
+import { chartGuideMarkdown, componentMarkdown, llmsTxt } from '#lib/llms.js';
+import { htmlDocPaths, llmDocPaths } from '#lib/sitemap.js';
 
 describe('chart documentation routes', () => {
     it('keeps guide pages separate from installable components', () => {

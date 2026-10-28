@@ -1,14 +1,15 @@
 import { resetSharedTooltipForTests } from '@mielui/svelte/components/tooltip/shared-tooltip';
 import { tick } from 'svelte';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import TooltipFixture from '../../fixtures/TooltipFixture.svelte';
 
 /*
  * Tooltip uses a shared body-level bubble. Tests assert its public surface:
  *   - role="tooltip" on the rendered content
- *   - hover-to-open with the wrapper's configured delay
+ *   - hover-to-open with the wrapper's configured delay (500ms by default)
+ *   - keyboard focus opens at once; a click that focuses waits for the delay
  *   - hover-end-to-close with the wrapper's closeDelay
  *   - delay/closeDelay overrides propagate
  *
@@ -71,16 +72,45 @@ describe('Tooltip -- hover opens after the configured delay', () => {
         expect(body?.textContent).toContain('Tooltip content');
     });
 
-    it('uses the default delay of 125ms when not overridden', async () => {
+    it('uses the default pointer delay of 500ms when not overridden', async () => {
         render(TooltipFixture, {});
         await flush();
         const trigger = document.querySelector('[data-testid="tooltip-trigger"]')?.parentElement;
         trigger?.dispatchEvent(new MouseEvent('mouseenter'));
-        await new Promise((r) => setTimeout(r, 20));
+        await new Promise((r) => setTimeout(r, 250));
         await flush();
 
-        // Roughly 40ms after hover, the default 125ms delay has not elapsed.
         expect(tooltipShown()).toBe(false);
+
+        await new Promise((r) => setTimeout(r, 400));
+        await flush();
+
+        expect(tooltipShown()).toBe(true);
+    });
+});
+
+describe('Tooltip -- focus', () => {
+    it('a click that focuses the trigger still waits for the pointer delay', async () => {
+        render(TooltipFixture, {});
+        await flush();
+
+        await page.getByTestId('tooltip-trigger').click();
+        await new Promise((r) => setTimeout(r, 150));
+        await flush();
+
+        expect(document.activeElement).toBe(page.getByTestId('tooltip-trigger').element());
+        expect(tooltipShown()).toBe(false);
+    });
+
+    it('keyboard focus opens at once, whatever the pointer delay', async () => {
+        render(TooltipFixture, { delay: 5000 });
+        await flush();
+
+        await userEvent.tab();
+        await flush();
+
+        expect(document.activeElement).toBe(page.getByTestId('tooltip-trigger').element());
+        expect(tooltipShown()).toBe(true);
     });
 });
 

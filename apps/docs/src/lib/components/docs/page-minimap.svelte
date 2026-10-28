@@ -3,8 +3,8 @@
 
     let { outline }: { outline: PageOutline } = $props();
 
-    const reach = 44;
-    const rowHeight = 10;
+    const reach = 56;
+    const rowHeight = 14;
 
     let rail = $state<HTMLElement>();
     let pointer = $state<number>();
@@ -58,10 +58,10 @@
     }
 
     function length(level: number, active: boolean, index: number) {
-        const base = level === 3 ? 10 : 18;
-        const rest = active ? base + 8 : base;
+        const base = level === 3 ? 14 : 24;
+        const rest = active ? base + 10 : base;
 
-        return rest + (40 - rest) * growth(index) * 0.8;
+        return rest + (52 - rest) * growth(index) * 0.8;
     }
 
     function tone(id: string, level: number) {
@@ -101,11 +101,11 @@
                     onblur={() => {
                         focused = undefined;
                     }}
-                    class="flex h-2.5 min-h-0 w-10 shrink items-center justify-end rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                    class="flex h-3.5 min-h-0 w-13 shrink items-center justify-end rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                 >
                     <span
-                        style:transform={`scaleX(${length(heading.level, outline.active === heading.id, index) / 40})`}
-                        class={`block h-px w-10 origin-right transition-[transform,background-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none ${tone(heading.id, heading.level)}`}
+                        style:transform={`scaleX(${length(heading.level, outline.active === heading.id, index) / 52})`}
+                        class={`block h-[1.5px] w-13 origin-right rounded-full transition-[transform,background-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none ${tone(heading.id, heading.level)}`}
                     ></span>
                 </a>
             {/each}

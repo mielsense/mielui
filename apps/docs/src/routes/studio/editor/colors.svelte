@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { colorTokenGroups } from '$lib/studio-advanced-tokens';
+    import { colorTokenGroups } from '#lib/studio-advanced-tokens.js';
     import {
         backgroundSwatches,
         baseSwatches,
@@ -13,7 +11,7 @@
         secondarySwatches
     } from './config';
     import { getThemeEditor } from './context';
-    import { colorRow, colorTokenRow } from './controls.svelte';
+    import { colorRow, colorTokenRow, disclosure } from './controls.svelte';
     import EditorSection from './section.svelte';
     import { getSettingFilter } from './setting-filter.svelte';
 
@@ -25,6 +23,13 @@
             value: string;
         }[];
     };
+
+    let {
+        essentials = false
+    }: {
+        /** Renders only the rows shown before All settings. */
+        essentials?: boolean;
+    } = $props();
 
     const editor = getThemeEditor();
     const filter = getSettingFilter();
@@ -101,7 +106,7 @@
     )}
 {/snippet}
 
-<EditorSection title="Brand" keywords="color colour palette accent primary">
+{#snippet brandRow()}
     {@render colorRow(
         'Brand',
         editor.state.brandColors[editor.appMode],
@@ -109,72 +114,62 @@
         editor.updateBrand,
         resetBrand()
     )}
-    {@render foundationRow(onBrandRow)}
-</EditorSection>
-
-<EditorSection title="Backgrounds" keywords="color colour palette surface fill">
-    {#each backgroundRows as row (row.key)}
-        {@render foundationRow(row)}
-    {/each}
-</EditorSection>
-
-<EditorSection title="Text" keywords="color colour palette foreground">
-    {#each textRows as row (row.key)}
-        {@render foundationRow(row)}
-    {/each}
-</EditorSection>
-
-{#snippet disclosure(label: string, count: number, open: boolean, toggle: () => void)}
-    <button
-        type="button"
-        aria-expanded={open}
-        class="group flex h-9 w-full items-center justify-between gap-2 rounded-[var(--radius-md)] ps-0.5 pe-2 text-[13px] font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-expanded:text-foreground motion-reduce:transition-none"
-        onclick={toggle}
-    >
-        {label}
-        <span class="flex items-center gap-2">
-            <span class="font-mono text-xs tabular-nums">{count}</span>
-            <HugeiconsIcon
-                icon={ChevronDown}
-                size={14}
-                aria-hidden="true"
-                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] group-aria-expanded:rotate-180 motion-reduce:transition-none"
-            />
-        </span>
-    </button>
 {/snippet}
 
-<div class="flex flex-col">
-    {#if !filter.active}
-        {@render disclosure('Chart colors', chartTokens.length, chartsOpen, () => {
-            chartsOpen = !chartsOpen;
-        })}
-    {/if}
-    {#if chartsOpen || filter.active}
-        <div class="pb-3">
-            <EditorSection title="Charts" keywords="color colour palette data series">
-                {#each chartTokens as definition (definition.name)}
+{#if essentials}
+    {@render brandRow()}
+{:else}
+    <EditorSection title="Brand" keywords="color colour palette accent primary">
+        {#if filter.active}
+            {@render brandRow()}
+        {/if}
+        {@render foundationRow(onBrandRow)}
+    </EditorSection>
+
+    <EditorSection title="Backgrounds" keywords="color colour palette surface fill">
+        {#each backgroundRows as row (row.key)}
+            {@render foundationRow(row)}
+        {/each}
+    </EditorSection>
+
+    <EditorSection title="Text" keywords="color colour palette foreground">
+        {#each textRows as row (row.key)}
+            {@render foundationRow(row)}
+        {/each}
+    </EditorSection>
+
+    <div class="flex flex-col">
+        {#if !filter.active}
+            {@render disclosure('Chart colors', chartsOpen, () => {
+                chartsOpen = !chartsOpen;
+            }, chartTokens.length)}
+        {/if}
+        {#if chartsOpen || filter.active}
+            <div class="pb-3">
+                <EditorSection title="Charts" keywords="color colour palette data series">
+                    {#each chartTokens as definition (definition.name)}
+                        {@render colorTokenRow(editor.tokens, definition)}
+                    {/each}
+                </EditorSection>
+            </div>
+        {/if}
+        {#if !filter.active}
+            {@render disclosure('All color tokens', allTokens, () => {
+                allTokens = !allTokens;
+            }, tokenCount)}
+        {/if}
+    </div>
+
+    {#if allTokens || filter.active}
+        {#each tokenGroups as group (group.label)}
+            <EditorSection
+                title={tokenTitles[group.label] ?? group.label}
+                keywords="color colour token variable"
+            >
+                {#each group.tokens as definition (definition.name)}
                     {@render colorTokenRow(editor.tokens, definition)}
                 {/each}
             </EditorSection>
-        </div>
+        {/each}
     {/if}
-    {#if !filter.active}
-        {@render disclosure('All color tokens', tokenCount, allTokens, () => {
-            allTokens = !allTokens;
-        })}
-    {/if}
-</div>
-
-{#if allTokens || filter.active}
-    {#each tokenGroups as group (group.label)}
-        <EditorSection
-            title={tokenTitles[group.label] ?? group.label}
-            keywords="color colour token variable"
-        >
-            {#each group.tokens as definition (definition.name)}
-                {@render colorTokenRow(editor.tokens, definition)}
-            {/each}
-        </EditorSection>
-    {/each}
 {/if}

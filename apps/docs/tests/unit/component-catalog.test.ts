@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { expect, it } from 'vitest';
-import { componentGroups, components } from '$lib/components';
+import { componentGroups, components } from '#lib/components.js';
 
 it('lists each component once, in its source category, with docs and API coverage', () => {
     expect(new Set(components).size).toBe(components.length);

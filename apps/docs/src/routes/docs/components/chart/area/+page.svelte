@@ -1,10 +1,10 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
-    import { getChartGuide } from '$lib/chart-guides';
-    import { ComponentPreview } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import { getChartGuide } from '#lib/chart-guides.js';
+    import { ComponentPreview } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import SectionHeading from '#lib/components/docs/section-heading.svelte';
     import Area from '../examples/area.svelte';
     import AreaSrc from '../examples/area.svelte?raw';
     import AreaComparison from '../examples/area-comparison.svelte';

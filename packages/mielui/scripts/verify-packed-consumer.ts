@@ -57,7 +57,8 @@ async function writeConsumer(cwd: string, tarball: string) {
                     tailwindcss: versions.tailwindcss
                 },
                 devDependencies: {
-                    '@sveltejs/kit': versions['@sveltejs/kit'],
+                    // This scaffold writes a svelte.config.js, which SvelteKit 3 no longer reads.
+                    '@sveltejs/kit': '^2.70.3',
                     '@sveltejs/vite-plugin-svelte': versions['@sveltejs/vite-plugin-svelte'],
                     '@tailwindcss/vite': versions['@tailwindcss/vite'],
                     '@types/node': versions['@types/node'],

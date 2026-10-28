@@ -2,9 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as FolderCard from '@mielui/svelte/components/folder-card';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import ClickActionExample from './examples/click-action.svelte';
     import ClickActionExampleSrc from './examples/click-action.svelte?raw';
     import Grid from './examples/grid.svelte';

@@ -7,7 +7,7 @@ import {
     select,
     text,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     tone: select('Tone', ['1', '2', '3', '4', '5'], '1'),

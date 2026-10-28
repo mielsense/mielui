@@ -3,9 +3,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import {
         endDate,
         isBooked,
@@ -15,7 +15,7 @@
         minDate,
         startDate,
         weekendMatcher
-    } from '$lib/components/docs/playground/calendar';
+    } from '#lib/components/docs/playground/calendar.js';
     import Constraints from './examples/constraints.svelte';
     import ConstraintsSrc from './examples/constraints.svelte?raw';
     import EventsExample from './examples/events.svelte';

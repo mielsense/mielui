@@ -27,7 +27,7 @@
             <a
                 href={`#${heading.id}`}
                 onclick={(event) => shell.outline?.navigate(event, heading)}
-                class={`max-w-44 truncate rounded-[var(--radius-control)] px-1 py-0.5 transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none ${index === trail.length - 1 ? 'text-foreground' : 'text-foreground-muted'}`}
+                class={`max-w-44 truncate rounded-[var(--radius-control)] px-1 py-0.5 hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none ${index === trail.length - 1 ? 'text-foreground' : 'text-foreground-muted'}`}
             >
                 {heading.label}
             </a>

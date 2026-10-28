@@ -1,10 +1,10 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
-    import { getChartGuide } from '$lib/chart-guides';
-    import { ComponentPreview } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import { getChartGuide } from '#lib/chart-guides.js';
+    import { ComponentPreview } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import SectionHeading from '#lib/components/docs/section-heading.svelte';
     import BarNegative from '../examples/bar-negative.svelte';
     import BarNegativeSrc from '../examples/bar-negative.svelte?raw';
     import States from '../examples/bar-states.svelte';

@@ -4,9 +4,9 @@
     import * as Group from '@mielui/svelte/components/group';
     import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import WithInput from './examples/input.svelte';
@@ -189,7 +189,7 @@
             Controls keep their own sizes, variants, focus rings, events, and disabled states.
             Joined controls share one hairline seam and flat inner corners; the outer ends keep the
             control radius, and a focused control sits above its neighbors. Filled buttons keep
-            their lit edge. Hidden form inputs do not affect which visible control gets the rounded
+            their ring. Hidden form inputs do not affect which visible control gets the rounded
             ends.
         </Typography.Text>
         <Typography.Text variant="supporting">

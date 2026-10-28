@@ -8,7 +8,7 @@ export const toggle = tv({
             outline: 'border-[length:var(--border-size)] bg-origin-border'
         },
         /**
-         * Off is flat. On is the neutral lit pill: `.mielui-glow` draws the fill
+         * Off has no fill. On is the neutral fill: `.mielui-glow` draws the fill
          * and every edge, and the shadow utilities keep the focus ring from
          * replacing those edges.
          */

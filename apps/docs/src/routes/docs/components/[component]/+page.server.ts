@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { catalogPages } from '$lib/components';
-import { catalogDescriptions } from '$lib/server/catalog';
+import { catalogPages } from '#lib/components.js';
+import { catalogDescriptions } from '#lib/server/catalog.js';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = ({ params }) => {

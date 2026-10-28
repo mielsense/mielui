@@ -8,7 +8,7 @@ import {
     select,
     text,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     variant: select('Variant', BUTTON_VARIANTS, 'primary'),

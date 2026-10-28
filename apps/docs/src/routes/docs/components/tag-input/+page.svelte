@@ -2,9 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as TagInput from '@mielui/svelte/components/tag-input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Adding from './examples/adding.svelte';
     import AddingSrc from './examples/adding.svelte?raw';
     import Controlled from './examples/controlled.svelte';

@@ -2,9 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Question from '@mielui/svelte/components/question';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import CancelExample from './examples/cancel.svelte';
     import CancelExampleSrc from './examples/cancel.svelte?raw';
     import ComposerTakeover from './examples/composer-takeover.svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { untrack } from 'svelte';
-    import { createDocsFontState } from '$lib/fonts.svelte';
+    import { createDocsFontState } from '#lib/fonts.svelte.js';
 
     let { initial }: { initial?: string } = $props();
     const selectedFont = createDocsFontState();

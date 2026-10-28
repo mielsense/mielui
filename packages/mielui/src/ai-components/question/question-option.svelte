@@ -36,7 +36,7 @@
         class={cn(
             className,
             isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]',
-            'group relative flex cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] [counter-increment:question-option] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] data-[state=checked]:bg-[var(--color-wash)] [&:not([data-disabled]):hover]:bg-[var(--color-wash)] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden'
+            'group relative flex cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2 text-start [counter-increment:question-option] has-[:focus-visible]:shadow-[var(--focus-ring)] data-[state=checked]:bg-[var(--color-wash)] [&:not([data-disabled]):hover]:bg-[var(--color-wash)] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden'
         )}
     >
         <input
@@ -87,7 +87,7 @@
                 class={cn(
                     'mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
                     selected
-                        ? 'mielui-glow border-transparent shadow-[var(--mielui-glow-shadow)] [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3]'
+                        ? 'mielui-glow border-transparent shadow-[var(--mielui-glow-shadow)] [--mielui-glow-color:color-mix(in_oklab,var(--color-primary)_92%,var(--color-foreground))] dark:[--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3]'
                         : 'border-[var(--mielui-control-border)] bg-[var(--color-field)]',
                     !selected &&
                         !isDisabled &&

@@ -1,4 +1,4 @@
-import { titleCase } from '$lib/text';
+import { titleCase } from '#lib/text.js';
 import pkg from '../../../../packages/mielui/package.json';
 
 type ChangelogEntry = {

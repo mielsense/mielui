@@ -5,7 +5,7 @@ import {
     number,
     type PlaygroundValues,
     quote
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const response =
     'The release contains twelve changes. Two affect keyboard navigation, four update the documentation, and six fix existing behavior.';

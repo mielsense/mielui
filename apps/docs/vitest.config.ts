@@ -2,9 +2,10 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
+import { kitOptions } from './vite.config';
 
 export default defineConfig({
-    plugins: [tailwindcss(), sveltekit()],
+    plugins: [tailwindcss(), sveltekit(kitOptions)],
     optimizeDeps: {
         include: [
             '@floating-ui/dom',
@@ -51,6 +52,8 @@ export default defineConfig({
             },
             {
                 extends: true,
+                // Each browser project pre-bundles dependencies on its own, so they must not share a cache.
+                cacheDir: 'node_modules/.vite/browser',
                 resolve: {
                     conditions: ['browser']
                 },
@@ -69,6 +72,7 @@ export default defineConfig({
             },
             {
                 extends: true,
+                cacheDir: 'node_modules/.vite/browser-reduced',
                 resolve: {
                     conditions: ['browser']
                 },

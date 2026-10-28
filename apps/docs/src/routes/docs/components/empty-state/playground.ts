@@ -1,4 +1,4 @@
-import { compact, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import { compact, type PlaygroundValues, toggle } from '#lib/components/docs/playground.js';
 
 export const controls = {
     media: toggle('Media', 'Content'),

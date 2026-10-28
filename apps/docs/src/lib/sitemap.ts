@@ -1,6 +1,6 @@
-import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
-import { catalogPages, components, componentTypeHref } from '$lib/components';
-import { componentGuidePages } from '$lib/docs-pages';
+import { changelogLlmVersions, changelogVersions } from '#lib/changelog.js';
+import { catalogPages, components, componentTypeHref } from '#lib/components.js';
+import { componentGuidePages } from '#lib/docs-pages.js';
 
 export const htmlDocPaths = [
     '/',

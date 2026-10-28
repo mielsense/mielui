@@ -1,4 +1,4 @@
-import { titleCase } from '$lib/text';
+import { titleCase } from '#lib/text.js';
 import categories from '../../../../packages/mielui/component-categories.json';
 
 export const componentGroups = [

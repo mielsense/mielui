@@ -1,7 +1,9 @@
 <script lang="ts" module>
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import * as ColorPicker from '@mielui/svelte/components/color-picker';
     import * as Select from '@mielui/svelte/components/select';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import {
         type AnimationTokenDefinition,
         type ColorTokenDefinition,
@@ -10,7 +12,7 @@
         formatPx,
         normalizeEase,
         type SpacingTokenDefinition
-    } from '$lib/studio-advanced-tokens';
+    } from '#lib/studio-advanced-tokens.js';
     import { type FontWeight, fontWeights, formatChoice } from './config';
     import Row, { type SettingReset } from './row.svelte';
     import type { ThemeTokenEditor } from './tokens';
@@ -19,6 +21,7 @@
         animationTokenRow,
         colorRow,
         colorTokenRow,
+        disclosure,
         easeRow,
         selectRow,
         spacingTokenRow,
@@ -26,12 +29,39 @@
         weightRow
     };
 
-    export const selectTrigger = 'h-7 w-auto max-w-44 gap-1.5 px-2';
+    export const selectTrigger = 'h-7 w-auto max-w-44 gap-1.5 px-2 font-medium';
 
     function toWeight(value: number) {
         return fontWeights.find((weight) => Number(weight) === value);
     }
 </script>
+
+{#snippet disclosure(
+    label: string,
+    open: boolean,
+    toggle: () => void,
+    count: number | undefined = undefined
+)}
+    <button
+        type="button"
+        aria-expanded={open}
+        class="group flex h-9 w-full items-center justify-between gap-2 rounded-[var(--radius-md)] ps-3 pe-2 text-[13px] font-medium text-foreground-muted hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-expanded:text-foreground motion-reduce:transition-none"
+        onclick={toggle}
+    >
+        {label}
+        <span class="flex items-center gap-2">
+            {#if count !== undefined}
+                <span class="font-mono text-xs tabular-nums">{count}</span>
+            {/if}
+            <HugeiconsIcon
+                icon={ChevronDown}
+                size={14}
+                aria-hidden="true"
+                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] group-aria-expanded:rotate-180 motion-reduce:transition-none"
+            />
+        </span>
+    </button>
+{/snippet}
 
 {#snippet toggleChoice(
     values: readonly string[],
@@ -137,7 +167,7 @@
             <ColorPicker.Root {value} onValueChange={onChange} {options}>
                 <ColorPicker.Trigger
                     variant="ghost"
-                    class="h-7 w-auto max-w-44 flex-row-reverse gap-2 px-2 [&>span:first-child]:size-4"
+                    class="h-7 w-auto max-w-44 flex-row-reverse gap-2 px-2 font-medium [&>span:first-child]:size-4"
                 />
                 <ColorPicker.Content />
             </ColorPicker.Root>

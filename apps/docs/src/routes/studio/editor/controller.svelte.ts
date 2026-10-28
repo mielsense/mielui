@@ -1,9 +1,16 @@
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/svelte/themes/live';
-import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
+import {
+    applyLiveThemeCss,
+    clearLiveThemeCss,
+    loadStudioTheme,
+    saveStudioTheme
+} from '@mielui/svelte/themes/live';
+import { DEFAULT_THEME, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode } from 'mode-watcher';
 import { onMount, untrack } from 'svelte';
-import { takeHandedOffTheme } from '$lib/studio/handoff';
+import { removeStorage } from '#lib/storage.js';
+import { takeHandedOffTheme } from '#lib/studio/handoff.js';
+import { LIVE_THEME_KEY } from '#lib/theme-boot.js';
 import { readThemeAppearance } from './appearance';
 import { readThemeBaseline, type ThemeBaseline } from './baseline';
 import { createThemeChanges } from './changes.svelte';
@@ -45,6 +52,19 @@ export function createThemeEditor() {
 
     const exportedTheme = $derived(exportTheme(state, baseline.brand));
 
+    const defaultFonts = {
+        sans: findSansKey(DEFAULT_THEME.fontSans),
+        header: findHeaderKey(DEFAULT_THEME.fontHeader),
+        mono: findMonoKey(DEFAULT_THEME.fontMono)
+    };
+    /** The untouched Default draft, which the site must not keep as its live theme. */
+    const pristine = $derived(
+        state.selectedPreset === DEFAULT_THEME.slug &&
+            changes.count === 0 &&
+            state.selectedSans === defaultFonts.sans &&
+            state.selectedHeader === defaultFonts.header &&
+            state.selectedMono === defaultFonts.mono
+    );
     const generatedCss = $derived(themeToCss(exportedTheme));
 
     const generatedJson = $derived(JSON.stringify(exportedTheme, null, 2));
@@ -286,6 +306,14 @@ export function createThemeEditor() {
         }
     });
 
+    onMount(() => {
+        return () => {
+            if (pristine) {
+                clearLiveThemeCss();
+            }
+        };
+    });
+
     $effect(() => {
         if (!state.hydrated) {
             return;
@@ -293,6 +321,10 @@ export function createThemeEditor() {
         const css = generatedCss;
         document.documentElement.style.removeProperty('--font-sans');
         applyLiveThemeCss(css);
+        // An untouched default draft must not outlive the Studio, or it replaces the site's own palette and font everywhere.
+        if (pristine) {
+            removeStorage(LIVE_THEME_KEY);
+        }
         untrack(() => {
             state.appliedRevision += 1;
         });

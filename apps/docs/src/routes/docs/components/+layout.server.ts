@@ -1,5 +1,5 @@
-import { componentGuide, componentOwner } from '$lib/docs-pages';
-import { componentReference } from '$lib/server/api-reference';
+import { componentGuide, componentOwner } from '#lib/docs-pages.js';
+import { componentReference } from '#lib/server/api-reference.js';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = ({ url }) => {

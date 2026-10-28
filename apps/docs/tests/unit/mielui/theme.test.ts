@@ -27,9 +27,9 @@ describe('themeToCss', () => {
 
     it('emits fonts, radii, density, brand, motion, and mode-specific neutrals', () => {
         expect(css).toContain("--font-sans: 'Inter Tight', sans-serif");
-        expect(css).toContain('--radius-lg: 14px');
-        expect(css).toContain('--radius-2xl: 26px');
-        expect(css).toContain('--radius-control: 12px');
+        expect(css).toContain('--radius-lg: 16px');
+        expect(css).toContain('--radius-2xl: 28px');
+        expect(css).toContain('--radius-control: 14px');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain('--mielui-space-unit: 3.6px');
         expect(css).toContain('--motion-duration-menu: 60ms');
@@ -146,8 +146,18 @@ describe('parseTheme', () => {
 });
 
 describe('edge highlight strength', () => {
-    it('uses the default strength when older themes omit the setting', () => {
-        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0.33;');
+    it('defaults to the flat look with control shadows off', () => {
+        expect(DEFAULT_THEME.chrome).toMatchObject({
+            edgeHighlight: 0,
+            controlShadows: false
+        });
+        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0;');
+        expect(
+            themeToCss({
+                ...DEFAULT_THEME,
+                chrome: {}
+            })
+        ).toContain('--elevation-control-edge: 0 0 0 0 transparent;');
     });
 
     it.each([0, 0.5, 1])(

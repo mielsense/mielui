@@ -21,7 +21,7 @@
     import * as TagInput from '@mielui/svelte/components/tag-input';
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { toast } from '@mielui/svelte/components/toast';
-    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
+    import FadeScrollArea from '#lib/components/shell/fade-scroll-area.svelte';
     import { getThemeEditor } from './editor/context';
 
     const uid = $props.id();

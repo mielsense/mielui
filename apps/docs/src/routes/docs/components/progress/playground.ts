@@ -4,7 +4,7 @@ import {
     number,
     type PlaygroundValues,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     value: number('Value', 40, {

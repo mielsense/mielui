@@ -19,7 +19,7 @@
     const form = findFormContext();
     const messages = $derived(issues.filter((issue) => issue.message.trim().length > 0));
     const linkClasses =
-        'rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
+        'rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none hover:decoration-current focus-visible:shadow-[var(--focus-ring)]';
 
     let focusedSubmission = 0;
 

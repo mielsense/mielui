@@ -1,4 +1,9 @@
-import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    type PlaygroundValues,
+    select,
+    toggle
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     type: select('Type', ['single', 'multiple'], 'single'),

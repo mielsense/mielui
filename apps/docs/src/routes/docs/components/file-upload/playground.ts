@@ -5,7 +5,7 @@ import {
     tag,
     text,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     summary: toggle('Upload count', 'Content'),

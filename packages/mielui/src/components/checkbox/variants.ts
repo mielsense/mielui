@@ -5,7 +5,7 @@ export const checkbox = tv({
     variants: {
         variant: {
             default: '',
-            card: 'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-4 transition-[background-color,border-color] [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))]'
+            card: 'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-4 hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))]'
         },
         disabled: {
             true: 'opacity-[var(--opacity-disabled)]',
@@ -38,12 +38,12 @@ export const checkboxBox = tv({
             lg: 'size-[calc(var(--size-hairline)*11)] [&_svg]:size-[calc(var(--size-hairline)*8)]'
         },
         /**
-         * Checked is the primary lit fill: `.mielui-glow` draws the fill and its
+         * Checked is the primary fill: `.mielui-glow` draws the fill and its
          * edges, so the border turns transparent and the focus ring adds to the
          * glow shadow instead of replacing it.
          */
         checked: {
-            true: 'mielui-glow [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
+            true: 'mielui-glow [--mielui-glow-color:color-mix(in_oklab,var(--color-primary)_92%,var(--color-foreground))] dark:[--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
             false: 'border-[var(--mielui-control-border)] bg-[var(--color-field)] peer-hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
         }
     },

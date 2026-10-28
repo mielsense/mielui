@@ -57,7 +57,10 @@ export type ThemeTypography = {
 
 export type ThemeChrome = {
     shadows?: boolean;
-    /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.33. */
+    /**
+     * Strength of the light on filled controls and inset edges, from 0 to 1.
+     * Defaults to 0, the flat look. Any value above 0 lights `.mielui-glow` fills.
+     */
     edgeHighlight?: number;
     borders?: 'double' | 'single';
     /** Shadows on cards, floating menus, and other surfaces (`--elevation-1`, `--elevation-float`). */
@@ -122,9 +125,9 @@ export const DEFAULT_THEME: Theme = {
     fontHeader: 'var(--font-sans)',
     chrome: {
         borders: 'single',
-        edgeHighlight: 0.33,
+        edgeHighlight: 0,
         surfaceShadows: false,
-        controlShadows: true,
+        controlShadows: false,
         dialogShadows: true,
         primaryStroke: true
     },

@@ -1,4 +1,3 @@
-import { type PlaygroundValues, tag } from '$lib/components/docs/playground';
 import {
     calendarAttributes,
     calendarControls,
@@ -9,7 +8,8 @@ import {
     rangeControls,
     rangeDeclaration,
     script
-} from '$lib/components/docs/playground/calendar';
+} from '#lib/components/docs/playground/calendar.js';
+import { type PlaygroundValues, tag } from '#lib/components/docs/playground.js';
 
 export const controls = {
     ...calendarControls,

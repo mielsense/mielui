@@ -4,8 +4,8 @@
     import * as Collapsible from '@mielui/svelte/components/collapsible';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { changelogReleases } from '$lib/changelog';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { changelogReleases } from '#lib/changelog.js';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
 
     const releases = changelogReleases.map((release) => {
         return {

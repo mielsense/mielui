@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
-    import DemoFrame from '$lib/components/demos/demo-frame.svelte';
-    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
+    import DemoFrame from '#lib/components/demos/demo-frame.svelte';
+    import FadeScrollArea from '#lib/components/shell/fade-scroll-area.svelte';
     import Header from './app-preview/header.svelte';
     import Invoices from './app-preview/invoices.svelte';
     import { AppPreviewModel } from './app-preview/model.svelte';

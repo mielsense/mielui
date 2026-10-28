@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { previewExamples } from '$lib/preview-examples';
+import { previewExamples } from '#lib/preview-examples.js';
 import type { PageLoad } from './$types';
 
 const examples = new Set<string>(previewExamples);

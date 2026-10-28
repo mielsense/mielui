@@ -16,7 +16,7 @@ import {
     type SpacingTokenDefinition,
     type SpacingTokenName,
     spacingTokenDefinitions
-} from '$lib/studio-advanced-tokens';
+} from '#lib/studio-advanced-tokens.js';
 import type { ThemeEditorState } from './state.svelte';
 
 export function createThemeTokenEditor(state: ThemeEditorState, getMode: () => 'light' | 'dark') {

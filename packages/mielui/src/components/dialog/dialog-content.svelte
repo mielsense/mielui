@@ -32,8 +32,14 @@
         destroyed = true;
     });
 
-    function dialogMotion(node: Element, transition: (node: Element) => TransitionConfig) {
-        return dialog.motion === 'none' ? { duration: 0 } : transition(node);
+    function dialogMotion(
+        node: Element,
+        [enter, exit]: [(node: Element) => TransitionConfig, (node: Element) => TransitionConfig]
+    ) {
+        if (dialog.motion === 'none') {
+            return { duration: 0 };
+        }
+        return dialog.state.open ? enter(node) : exit(node);
     }
 
     const sizeClasses = {
@@ -137,14 +143,12 @@
                     class="fixed inset-x-0 top-[var(--mielui-viewport-top)] z-[115] h-[var(--mielui-viewport-height)]"
                 >
                     <div
-                        in:dialogMotion={overlayIn}
-                        out:dialogMotion={overlayOut}
+                        transition:dialogMotion={[overlayIn, overlayOut]}
                         data-ui="dialog-overlay"
                         class={cn(overlayClass, 'mielui-overlay-scrim absolute inset-0')}
                     ></div>
                     <div
-                        in:dialogMotion={dialogIn}
-                        out:dialogMotion={dialogOut}
+                        transition:dialogMotion={[dialogIn, dialogOut]}
                         {...props}
                         bind:this={element}
                         data-motion={dialog.motion === 'none' ? 'none' : 'dialog'}

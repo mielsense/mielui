@@ -4,11 +4,11 @@
     import { toast } from '@mielui/svelte/components/toast';
     import * as Typography from '@mielui/svelte/components/typography';
     import { onDestroy } from 'svelte';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import type { PlaygroundValues } from '$lib/components/docs/playground';
-    import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import type { PlaygroundValues } from '#lib/components/docs/playground.js';
+    import ViewportPreview from '#lib/components/docs/viewport-preview.svelte';
     import ActionsSrc from './examples/actions.svelte?raw';
     import AllTypesSrc from './examples/all-types.svelte?raw';
     import CompositionSrc from './examples/composition.svelte?raw';

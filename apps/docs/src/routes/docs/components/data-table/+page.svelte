@@ -4,8 +4,8 @@
     import * as DataTable from '@mielui/svelte/components/data-table';
     import * as Typography from '@mielui/svelte/components/typography';
     import { createTable, FlexRender } from '@tanstack/svelte-table';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
     import { columns, features, filters, members } from './examples/data';

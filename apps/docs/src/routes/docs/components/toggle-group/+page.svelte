@@ -11,9 +11,9 @@
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Multiple from './examples/multiple.svelte';

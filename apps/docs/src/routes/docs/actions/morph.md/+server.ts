@@ -1,4 +1,4 @@
-import { markdownResponse } from '$lib/markdown-response';
+import { markdownResponse } from '#lib/markdown-response.js';
 import example from '../morph/example.svelte?raw';
 
 export const prerender = true;

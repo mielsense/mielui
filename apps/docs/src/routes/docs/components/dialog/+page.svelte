@@ -3,9 +3,9 @@
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import AsyncConfirmExample from './examples/async-confirm.svelte';
     import AsyncConfirmExampleSrc from './examples/async-confirm.svelte?raw';
     import Basic from './examples/basic.svelte';

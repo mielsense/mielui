@@ -1,0 +1,57 @@
+## Docs shell (docs site only)
+
+This affects agents editing `apps/docs`, not apps that use `@mielui/svelte`.
+
+The docs shell no longer has a dark frame, an icon rail, a plate around the page, a sidebar collapse button, a Cmd/Ctrl+B shortcut, sidebar resizing, pages that fill the whole panel, or the tab dock with its open-page tabs. Do not bring any of them back. The page color is the background, and one borderless sidebar at the start holds the brand, GitHub, the theme toggle, and the search field (`shell/sidebar-top.svelte`). The root layout renders the docs sidebar on every page except the homepage, Studio included. Studio puts its settings panel after its preview with `<Sidebar wide>`, so it sits on the right; never replace the docs sidebar with a page's own panel. Below the large breakpoint the sidebar is hidden and `shell/header.svelte` takes its place, so only one `.brand` is visible at any width. The brand carries the `brand` view-transition name, which must stay unique on screen.
+
+Group identity comes from `shell/look.ts`. Use `lookFor(pathname)` for a page's group, `groupLook(id, title, href)` for a component group, and the `mesh` palette for colors. Render the group with `shell/sticker.svelte`, inside a `group/section` element so it springs on hover. Do not pick new gradient colors inline. `PageIntro` already draws the sticker label and the `.mesh-glow` tint, and `DocsPager` draws sticker tiles, so a page only passes its title and lead.
+
+The site look lives in plain classes in `apps/docs/src/app.css` under `@layer components`: `.wrap`, `.tile`, `.display`, `.accent`, `.grain`, `.wall` (with the registered `--wall-tint` color), `.mesh-glow`, `.stagger` with `[data-rise]`, `.press`, `.press-soft`, `.link`, and `.glow-plain`. `app.css` only references `ui.css`, so an `@utility` added there emits nothing; add a plain class instead. Because these classes sit in the components layer, a component's own utilities win over them; a rule that must beat a utility, like the dark text color of `.glow-plain`, goes outside the layers.
+
+The homepage previews a built-in theme on part of the page with `scopedThemeCss(theme, scope)` from `$lib/components/home/scoped-theme.ts`. Do not scope a theme by rewriting `themeToCss` selectors alone: ui.css derives tokens such as `--color-card`, `--color-border`, and `--spacing` from the neutral ramp and space unit at the root, so a subtree that only swaps the ramp keeps the page's colors and density. The helper declares those derived tokens again inside the scope. It mirrors ui.css by hand, so update it when ui.css derives a new token the scoped area shows. Set `font-family: var(--font-sans)` on the scope element too, because text inherits the body's resolved font.
+
+The Studio settings panel (`routes/studio/editor/inspector.svelte`) shows the preset picker, then the essentials (Brand, Font, Heading font, Corners, Density, Glass surfaces, Motion), then one All settings disclosure. Opened, it shows ghost group tabs (Color, Type, Shape, Surface, Motion) and one group at a time; a search ignores the tabs and lists matches from every group. Each group component takes an `essentials` prop: with it, the component renders only its essential rows; without it, the component renders its groups and adds the essential rows back only while the settings search is active, so a row never shows twice. To add a setting, put it in its group, not in the essentials. To promote one to the essentials, move its row into the group's `essentials` branch and its `filter.active` branch together, and drop another essential.
+
+The homepage renders everything with the first response. Do not lazy-mount, defer, or idle-load any part of it, including the component wall and the demos. Any count it shows must be read from the source (`components`, the group lists in `$lib/components`, `builtInThemePresets`), never typed in. Only the move between the homepage and another page animates; docs-to-docs navigation stays instant.
+
+The site's neutral palette comes from `app.css`, which overrides `--mielui-neutral-0` and `--mielui-neutral-10` only while no `#mielui-live-theme-style` tag exists. Change the docs page and card colors there, not in `ui.css`, so the library's default theme and live Studio themes stay untouched.
+
+## Hover, press, and overlay motion contract
+
+Hover feedback is instant everywhere, in library components and in the docs. Do not put `background-color`, `color`, `border-color`, `box-shadow`, or `text-decoration-color` in a transition just to fade a hover state, and do not reach for `transition-colors` with `--motion-duration-hover` on a hover wash. `--motion-duration-hover` is still the duration for enter and exit fades (tooltips, panels, scroll edges, focus rings on fields), so keep using it there. The exceptions are spatial: the traveling highlight and Tabs and ToggleGroup indicators keep their `--motion-duration-item` glide, and the lit material keeps its hover light. Flat `.mielui-glow` hover is an instant tone change.
+
+Press feedback animates only `transform` and `scale`, for `--motion-duration-press` (now 120ms). Button's base transition is `transition-[transform,scale]`; if you compose a pressable control, list only those properties so press timing never leaks into hover colors. In the docs, use `.press` for buttons and chips and `.press-soft` for large tiles and sidebar rows, and only when the whole element is the target.
+
+An overlay a person toggles must reverse from its current position. Use one bidirectional Svelte `transition:` and pick the enter or exit helper from the open state inside a local function, as Sheet and Dialog now do (`transition:sheetMotion={{ side }}`, `transition:dialogMotion={[dialogIn, dialogOut]}`). Separate `in:` and `out:` directives restart from their first frame when interrupted, which made a reopened sheet jump off-screen and snap at the end. Never gate input on an animation. Popover, DropdownMenu, ContextMenu (and their submenus), HoverCard, and DatePicker now use `transition:panelMotion={open}` from `@mielui/svelte/transition`, which picks `panelIn` or `panelOut` from the open state. Use it for any new panel. When reversed mid-exit, Svelte reuses the exit options, so the reverse plays the exit curve; that is expected. Keep a full-screen dismiss layer in its own `{#if open}` block without a transition, so it unmounts on close instead of swallowing the click that reopens the panel.
+
+In the docs, `html` paints `--color-background`, and the root layout copies the computed page color into both `theme-color` meta tags whenever the mode class or a live theme changes. Keep the static tags in `app.html` for the first paint, and do not set `theme-color` anywhere else.
+
+Theme Studio applies its draft as the live theme only while the draft differs from the untouched Default preset. An untouched draft is never saved, and leaving the Studio removes it, so a visit alone never replaces the site's palette and font. Keep that check in `controller.svelte.ts` if you change how the Studio persists drafts.
+
+## Flat by default
+
+The default look is flat. `DEFAULT_THEME.chrome.edgeHighlight` is 0 and `controlShadows` is false, and `ui.css` bakes the same values in `:root` and `.dark`. Every filled control still uses `.mielui-glow`, but at an edge highlight of 0 it draws one solid fill (`--mielui-glow-color`) held by its hairline ring (`--mielui-glow-ring`), with no gradient, inner light, or drop shadow. Do not replace `.mielui-glow` with a hand-written `bg-primary` on a new filled control: keep the class, set `--mielui-glow-color`, and pair it with `shadow-[var(--mielui-glow-shadow)]` and `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]` as before. The theme then decides whether it is lit. The fill stays on `background-image`, so hide an unselected fill with `bg-none` and `before:hidden`, as Calendar days do.
+
+Edge highlight still means the strength of the lit material. Any value above 0 lights every `.mielui-glow` fill; 0.33 is the previous default look. A theme that relied on the old default and wants it back sets `chrome: { edgeHighlight: 0.33, controlShadows: true }`. `.mielui-glow-lit` keeps one control lit in a flat theme at `max(0.3, edgeHighlight)`; the `glow` Button variant already carries it. It must stay after `.mielui-glow` in `ui.css`. Do not put it on primary or secondary buttons to "restore" depth in one place; change the theme instead.
+
+Flat hover and press move the whole fill toward the ink (`--color-foreground`) by a few percent, instantly, so they work in both modes without per-variant hover colors. Do not add a `hover:bg-*` to a `.mielui-glow` control.
+
+A selected segment on a track (ghost and segmented Tabs, ToggleGroup items) carries selection by text color as well as fill: foreground on the selected item, muted on the rest. A white fill on a grey track cannot reach 3:1 on its own, so keep both cues if you restyle them. Keep one font weight for selected and unselected items, so a label never widens and shifts its neighbours.
+
+In light mode, checked Checkbox and Radio fills and the Switch track mix the primary 92% with the ink (`color-mix(in oklab, var(--color-primary) 92%, var(--color-foreground))`), so the default brand reaches 3:1 against the page. Dark mode keeps the plain primary. Copy that pair on any new checked control instead of using `bg-primary` alone.
+
+A near-white primary button with dark text is a theme choice, not a variant: use the Open preset or set the brand color.
+
+Tooltip's default `delay` is 500ms and applies to the pointer only. A trigger focused from the keyboard (`:focus-visible`) opens at once; a click that focuses it still waits. Do not lower `delay` to make keyboard focus feel responsive.
+
+
+## SvelteKit 3
+
+`@mielui/svelte` now declares `@sveltejs/kit` as `^2.0.0 || ^3.0.0` (still optional). The package imports nothing from SvelteKit, so `import { Button } from '@mielui/svelte/components/button'` works the same in a SvelteKit 3 app.
+
+The CLI is the exception. `mielui add` copies source that imports `$lib/mielui/...`, and SvelteKit 3 no longer generates the `$lib` alias; it uses `#lib` subpath imports from `package.json` instead. In a SvelteKit 3 project:
+
+- Prefer package imports over `mielui add`.
+- If you need copied source, add `alias: { $lib: 'src/lib' }` to the `sveltekit()` plugin options in `vite.config.ts`. SvelteKit 3 marks `alias` as deprecated but still honors it.
+
+Remote-function form examples need `experimental.remoteFunctions` and `compilerOptions.experimental.async` in the `sveltekit()` plugin options; `svelte.config.js` is no longer read.

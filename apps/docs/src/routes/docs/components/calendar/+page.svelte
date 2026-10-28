@@ -3,16 +3,16 @@
     import * as Calendar from '@mielui/svelte/components/calendar';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import {
         isBooked,
         maxDate,
         minDate,
         startDate,
         weekendMatcher
-    } from '$lib/components/docs/playground/calendar';
+    } from '#lib/components/docs/playground/calendar.js';
     import ConstraintsExample from './examples/constraints.svelte';
     import ConstraintsExampleSrc from './examples/constraints.svelte?raw';
     import EventsExample from './examples/events.svelte';

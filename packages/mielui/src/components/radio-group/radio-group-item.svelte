@@ -60,7 +60,7 @@
         class={cn(
             'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-aria-invalid:border-[var(--color-error)]',
             selected
-                ? 'mielui-glow [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
+                ? 'mielui-glow [--mielui-glow-color:color-mix(in_oklab,var(--color-primary)_92%,var(--color-foreground))] dark:[--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
                 : 'border-[var(--mielui-control-border)] bg-[var(--color-field)] peer-focus-visible:shadow-[var(--focus-ring)]',
             !isDisabled &&
                 !selected &&

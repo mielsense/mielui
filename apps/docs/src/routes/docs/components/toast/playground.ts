@@ -5,7 +5,7 @@ import {
     select,
     text,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     type: select('Type', ['default', 'success', 'error', 'warning', 'info', 'loading'], 'success'),

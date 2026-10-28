@@ -1,9 +1,9 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
-    import { getChartGuide } from '$lib/chart-guides';
-    import { ComponentPreview } from '$lib/components/docs';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import { getChartGuide } from '#lib/chart-guides.js';
+    import { ComponentPreview } from '#lib/components/docs/index.js';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import SectionHeading from '#lib/components/docs/section-heading.svelte';
     import LivePie from '../examples/live-pie.svelte';
     import LivePieSrc from '../examples/live-pie.svelte?raw';
     import Pie from '../examples/pie.svelte';

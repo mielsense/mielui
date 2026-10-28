@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { componentTypes, navigationGroups } from '$lib/components';
-    import ComponentCatalog from '$lib/components/docs/component-catalog.svelte';
+    import ComponentCatalog from '#lib/components/docs/component-catalog.svelte';
+    import { componentTypes, navigationGroups } from '#lib/components.js';
     import type { PageData } from './$types';
 
     let { data }: { data: PageData } = $props();

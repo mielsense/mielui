@@ -1,0 +1,2 @@
+- `@mielui/svelte` accepts SvelteKit 3 as a peer dependency, alongside SvelteKit 2. Mielui imports no SvelteKit runtime, so package installs work in either version.
+- Source copied by the Mielui CLI still imports from `$lib/mielui`, which SvelteKit 3 no longer provides. In a SvelteKit 3 app, install the package or add a `$lib` alias until the CLI supports `#lib` imports.

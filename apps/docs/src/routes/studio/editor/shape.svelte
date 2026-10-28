@@ -1,12 +1,21 @@
 <script lang="ts">
     import { densities, radiusScales } from '@mielui/svelte/themes/theme';
-    import { spacingTokenGroups } from '$lib/studio-advanced-tokens';
+    import { spacingTokenGroups } from '#lib/studio-advanced-tokens.js';
     import { isDensity, isRadiusScale } from './config';
     import { getThemeEditor } from './context';
     import { selectRow, spacingTokenRow } from './controls.svelte';
     import EditorSection from './section.svelte';
+    import { getSettingFilter } from './setting-filter.svelte';
+
+    let {
+        essentials = false
+    }: {
+        /** Renders only the rows shown before All settings. */
+        essentials?: boolean;
+    } = $props();
 
     const editor = getThemeEditor();
+    const filter = getSettingFilter();
 
     function tokensOf(label: string) {
         return spacingTokenGroups.find((group) => group.label === label)?.tokens ?? [];
@@ -24,9 +33,9 @@
     }
 </script>
 
-<EditorSection title="Corners" keywords="radius rounded shape">
+{#snippet radiusRow(label: string)}
     {@render selectRow(
-        'Radius',
+        label,
         editor.state.theme.radius,
         radiusScales,
         (value) => {
@@ -36,21 +45,9 @@
         },
         resetAxis('radius')
     )}
-    {#each tokensOf('Corners') as definition (definition.name)}
-        {@render spacingTokenRow(editor.tokens, definition)}
-    {/each}
-</EditorSection>
+{/snippet}
 
-<EditorSection title="Controls" keywords="size height button input shape">
-    {#each tokensOf('Controls') as definition (definition.name)}
-        {@render spacingTokenRow(editor.tokens, definition)}
-    {/each}
-    {#each tokensOf('Stroke') as definition (definition.name)}
-        {@render spacingTokenRow(editor.tokens, definition)}
-    {/each}
-</EditorSection>
-
-<EditorSection title="Spacing" keywords="density padding gap size shape">
+{#snippet densityRow()}
     {@render selectRow(
         'Density',
         editor.state.theme.density,
@@ -62,7 +59,36 @@
         },
         resetAxis('density')
     )}
-    {#each tokensOf('Spacing') as definition (definition.name)}
-        {@render spacingTokenRow(editor.tokens, definition)}
-    {/each}
-</EditorSection>
+{/snippet}
+
+{#if essentials}
+    {@render radiusRow('Corners')}
+    {@render densityRow()}
+{:else}
+    <EditorSection title="Corners" keywords="radius rounded shape">
+        {#if filter.active}
+            {@render radiusRow('Radius')}
+        {/if}
+        {#each tokensOf('Corners') as definition (definition.name)}
+            {@render spacingTokenRow(editor.tokens, definition)}
+        {/each}
+    </EditorSection>
+
+    <EditorSection title="Controls" keywords="size height button input shape">
+        {#each tokensOf('Controls') as definition (definition.name)}
+            {@render spacingTokenRow(editor.tokens, definition)}
+        {/each}
+        {#each tokensOf('Stroke') as definition (definition.name)}
+            {@render spacingTokenRow(editor.tokens, definition)}
+        {/each}
+    </EditorSection>
+
+    <EditorSection title="Spacing" keywords="density padding gap size shape">
+        {#if filter.active}
+            {@render densityRow()}
+        {/if}
+        {#each tokensOf('Spacing') as definition (definition.name)}
+            {@render spacingTokenRow(editor.tokens, definition)}
+        {/each}
+    </EditorSection>
+{/if}

@@ -7,6 +7,9 @@ import {
     DEFAULT_ROLE_WEIGHTS,
     emptyAdvancedTokens,
     type FoundationColors,
+    findHeaderKey,
+    findMonoKey,
+    findSansKey,
     type RoleWeights
 } from './config';
 import { DEFAULT_EDGE_HIGHLIGHT, DEFAULT_HEADER_SIZE, DEFAULT_HEADER_WEIGHT } from './defaults';
@@ -24,12 +27,12 @@ export function createThemeEditorState() {
         previousRadius: DEFAULT_THEME.radius as Theme['radius'],
         previousDensity: DEFAULT_THEME.density as Theme['density'],
         previousMotion: DEFAULT_THEME.motion as Theme['motion'],
-        selectedSans: 'manrope',
-        previousSans: 'manrope',
-        selectedHeader: 'same-as-sans',
-        previousHeader: 'same-as-sans',
-        selectedMono: 'jetbrains-mono',
-        previousMono: 'jetbrains-mono',
+        selectedSans: findSansKey(DEFAULT_THEME.fontSans),
+        previousSans: findSansKey(DEFAULT_THEME.fontSans),
+        selectedHeader: findHeaderKey(DEFAULT_THEME.fontHeader),
+        previousHeader: findHeaderKey(DEFAULT_THEME.fontHeader),
+        selectedMono: findMonoKey(DEFAULT_THEME.fontMono),
+        previousMono: findMonoKey(DEFAULT_THEME.fontMono),
         headerSize: DEFAULT_HEADER_SIZE,
         headerWeight: DEFAULT_HEADER_WEIGHT,
         roleWeights: { ...DEFAULT_ROLE_WEIGHTS } as RoleWeights,
@@ -43,7 +46,7 @@ export function createThemeEditorState() {
             dark: DEFAULT_THEME.brand
         } as BrandColors,
         ...readThemeAppearance(DEFAULT_THEME),
-        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight ?? DEFAULT_EDGE_HIGHLIGHT,
+        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight || DEFAULT_EDGE_HIGHLIGHT,
         appliedRevision: 0,
         pendingPreset: null as string | null,
         presetDialogOpen: false,

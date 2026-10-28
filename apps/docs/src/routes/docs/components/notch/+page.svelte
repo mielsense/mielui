@@ -5,10 +5,10 @@
     import * as Notch from '@mielui/svelte/components/notch';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import ViewportPreview from '#lib/components/docs/viewport-preview.svelte';
     import ActivitySrc from './examples/activity.svelte?raw';
     import GlassSrc from './examples/glass.svelte?raw';
     import HeroSrc from './examples/hero.svelte?raw';

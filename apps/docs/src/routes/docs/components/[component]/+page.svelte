@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ComponentCatalog from '$lib/components/docs/component-catalog.svelte';
+    import ComponentCatalog from '#lib/components/docs/component-catalog.svelte';
     import type { PageData } from './$types';
 
     let { data }: { data: PageData } = $props();

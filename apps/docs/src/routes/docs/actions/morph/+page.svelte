@@ -1,11 +1,11 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import PropTable from '$lib/components/docs/prop-table.svelte';
-    import type { ReferenceProperty } from '$lib/server/api-reference';
+    import { ComponentPreview } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import PropTable from '#lib/components/docs/prop-table.svelte';
+    import type { ReferenceProperty } from '#lib/server/api-reference.js';
     import Additional from './count-example.svelte';
     import AdditionalSource from './count-example.svelte?raw';
     import Example from './example.svelte';

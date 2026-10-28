@@ -4,9 +4,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import AsLink from './examples/as-link.svelte';
     import AsLinkSrc from './examples/as-link.svelte?raw';
     import Disabled from './examples/disabled.svelte';
@@ -111,7 +111,7 @@
             <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"Every button takes the theme's control radius. `primary`, `secondary`, and `destructive` are lit: a gradient of the button's own color under faint white light, with every edge drawn by an inner rim instead of a drop shadow. They brighten on hover and darken on press. `outline` is a flat hairline on the field color, `ghost` shows a wash on hover, and `quiet` is text alone. `panel` wears the resting plate, so a whole card can be the control. Use one primary action per view."}
+                    text={"Every button takes the theme's control radius. `primary`, `secondary`, and `destructive` are flat fills: one solid color held by a hairline ring, with no gradient or drop shadow. Hover shifts the fill toward the ink at once and press shifts it further. A theme with an edge highlight above 0 lights them. `outline` is a flat hairline on the field color, `ghost` shows a wash on hover, and `quiet` is text alone. `panel` is a hairline on the card fill, so a whole card can be the control. Use one primary action per view."}
                 />
             </Typography.Text>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
@@ -120,7 +120,7 @@
             <Typography.H3 class="docs-subsection-heading">Glow</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"`variant=\"glow\"` is the same lit material at full light, for a page's one headline button. It is filled with a light tint of the primary color under dark text. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft. `--mielui-glow-ring` replaces the outer edge, which is a darker tint of the fill by default. The same three properties work on any lit variant."}
+                    text={"`variant=\"glow\"` is the lit material, for a page's one headline button: a gradient of the button's own color under faint white light, with every edge drawn by an inner rim. It stays lit when the theme is flat. It is filled with a light tint of the primary color under dark text. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft. `--mielui-glow-ring` replaces the outer edge, which is a darker tint of the fill by default. The same three properties work on any filled variant."}
                 />
             </Typography.Text>
             <ComponentPreview code={VariantGlowSrc}><VariantGlow /></ComponentPreview>

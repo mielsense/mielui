@@ -2,8 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import { Progress } from '@mielui/svelte/components/progress';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Determinate from './examples/determinate.svelte';
     import DeterminateSrc from './examples/determinate.svelte?raw';
     import Indeterminate from './examples/indeterminate.svelte';

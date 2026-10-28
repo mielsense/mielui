@@ -1,99 +1,127 @@
 <script lang="ts">
-    import { GithubIcon as Github, Search01Icon as Search } from '@hugeicons/core-free-icons';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        Download04Icon as Download,
+        GithubIcon as Github,
+        Search01Icon as Search
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import type { Snippet } from 'svelte';
+    import Navigation from '#lib/components/docs/navigation.svelte';
+    import { guideGroup, sections, siteLinks } from '#lib/components/docs/navigation-items.js';
+    import Logo from '#lib/components/logo.svelte';
+    import { getSearch } from '#lib/components/search/context.js';
+    import { GITHUB_URL, githubLabel } from '#lib/github.js';
+    import { afterNavigate } from '$app/navigation';
+    import { resolve } from '$app/paths';
     import { page } from '$app/state';
-    import Logo from '$lib/components/logo.svelte';
-    import { getSearch } from '$lib/components/search/context';
-    import { formatStarCount, GITHUB_URL } from '$lib/github';
-    import { primaryPages } from './primary-pages';
     import ThemeToggle from './theme-toggle.svelte';
-    import TravelingPill from './traveling-pill.svelte';
 
-    let {
-        starCount = null,
-        leading
-    }: {
-        starCount?: number | null;
-        leading?: Snippet;
-    } = $props();
+    let { starCount = null }: { starCount?: number | null } = $props();
 
     const search = getSearch();
-    const pathname = $derived(page.url.pathname);
-    const links = $derived(primaryPages(pathname));
+    const links = [
+        ...siteLinks,
+        ...guideGroup.items,
+        ...sections.flatMap((section) => [
+            {
+                href: section.href,
+                label: section.label
+            },
+            ...section.items
+        ])
+    ];
+    const current = $derived(
+        links.find((link) => link.href === page.url.pathname)?.label ?? 'Docs'
+    );
 
-    let nav = $state<HTMLElement>();
+    let open = $state(false);
 
-    function measure(container: HTMLElement) {
-        const current = container.querySelector<HTMLElement>('[aria-current="page"]');
-
-        if (!current) {
-            return undefined;
-        }
-
-        return {
-            left: current.offsetLeft,
-            width: current.offsetWidth
-        };
-    }
-
-    function openSearch() {
-        search.open = true;
-    }
+    afterNavigate(() => {
+        open = false;
+    });
 </script>
 
 <!--
     @component
-    The slim header that replaces the rail below the large breakpoint: the menu button, the
-    brand, the primary pages with one traveling lit pill, search, GitHub, and the theme toggle.
-    It sits on the dark frame, so the layout renders it with the dark tokens.
+    The slim row that stands in for the sidebar below the large breakpoint: the brand, search,
+    and a button named after the current page that unfolds the navigation in place. The fold
+    scrolls inside itself, so part of the page stays in view below it.
 -->
 
-<header class="flex h-13 w-full shrink-0 items-center px-3">
-    <div class="flex w-full min-w-0 items-center gap-3">
-        <div class="flex min-w-0 flex-1 items-center gap-1.5">
-            {@render leading?.()}
+<header class="shrink-0">
+    <div class="flex h-14 w-full items-center gap-1 px-3 sm:px-4">
+        <div class="me-auto flex min-w-0 items-center">
             <Logo />
         </div>
-        <nav
-            bind:this={nav}
-            aria-label="Primary"
-            class="relative isolate hidden shrink-0 items-center gap-0.5 md:flex"
+        <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Search the docs"
+            class="size-8 text-foreground-muted hover:text-foreground"
+            onclick={() => {
+                search.open = true;
+            }}
         >
-            <TravelingPill container={nav} {measure} track={pathname} axis="x" />
-            {#each links as link (link.href)}
-                <a
-                    href={link.href}
-                    aria-current={link.current ? 'page' : undefined}
-                    class="flex h-8 items-center rounded-[var(--radius-control)] px-3 text-sm font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none aria-[current=page]:text-foreground motion-reduce:transition-none"
-                >
-                    {link.label}
-                </a>
-            {/each}
-        </nav>
-        <div class="flex min-w-0 flex-1 items-center justify-end gap-1">
-            <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Search documentation"
-                class="size-8 text-foreground-muted hover:text-foreground"
-                onclick={openSearch}
+            <HugeiconsIcon icon={Search} size={16} />
+        </Button>
+        <button
+            type="button"
+            aria-expanded={open}
+            aria-controls="docs-menu"
+            onclick={() => {
+                open = !open;
+            }}
+            class="press flex h-8 max-w-[11rem] items-center gap-1.5 rounded-[var(--radius-control)] px-2.5 text-[13px] text-foreground hover:bg-[var(--color-wash)] focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+        >
+            <span class="truncate">{current}</span>
+            <HugeiconsIcon
+                icon={ChevronDown}
+                size={14}
+                class={`shrink-0 text-foreground-muted transition-transform duration-200 ease-[var(--ease-out)] motion-reduce:transition-none ${open ? 'rotate-180' : ''}`}
+            />
+        </button>
+    </div>
+    <div
+        id="docs-menu"
+        inert={!open}
+        class={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+    >
+        <div class="min-h-0 overflow-hidden">
+            <div
+                class={`flex max-h-[72dvh] flex-col transition-[opacity,translate] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${open ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'}`}
             >
-                <HugeiconsIcon icon={Search} size={16} />
-            </Button>
-            <Button
-                variant="ghost"
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Star mielui on GitHub"
-                class="hidden h-8 gap-2 px-2.5 text-foreground-muted hover:text-foreground sm:inline-flex"
-            >
-                <HugeiconsIcon icon={Github} size={16} />
-                <span class="text-[13px] tabular-nums">{formatStarCount(starCount)}</span>
-            </Button>
-            <ThemeToggle />
+                <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain pt-1">
+                    <Navigation
+                        close={() => {
+                            open = false;
+                        }}
+                    />
+                </div>
+                <div class="flex shrink-0 items-center gap-1 px-3 pt-2 pb-3">
+                    <Button
+                        href={resolve('/docs/installation')}
+                        variant="glow"
+                        size="sm"
+                        class="me-1 h-8 flex-1 text-[#1a1a1a] [--mielui-glow-color:#fff] dark:[--mielui-glow-light:0.6]"
+                    >
+                        <HugeiconsIcon icon={Download} size={14} />
+                        Get started
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        href={GITHUB_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={githubLabel(starCount)}
+                        class="size-8 text-foreground-muted hover:text-foreground"
+                    >
+                        <HugeiconsIcon icon={Github} size={16} />
+                    </Button>
+                    <ThemeToggle />
+                </div>
+            </div>
         </div>
     </div>
 </header>

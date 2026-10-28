@@ -2,9 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import ContextWindow from './examples/context-window.svelte';
     import ContextWindowSrc from './examples/context-window.svelte?raw';
     import Hero from './examples/hero.svelte';

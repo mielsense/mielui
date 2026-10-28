@@ -1,4 +1,9 @@
-import { attributes, number, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    number,
+    type PlaygroundValues,
+    toggle
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     groups: toggle('Option groups', 'Content', true),

@@ -1,5 +1,5 @@
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-import { readStorage, removeStorage, writeStorage } from '$lib/storage';
+import { readStorage, removeStorage, writeStorage } from '#lib/storage.js';
 import {
     DEFAULT_FOUNDATION_COLORS,
     DEFAULT_ROLE_WEIGHTS,

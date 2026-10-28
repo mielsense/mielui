@@ -12,7 +12,8 @@
     import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { getStudioContext } from '$lib/studio-context';
+    import { floatingCluster } from '#lib/components/shell/look.js';
+    import { getStudioContext } from '#lib/studio-context.js';
     import { getThemeEditor } from './editor/context';
 
     let {
@@ -35,7 +36,7 @@
 <div
     role="toolbar"
     aria-label="Preview tools"
-    class="pointer-events-auto flex h-10 shrink-0 items-center gap-0.5 rounded-[calc(var(--radius-control)+var(--spacing))] border-[length:var(--border-size)] border-border bg-card/75 p-1 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 [@media(prefers-reduced-transparency:reduce)]:bg-card"
+    class={`pointer-events-auto flex shrink-0 items-center gap-0.5 rounded-[calc(var(--radius-control)+var(--spacing)*0.5)] bg-card/80 p-0.5 [@media(prefers-reduced-transparency:reduce)]:bg-card ${floatingCluster}`}
 >
     <div class="hidden md:block">
         <Tooltip.Root>
@@ -43,6 +44,7 @@
                 <Button
                     variant={picking ? 'secondary' : 'ghost'}
                     size="icon"
+                    class="size-[var(--size-control-sm)]"
                     aria-label="Edit tokens by clicking an element"
                     aria-pressed={picking}
                     onclick={() => {
@@ -63,6 +65,7 @@
                 <Button
                     variant="ghost"
                     size="icon"
+                    class="size-[var(--size-control-sm)]"
                     aria-label="Undo"
                     disabled={!editor.history.canUndo}
                     onclick={editor.history.undo}
@@ -80,6 +83,7 @@
                 <Button
                     variant="ghost"
                     size="icon"
+                    class="size-[var(--size-control-sm)]"
                     aria-label="Redo"
                     disabled={!editor.history.canRedo}
                     onclick={editor.history.redo}
@@ -100,6 +104,7 @@
                     <Popover.Trigger
                         variant="ghost"
                         size="icon"
+                        class="size-[var(--size-control-sm)]"
                         icon={false}
                         aria-label="Preview options"
                     >

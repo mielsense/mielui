@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { panelMotion } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { Popover as PopoverPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
@@ -116,8 +116,7 @@
                 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                 <div
                     {...props}
-                    in:panelIn
-                    out:panelOut
+                    transition:panelMotion={open}
                     id={contentId}
                     dir={rest.dir}
                     {role}

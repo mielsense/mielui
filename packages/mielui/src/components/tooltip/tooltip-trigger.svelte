@@ -66,17 +66,22 @@
         };
     });
 
-    function open() {
+    function open(delay = tip.delay) {
         if (el) {
             manager.showTooltip(
                 el,
                 tip.text,
                 tip.placement,
-                tip.delay,
+                delay,
                 tip.className,
                 content.rich ? content.node : undefined
             );
         }
+    }
+    function focusOpen(event: FocusEvent) {
+        const keyboard = event.target instanceof Element && event.target.matches(':focus-visible');
+
+        open(keyboard ? 0 : tip.delay);
     }
     function close() {
         manager.hideTooltip(el ?? null, tip.closeDelay);
@@ -122,9 +127,9 @@
 <span
     bind:this={el}
     role="presentation"
-    onmouseenter={open}
+    onmouseenter={() => open()}
     onmouseleave={close}
-    onfocusin={open}
+    onfocusin={focusOpen}
     onfocusout={close}
     onclick={clickOpen}
     class={cn(className, 'inline-flex')}

@@ -1,5 +1,5 @@
-import { assertLocalRequest } from '$lib/server/local-only';
-import { terminalManager } from '$lib/server/terminal-manager';
+import { assertLocalRequest } from '#lib/server/local-only.js';
+import { terminalManager } from '#lib/server/terminal-manager.js';
 import type { RequestHandler } from './$types';
 
 const encoder = new TextEncoder();

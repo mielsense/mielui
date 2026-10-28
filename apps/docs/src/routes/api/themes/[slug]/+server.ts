@@ -1,4 +1,4 @@
-import { getRegistryThemeBySlug, RegistryRequestError } from '$lib/server/theme-registry';
+import { getRegistryThemeBySlug, RegistryRequestError } from '#lib/server/theme-registry.js';
 import type { RequestHandler } from './$types';
 
 function failure(err: unknown, fallback: string) {

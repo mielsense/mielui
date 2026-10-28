@@ -3,14 +3,20 @@ import { createContext, onMount } from 'svelte';
 export type FontCategory = 'Sans serif' | 'Serif' | 'Monospace';
 export type DocsFont = { name: string; category: FontCategory; family: string };
 
-export const DEFAULT_FONT = 'Inter Tight';
+export const DEFAULT_FONT = 'System';
+
+/** The platform's own sans: SF Pro on Apple devices, Inter Tight elsewhere. Keep identical to `--font-sans` in app.css. */
+const SYSTEM_FONT_FAMILY =
+    "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Tight', system-ui, sans-serif";
 
 /**
- * Every family the docs can preview. Inter Tight and Geist Mono ship with ui.css;
+ * Every family the docs can preview. System is the platform's own font; Inter Tight and
+ * Geist Mono ship with ui.css;
  * the rest come from Google Fonts, loaded only by `loadGoogleFonts`.
  * Anything else would fall back to a system font.
  */
 export const fonts: DocsFont[] = [
+    { name: 'System', category: 'Sans serif', family: SYSTEM_FONT_FAMILY },
     ...[
         'Inter Tight',
         'DM Sans',
