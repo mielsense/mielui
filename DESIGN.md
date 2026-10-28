@@ -270,7 +270,7 @@ the same contracts; a visual exception must have a specific functional reason.
 
 ### Shape
 
-- `--radius-control` is the shape of every control. It is 12px by default, 4px
+- `--radius-control` is the shape of every control. It is 14px by default, 4px
   in the sharp scale, and a pill in the rounded scale, so the three scales look
   different. Buttons, toggles, tab triggers, badges, chips, single-line fields,
   select triggers, pagination items, calendar days, and breadcrumb items use
@@ -502,7 +502,7 @@ border and concentric inner radius in both styles. Never set
 
 The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0, the
 flat look. Studio presents it as a switch under Edges with a strength in
-percent; turning it on restores 33%, the strength of the original lit look. Any
+percent; turning it on starts at 30%, a little under the original 33%. Any
 value above 0 lights every `.mielui-glow` fill and scales the light inset edge
 on keycaps and toolbar keys. Structural borders, focus rings, and cast shadows
 stay intact. Do not add fixed white inset shadows to individual components.
@@ -903,7 +903,7 @@ Use these tokens in examples, legends, and tooltips; retain explicit series colo
 and semantic status tones. Studio edits the active color mode and exports those
 values as theme tokens.
 
-The default radius scale is 8/10/14/18px, with 26px plates and 12px controls.
+The default radius scale is 10/12/16/20px, with 28px plates and 14px controls.
 Table cell corners subtract the frame border and inset from its outer radius;
 never substitute a smaller fixed radius.
 Preview frames clip their toolbar backgrounds to preserve the perimeter.

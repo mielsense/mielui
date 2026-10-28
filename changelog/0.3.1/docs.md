@@ -28,4 +28,4 @@
 - On phones, the docs navigation unfolds in place from a button named after the current page, and scrolls inside itself so part of the page stays in view.
 - Opening Theme Studio without changing anything no longer replaces the site's colors and font on every page.
 - The current page in the docs sidebar sits on a soft wash in the foreground color instead of a lit pill.
-- Theme Studio's Edge highlight is off by default and turns on at 33%.
+- Theme Studio's Edge highlight is off by default and turns on at 30%.

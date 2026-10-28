@@ -7,3 +7,5 @@
 - The Magic, Open, Functional, Honey, Forest, Ocean, Lilac, Profitable, Raven, Clawd, Inspiration, and Government presets now render flat. Bitsy and Ember keep their lit look.
 - The `panel` button variant no longer carries a resting elevation.
 - Tooltips wait 500ms for a resting pointer instead of 125ms. Keyboard focus opens them at once, and `delay` applies to the pointer only.
+- The default radius scale is rounder: 10/12/16/20px, 28px plates and 14px controls, up from 8/10/14/18px, 26px and 12px. Pick the sharp scale or set the radius tokens to keep the old shape.
+- The `glow` variant and `.mielui-glow-lit` light at 30% when the theme is flat, down from 33%.

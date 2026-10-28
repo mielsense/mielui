@@ -92,13 +92,13 @@ describe('Studio draft fonts', () => {
 });
 
 describe('Studio edge highlight switch', () => {
-    it('starts flat on the Default preset and turns on at 33%', () => {
+    it('starts flat on the Default preset and turns on at 30%', () => {
         const state = createThemeEditorState();
 
         expect(state.edgeHighlight).toBe(0);
 
         state.edgeHighlight = state.rememberedEdgeHighlight;
 
-        expect(Math.round(state.edgeHighlight * 100)).toBe(33);
+        expect(Math.round(state.edgeHighlight * 100)).toBe(30);
     });
 });

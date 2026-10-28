@@ -31,12 +31,12 @@ const RADII: Record<RadiusScale, RadiusSet> = {
         control: '4px'
     },
     default: {
-        sm: '8px',
-        md: '10px',
-        lg: '14px',
-        xl: '18px',
-        plate: '26px',
-        control: '12px'
+        sm: '10px',
+        md: '12px',
+        lg: '16px',
+        xl: '20px',
+        plate: '28px',
+        control: '14px'
     },
     rounded: {
         sm: '10px',
