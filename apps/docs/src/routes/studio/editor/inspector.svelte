@@ -2,6 +2,7 @@
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';
+    import * as Tabs from '@mielui/svelte/components/tabs';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { tick } from 'svelte';
     import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
@@ -16,12 +17,40 @@
     import Shape from './shape.svelte';
     import Typography from './typography.svelte';
 
-    const groups = [Colors, Typography, Shape, Appearance, Interaction];
+    const groups = [
+        {
+            value: 'color',
+            label: 'Color',
+            component: Colors
+        },
+        {
+            value: 'type',
+            label: 'Type',
+            component: Typography
+        },
+        {
+            value: 'shape',
+            label: 'Shape',
+            component: Shape
+        },
+        {
+            value: 'surface',
+            label: 'Surface',
+            component: Appearance
+        },
+        {
+            value: 'motion',
+            label: 'Motion',
+            component: Interaction
+        }
+    ];
 
     const filter = createSettingFilter();
     setSettingFilter(filter);
 
     let allOpen = $state(false);
+    let group = $state('color');
+    const openGroup = $derived(groups.find((item) => item.value === group) ?? groups[0]);
     let list = $state<HTMLDivElement>();
     let empty = $state(false);
 
@@ -55,18 +84,29 @@
             <div bind:this={list} class="flex min-h-full flex-col gap-5 px-3 pt-3 pb-6">
                 {#if !filter.active}
                     <div class="flex flex-col gap-0.5">
-                        {#each groups as Group, index (index)}
-                            <Group essentials />
+                        {#each groups as item (item.value)}
+                            <item.component essentials />
                         {/each}
                     </div>
                     {@render disclosure('All settings', allOpen, () => {
                         allOpen = !allOpen;
                     })}
                 {/if}
-                {#if filter.active || allOpen}
-                    {#each groups as Group, index (index)}
-                        <Group />
+                {#if filter.active}
+                    {#each groups as item (item.value)}
+                        <item.component />
                     {/each}
+                {:else if allOpen}
+                    <Tabs.Root bind:value={group} variant="ghost" class="-mt-2">
+                        <Tabs.List aria-label="Setting groups" class="flex w-full">
+                            {#each groups as item (item.value)}
+                                <Tabs.Trigger value={item.value} class="min-w-0 flex-1 px-1">
+                                    {item.label}
+                                </Tabs.Trigger>
+                            {/each}
+                        </Tabs.List>
+                    </Tabs.Root>
+                    <openGroup.component />
                 {/if}
                 {#if filter.active && empty}
                     <div class="flex flex-col items-start gap-3 px-3 pt-2">

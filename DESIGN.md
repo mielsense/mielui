@@ -743,9 +743,11 @@ Brand, Font, Heading font, Corners, Density, Glass surfaces, and Motion. These
 are enough to make a convincing theme in under a minute. Keep the list short; do
 not add a setting to it without removing one.
 Every other setting sits behind one quiet All settings disclosure under the
-essentials, which reveals the full grouped list (Color, Type, Shape, Surface,
-then Motion groups). An essential is not repeated there. Do not move settings
-into a dialog, add tabs, or add a second Advanced level. Use toggle buttons for
+essentials. Opened, it shows a quiet ghost tab strip (Color, Type, Shape,
+Surface, Motion) and one group at a time, so the long list stays navigable. An
+essential is not repeated there. A search ignores the tabs and lists matches from
+every group. Do not move settings into a dialog, put tabs above the essentials,
+or add a second Advanced level. Use toggle buttons for
 a choice between two values.
 
 Each group is a small medium-weight title, set like the sidebar's group labels
@@ -913,44 +915,49 @@ The Studio glass backdrop is preview-only and never exported with a theme.
 
 ## Landing page showcase
 
-The landing page follows the mielwm site's structure on Mielui's own theme
-tokens, so a live Studio theme still restyles it. Every section sits in one
-`.wrap` column, 88rem at most, so every section shares the same edges. Render
-the whole page with the first response; do not lazy-mount or defer any part.
+The landing page is the library showing itself: real Mielui components first,
+then where to find them, how they compose, and how to start. It reads Mielui's
+own theme tokens, so a live Studio theme still restyles it. Every section sits
+in one `.wrap` column, 88rem at most. Render the whole page with the first
+response; do not lazy-mount or defer any part. Do not bring back the mielwm
+site's layout: no left hero over one banner, no alternating 7/5 feature tiles,
+no numbers tile or `.sunrise` closing card.
 
 - **Header.** A bare 16-unit row: the brand at the start, then quiet text links
   (Docs, Components, Studio, Themes) with a hover wash, GitHub with its star
   count, the theme toggle, and a small primary Get started. Below the medium
   breakpoint only the brand, Docs, and the toggle remain.
-- **Hero.** A `.stagger` column at most 46rem wide: the brand tile, a display
-  headline with one `.accent` word, a muted lead that states the real component
-  count, a primary and a `.glow-plain` glow button, and a short note. The reveal
-  runs once per visit. Below it, a `.grain.dusk` banner holds the live
-  showcase.
-- **Features.** A 12-column grid of `.tile` sections: one wide tile, then pairs
-  at 7/5 and 5/7. Each tile is a copy block (sticker label, display title,
-  body, a "more" link whose chevron leans on hover) and a mesh stage with grain
-  holding real Mielui components on a card.
+- **Hero.** One centered `.stagger` column: a version pill linking to the
+  changelog, a display headline with one `.accent` word, a muted lead that
+  states the real component count, then the install command with a Copy
+  button beside a primary and a `.glow-plain` button. The component wall is the
+  last child and rises in. The reveal runs once per visit.
+- **Component wall.** A row of built-in theme dots, the hovered or picked
+  theme's name and description, then a `.grain.wall` canvas holding real cards
+  (settings, invite, calendar, composer, chart, buttons, progress) in CSS
+  columns. Picking a theme scopes that theme's CSS to the wall only, so its
+  colors, fonts, corners, and density change there and nowhere else. The
+  canvas mesh is mixed from the theme's brand through the registered
+  `--wall-tint` color and glides to the new brand. Below the canvas, one link
+  opens the picked theme in Theme Studio. Narrow screens hide some cards and
+  let the dots scroll sideways.
+- **Component index.** A heading with the live count and a catalog link, then
+  every catalog group plus Actions as plain hairline rows: sticker, name,
+  count, and the first component names. Each row links to its catalog page. Two
+  columns on phones (names hidden), four on wide screens. No cards.
+- **Composition.** A short copy block beside ghost tabs. Each tab pairs a
+  snippet with the same markup rendered live on a mesh stage, so the code and
+  the result never disagree.
 - **Live demos.** A label, heading, and copy, then ghost tabs for Coding agent,
   Chat, and Issue above one demo surface on a mesh stage. Show one demo at a
   time at a fixed height. Do not stack the demos or add a preset switcher.
-- **Numbers.** One `dl.tile` with three counts read from the source: components,
-  categories, and built-in themes. Never invent a number.
-- **Close.** A `.grain.sunrise` card in warm dark ink with a `.glow-white`
-  button, beside numbered install steps, the install command, and a first
-  component.
+- **Close.** A hairline, a centered display line, three numbered install steps
+  in columns, and four plain link rows (copy the source, agent skill, Theme
+  Studio, GitHub).
 - **Footer.** The license, the maker, and Docs, Changelog, and GitHub links.
 
-The showcase in the hero is a centered interactive card over inert,
-`aria-hidden` sample cards that fade at the top and bottom of the banner. Both
-use real components. The banner's mesh is a fixed lavender in both themes; the
-cards follow the page theme, light frost in light mode and dark frost in dark
-mode, and their labels stay legible on the mesh in both. Each featured tab is
-one small real task with plain labels: a few notification settings, a composer
-with example prompts, and a weekly chart with its total. The panel keeps one
-height across tabs. Do not use slogans as control labels. Avoid invented
-endorsements or usage counts. On narrow screens, stack the content and allow
-normal page scrolling.
+Use plain labels on every control and say when data is sample data. Never
+invent a number, endorsement, or usage count.
 
 Each demo is built from library components, works when clicked, and lives in
 `$lib/components/demos` so the Studio's AI tab renders the same files. In the

@@ -4,7 +4,7 @@
 - The GitHub star count in the docs sidebar updates on each deploy.
 - Docs sidebar links open on mouse press instead of release.
 - The blurred fades at the page edges, under pinned sidebar labels, and under the catalog search row ease in instead of ending in a hard line.
-- New homepage: a hero over a live component showcase, feature tiles with working components, the live demos, real counts, and install steps.
+- New homepage: a centered hero over a wall of live components that any built-in theme restyles in place, an index of every component group, side-by-side code and result for composed components, the live demos, and install steps.
 - New docs layout: one borderless sidebar on the page color replaces the dark frame, icon rail, and panel.
 - The sidebar holds the brand, GitHub, the theme toggle, and a search field at its top.
 - Docs groups are marked with colored stickers in the sidebar, page headers, and previous and next links.
@@ -19,7 +19,7 @@
 - The tab dock at the bottom of docs pages is gone, along with Cmd/Ctrl-click to open a page in a background tab.
 - The docs sidebar has a fixed width, and the article is centered on the window when there is room.
 - Theme Studio's settings panel matches the sidebar: a sticker for the preset, sidebar-style group titles, and a slim export strip with the number of changes.
-- Theme Studio opens on seven essential settings with no tabs. Every other setting sits under one All settings disclosure, and the settings search still finds all of them.
+- Theme Studio opens on seven essential settings with no tabs. Every other setting sits under one All settings disclosure, grouped by tabs, and the settings search still finds all of them.
 - The Studio preview tools and preview switch float as borderless clusters, like Copy page.
 - The Themes page shows each theme as a tile with its specimen inside, a white Apply button, and a quieter Details button.
 - The browser toolbar color follows the light or dark mode chosen on the site and any live theme, not only the system setting.

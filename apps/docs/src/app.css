@@ -31,6 +31,12 @@ blockquote {
 
 /* Scroll fades update every scroll frame. Inherited, each update would restyle the
    whole scroller, so `scrollFade` writes them only to the elements that read them. */
+@property --wall-tint {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #ba7ca5;
+}
+
 @property --fade-start {
     syntax: '<length>';
     inherits: false;
@@ -292,12 +298,14 @@ pre {
         }
     }
 
-    /* The hero banner: a lavender mesh, drawn larger than the banner, drifting very slowly.
-       The layer slides, so the drift runs on the compositor instead of repainting. */
-    .dusk {
+    /* The homepage component wall: a drifting mesh mixed from one brand color, `--wall-tint`.
+       The tint is a registered color, so a theme switch glides the mesh to the new brand. */
+    .wall {
         position: relative;
         isolation: isolate;
         overflow: hidden;
+        background-color: color-mix(in oklab, var(--wall-tint) 40%, white);
+        transition: --wall-tint 700ms var(--ease-out);
 
         &::before {
             content: '';
@@ -308,20 +316,58 @@ pre {
             height: 160%;
             z-index: -1;
             background:
-                radial-gradient(ellipse at 12% 110%, #ffd9e8 0, transparent 45%),
-                radial-gradient(ellipse at 30% 0%, #d7a2e0 0, transparent 55%),
-                radial-gradient(ellipse at 85% 85%, #8f6bff 0, transparent 55%),
-                radial-gradient(ellipse at 75% 10%, #f1dcff 0, transparent 50%), #c9a8e8;
+                radial-gradient(
+                    ellipse at 12% 100%,
+                    oklch(from var(--wall-tint) 0.9 calc(c * 0.6) calc(h - 50)) 0,
+                    transparent 45%
+                ),
+                radial-gradient(
+                    ellipse at 30% 0%,
+                    color-mix(in oklab, var(--wall-tint) 55%, white) 0,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse at 85% 85%,
+                    oklch(from var(--wall-tint) calc(l * 0.85) c calc(h + 30)) 0,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse at 70% 10%,
+                    color-mix(in oklab, var(--wall-tint) 15%, white) 0,
+                    transparent 50%
+                ),
+                color-mix(in oklab, var(--wall-tint) 40%, white);
             animation: drift 22s ease-in-out infinite alternate;
         }
     }
 
-    /* The warm closing card: soft blobs over orange. Pair with grain. */
-    .sunrise {
-        background:
-            radial-gradient(circle at 18% 20%, #ffe14d 0, transparent 55%),
-            radial-gradient(circle at 85% 25%, #ff7a1a 0, transparent 50%),
-            radial-gradient(circle at 60% 100%, #ff2d87 0, transparent 60%), #ffb21a;
+    .dark .wall {
+        background-color: color-mix(in oklab, var(--wall-tint) 30%, #0e0e0e);
+
+        &::before {
+            background:
+                radial-gradient(
+                    ellipse at 12% 100%,
+                    oklch(from var(--wall-tint) 0.45 calc(c * 0.7) calc(h - 50)) 0,
+                    transparent 45%
+                ),
+                radial-gradient(
+                    ellipse at 30% 0%,
+                    color-mix(in oklab, var(--wall-tint) 45%, #0e0e0e) 0,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse at 85% 85%,
+                    oklch(from var(--wall-tint) 0.5 c calc(h + 30)) 0,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse at 70% 10%,
+                    color-mix(in oklab, var(--wall-tint) 20%, #0e0e0e) 0,
+                    transparent 50%
+                ),
+                color-mix(in oklab, var(--wall-tint) 26%, #0e0e0e);
+        }
     }
 
     /* Docs: the page group's tint behind the title, fading straight down to nothing. */
@@ -376,20 +422,6 @@ pre {
         --mielui-glow-color: #333;
         --mielui-glow-light: 0.45;
     }
-
-    /* The glow for a white button on color: bright at the top, a warm shade inside the bottom. */
-    .glow-white {
-        --mielui-glow-color: #fff;
-        --mielui-glow-top: #ffffff;
-        --mielui-glow-bottom: #efe6df;
-        --mielui-glow-shadow:
-            inset 0 1px 0 #fff, inset 0 -2px 4px rgb(150 70 20 / 0.14), 0 0 0 1px rgb(
-                120 40 0 / 0.14
-            ),
-            0 1px 2px rgb(120 40 0 / 0.16), 0 10px 28px -6px rgb(120 30 0 / 0.38),
-            0 0 0 5px rgb(255 255 255 / 0.12);
-        color: #2b1000;
-    }
 }
 
 /* Outside the layers, so it beats the glow variant's own text color on the dark fill. */
@@ -429,9 +461,13 @@ html.revealed .stagger > * {
         transition: none;
     }
 
-    .dusk::before,
+    .wall::before,
     .stagger > * {
         animation: none;
+    }
+
+    .wall {
+        transition: none;
     }
 }
 
