@@ -17,7 +17,7 @@
     import { setStudioContext } from '$lib/studio-context';
     import '@mielui/svelte/ui.css';
     import '../app.css';
-    import { injectAnalytics } from '@vercel/analytics/sveltekit';
+    import { inject as injectAnalytics } from '@vercel/analytics';
     import { onMount, type Snippet, untrack } from 'svelte';
     import { dev } from '$app/environment';
     import { beforeNavigate, onNavigate } from '$app/navigation';
@@ -35,7 +35,10 @@
     setSearch(search);
     setShell(createShell());
 
-    injectAnalytics({ mode: dev ? 'development' : 'production' });
+    injectAnalytics({
+        mode: dev ? 'development' : 'production',
+        framework: 'sveltekit'
+    });
 
     let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
