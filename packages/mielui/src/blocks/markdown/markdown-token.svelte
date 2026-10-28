@@ -129,7 +129,7 @@
                 title={token.title ?? undefined}
                 target={isExternalUrl(href) ? '_blank' : undefined}
                 rel={isExternalUrl(href) ? 'noopener noreferrer' : undefined}
-                class="break-words text-foreground underline decoration-[var(--color-border-strong)] underline-offset-2 [text-decoration-skip-ink:auto] [text-decoration-thickness:from-font] [text-underline-position:from-font] transition-[color,text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:text-primary hover:decoration-primary motion-reduce:transition-none focus-visible:rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                class="break-words text-foreground underline decoration-[var(--color-border-strong)] underline-offset-2 [text-decoration-skip-ink:auto] [text-decoration-thickness:from-font] [text-underline-position:from-font] hover:text-primary hover:decoration-primary focus-visible:rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
             >
                 <Self tokens={token.tokens ?? [{ type: 'text', text: token.text ?? href }]} />
             </a>

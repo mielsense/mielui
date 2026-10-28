@@ -30,7 +30,7 @@
                 {#if item.href}
                     <a
                         href={item.href}
-                        class="group flex items-center gap-4 px-4 py-3 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-soft)] focus-visible:outline-none focus-visible:shadow-[inset_var(--focus-ring)] motion-reduce:transition-none"
+                        class="group flex items-center gap-4 px-4 py-3 hover:bg-[var(--docs-soft)] focus-visible:outline-none focus-visible:shadow-[inset_var(--focus-ring)] motion-reduce:transition-none"
                     >
                         <span
                             class="flex min-w-0 flex-1 flex-col gap-x-6 gap-y-0.5 @lg:flex-row @lg:items-baseline"
@@ -48,7 +48,7 @@
                             icon={ChevronRight}
                             size={14}
                             aria-hidden="true"
-                            class="shrink-0 text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] group-hover:text-foreground motion-reduce:transition-none"
+                            class="shrink-0 text-foreground-muted group-hover:text-foreground motion-reduce:transition-none"
                         />
                     </a>
                 {:else}

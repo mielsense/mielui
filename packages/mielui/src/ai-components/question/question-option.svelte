@@ -36,7 +36,7 @@
         class={cn(
             className,
             isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]',
-            'group relative flex cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] [counter-increment:question-option] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] data-[state=checked]:bg-[var(--color-wash)] [&:not([data-disabled]):hover]:bg-[var(--color-wash)] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden'
+            'group relative flex cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2 text-start [counter-increment:question-option] has-[:focus-visible]:shadow-[var(--focus-ring)] data-[state=checked]:bg-[var(--color-wash)] [&:not([data-disabled]):hover]:bg-[var(--color-wash)] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden'
         )}
     >
         <input

@@ -11,6 +11,7 @@
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import type { Snippet } from 'svelte';
     import { resolve } from '$app/paths';
 
     const prompts = [
@@ -52,92 +53,108 @@
 
 <div
     data-home-showcase
-    class="relative isolate mx-auto min-h-[27rem] w-full max-w-[42rem] min-w-0 @4xl:min-h-[30rem] @6xl:h-full [--color-card:color-mix(in_oklab,var(--color-primary)_3%,white)] [--color-background:color-mix(in_oklab,var(--color-primary)_8%,white)] [--color-secondary:color-mix(in_oklab,var(--color-primary)_12%,white)] [--color-foreground:color-mix(in_oklab,var(--color-primary)_15%,#242424)] [--color-foreground-muted:color-mix(in_oklab,var(--color-primary)_20%,#737373)] [--color-border:color-mix(in_oklab,var(--color-primary)_18%,white)] [--color-primary-foreground:#ffffff] [--color-primary-stroke:transparent] [--color-input:color-mix(in_oklab,var(--color-primary)_18%,white)] [--color-field:#ffffff] [--color-field-foreground:var(--color-foreground)] [--color-field-hover:#f3f5fb] [--color-button-foreground:var(--color-foreground)] [--chart-1:var(--color-primary)] [--mielui-inset-position:bottom] dark:[--color-card:color-mix(in_oklab,var(--color-primary)_6%,#161618)] dark:[--color-background:color-mix(in_oklab,var(--color-primary)_5%,#0e0e10)] dark:[--color-secondary:color-mix(in_oklab,var(--color-primary)_10%,#242427)] dark:[--color-foreground:#f2f2f3] dark:[--color-foreground-muted:#a3a3ab] dark:[--color-border:color-mix(in_oklab,var(--color-primary)_14%,#2d2d31)] dark:[--color-input:color-mix(in_oklab,var(--color-primary)_14%,#35353b)] dark:[--color-field:#1c1c1f] dark:[--color-field-hover:#232327]"
+    class="relative isolate min-h-[28rem] w-full min-w-0 @4xl:min-h-[34rem] [--color-card:color-mix(in_oklab,var(--color-primary)_3%,white)] [--color-background:color-mix(in_oklab,var(--color-primary)_8%,white)] [--color-secondary:color-mix(in_oklab,var(--color-primary)_12%,white)] [--color-foreground:color-mix(in_oklab,var(--color-primary)_15%,#242424)] [--color-foreground-muted:color-mix(in_oklab,var(--color-primary)_20%,#737373)] [--color-border:color-mix(in_oklab,var(--color-primary)_18%,white)] [--color-primary-foreground:#ffffff] [--color-primary-stroke:transparent] [--color-input:color-mix(in_oklab,var(--color-primary)_18%,white)] [--color-field:#ffffff] [--color-field-foreground:var(--color-foreground)] [--color-field-hover:#f3f5fb] [--color-button-foreground:var(--color-foreground)] [--chart-1:var(--color-primary)] [--mielui-inset-position:bottom] dark:[--color-card:color-mix(in_oklab,var(--color-primary)_6%,#161618)] dark:[--color-background:color-mix(in_oklab,var(--color-primary)_5%,#0e0e10)] dark:[--color-secondary:color-mix(in_oklab,var(--color-primary)_10%,#242427)] dark:[--color-foreground:#f2f2f3] dark:[--color-foreground-muted:#a3a3ab] dark:[--color-border:color-mix(in_oklab,var(--color-primary)_14%,#2d2d31)] dark:[--color-input:color-mix(in_oklab,var(--color-primary)_14%,#35353b)] dark:[--color-field:#1c1c1f] dark:[--color-field-hover:#232327]"
 >
+    {#snippet sample(label: string, body: Snippet)}
+        <div
+            class="rounded-[var(--radius-xl)] bg-white/30 p-2 shadow-[inset_0_0_0_1px_rgb(255_255_255/0.4)] dark:bg-black/20 dark:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)]"
+        >
+            <p class="m-0 px-2 pt-1 pb-2.5 font-mono text-xs text-[#2a1a4a]/70 dark:text-white/70">
+                {label}
+            </p>
+            <div class="rounded-[var(--radius-lg)] bg-card text-foreground">
+                {@render body()}
+            </div>
+        </div>
+    {/snippet}
+
+    {#snippet cards()}
+        <div class="space-y-5 p-6">
+            <p class="m-0 text-lg font-medium">Ready for the next release</p>
+            <Checkbox checked label="Thoughtful defaults" />
+            <Checkbox checked label="Make it your own" />
+            <Progress value={72} aria-label="Release progress" />
+        </div>
+    {/snippet}
+
+    {#snippet chart()}
+        <div class="px-3 py-8">
+            <Chart.Root
+                data={chartData}
+                config={chartConfig}
+                x="day"
+                aria-label="Sample visits"
+                class="h-40 w-full"
+            >
+                <Chart.Plot class="h-40"><Chart.Area key="visits" /></Chart.Plot>
+            </Chart.Root>
+        </div>
+    {/snippet}
+
+    {#snippet progress()}
+        <div class="space-y-5 px-6 py-10">
+            <Progress value={38} aria-label="Upload progress" />
+            <Progress value={78} aria-label="Processing progress" />
+        </div>
+    {/snippet}
+
+    {#snippet buttons()}
+        <div class="flex min-h-32 items-center justify-center gap-2 p-5">
+            <Button variant="secondary">Cancel</Button>
+            <Button>Save changes</Button>
+        </div>
+    {/snippet}
+
+    {#snippet toggle()}
+        <div class="flex min-h-40 items-center justify-center p-5">
+            <Switch checked label="A little motion" />
+        </div>
+    {/snippet}
+
+    {#snippet slider()}
+        <div class="px-6 py-10">
+            <Slider value={64} label="Find your balance" />
+        </div>
+    {/snippet}
+
+    {#snippet badges()}
+        <div class="flex min-h-32 flex-wrap items-center justify-center gap-2 p-5">
+            <Badge variant="success">Shipped</Badge>
+            <Badge variant="info">In review</Badge>
+            <Badge variant="warning">Blocked</Badge>
+        </div>
+    {/snippet}
+
     <div
         aria-hidden="true"
         inert
-        class="pointer-events-none absolute -inset-x-8 -inset-y-10 grid grid-cols-2 content-center items-start gap-4 opacity-15 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)] @4xl:-inset-x-4 @6xl:-inset-y-28"
+        class="pointer-events-none absolute -inset-x-2 -inset-y-6 grid grid-cols-2 content-center items-start gap-4 opacity-60 [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_78%,transparent)] @4xl:grid-cols-4 @4xl:-inset-y-12"
     >
-        <div class="flex flex-col gap-5 -translate-y-12">
-            <div
-                class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3 dark:border-white/10 dark:bg-black/25"
-            >
-                <p class="px-2 pb-3 font-mono text-sm text-white">Cards</p>
-                <div
-                    class="space-y-5 rounded-[var(--radius-lg)] bg-white/80 dark:bg-black/50 p-6 text-foreground"
-                >
-                    <p class="text-lg font-medium">Ready for the next release</p>
-                    <Checkbox checked label="Thoughtful defaults" />
-                    <Checkbox checked label="Make it your own" />
-                    <Progress value={72} aria-label="Release progress" />
-                </div>
-            </div>
-            <div
-                class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3 dark:border-white/10 dark:bg-black/25"
-            >
-                <p class="px-2 pb-3 font-mono text-sm text-white">Charts</p>
-                <div class="rounded-[var(--radius-lg)] bg-white/75 dark:bg-black/50 px-3 py-8">
-                    <Chart.Root
-                        data={chartData}
-                        config={chartConfig}
-                        x="day"
-                        aria-label="Sample visits"
-                        class="h-40 w-full"
-                    >
-                        <Chart.Plot class="h-40"><Chart.Area key="visits" /></Chart.Plot>
-                    </Chart.Root>
-                </div>
-            </div>
-            <div
-                class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3 dark:border-white/10 dark:bg-black/25"
-            >
-                <p class="px-2 pb-3 font-mono text-sm text-white">Progress</p>
-                <div
-                    class="space-y-5 rounded-[var(--radius-lg)] bg-white/75 dark:bg-black/50 px-6 py-10"
-                >
-                    <Progress value={38} aria-label="Upload progress" />
-                    <Progress value={78} aria-label="Processing progress" />
-                </div>
-            </div>
+        <div class="flex -translate-y-10 flex-col gap-4">
+            {@render sample('Cards', cards)}
+            {@render sample('Progress', progress)}
         </div>
-        <div class="flex flex-col gap-5 translate-y-10">
-            <div
-                class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3 dark:border-white/10 dark:bg-black/25"
-            >
-                <p class="px-2 pb-3 font-mono text-sm text-white">Buttons</p>
-                <div
-                    class="flex min-h-32 items-center justify-center rounded-[var(--radius-lg)] bg-white/75 dark:bg-black/50 p-5"
-                >
-                    <Button>Save changes</Button>
-                </div>
-            </div>
-            <div
-                class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3 dark:border-white/10 dark:bg-black/25"
-            >
-                <p class="px-2 pb-3 font-mono text-sm text-white">Switch</p>
-                <div
-                    class="flex min-h-40 items-center justify-center rounded-[var(--radius-lg)] bg-white/75 dark:bg-black/50 p-5"
-                >
-                    <Switch checked label="A little motion" />
-                </div>
-            </div>
-            <div
-                class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3 dark:border-white/10 dark:bg-black/25"
-            >
-                <p class="px-2 pb-3 font-mono text-sm text-white">Slider</p>
-                <div class="rounded-[var(--radius-lg)] bg-white/75 dark:bg-black/50 px-6 py-10">
-                    <Slider value={64} label="Find your balance" />
-                </div>
-            </div>
+        <div class="flex translate-y-8 flex-col gap-4">
+            {@render sample('Buttons', buttons)}
+            {@render sample('Switch', toggle)}
+        </div>
+        <div class="hidden -translate-y-4 flex-col gap-4 @4xl:flex">
+            {@render sample('Charts', chart)}
+            {@render sample('Slider', slider)}
+        </div>
+        <div class="hidden translate-y-14 flex-col gap-4 @4xl:flex">
+            {@render sample('Badges', badges)}
+            {@render sample('Cards', cards)}
         </div>
     </div>
 
     <section
         aria-label="Try Mielui components"
-        class="absolute inset-x-0 top-1/2 z-10 mx-auto w-full max-w-[24rem] -translate-y-1/2 rounded-[calc(var(--radius-xl)+var(--spacing)*2)] border border-white/40 bg-white/15 p-2 shadow-[0_20px_48px_-20px_#1d112b80,inset_0_1px_0_#ffffff66] backdrop-blur-xl dark:border-white/15 dark:bg-black/40 dark:shadow-[0_20px_48px_-20px_#00000099,inset_0_1px_0_#ffffff1f] @6xl:-translate-x-6"
+        class="absolute inset-x-0 top-1/2 z-10 mx-auto w-[calc(100%-1rem)] max-w-[24rem] -translate-y-1/2 rounded-[calc(var(--radius-xl)+var(--spacing)*2)] bg-white/35 p-2 shadow-[inset_0_0_0_1px_rgb(255_255_255/0.55),0_30px_70px_-20px_rgb(20_10_80/0.55)] backdrop-blur-xl dark:bg-black/45 dark:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.14),0_30px_70px_-20px_rgb(0_0_0/0.7)] [@media(prefers-reduced-transparency:reduce)]:bg-white/80 dark:[@media(prefers-reduced-transparency:reduce)]:bg-black/80"
     >
-        <div class="flex items-center justify-between px-3 pt-2 pb-4 text-white">
+        <div
+            class="flex items-center justify-between px-3 pt-2 pb-3 text-[#2a1a4a] dark:text-white"
+        >
             <span class="font-mono text-sm">
                 {DEMO_LABELS[demo]}
             </span>
@@ -260,7 +277,7 @@
                     <a
                         href={resolve('/studio')}
                         aria-label="Open Theme Studio"
-                        class="inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                        class="inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
                     >
                         <HugeiconsIcon icon={ArrowRight02Icon} size={16} />
                     </a>

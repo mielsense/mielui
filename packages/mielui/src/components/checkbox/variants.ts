@@ -5,7 +5,7 @@ export const checkbox = tv({
     variants: {
         variant: {
             default: '',
-            card: 'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-4 transition-[background-color,border-color] [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))]'
+            card: 'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-4 hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))]'
         },
         disabled: {
             true: 'opacity-[var(--opacity-disabled)]',

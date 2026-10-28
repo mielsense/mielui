@@ -3,9 +3,10 @@
         ArrowLeft01Icon as ChevronLeft,
         ArrowRight01Icon as ChevronRight
     } from '@hugeicons/core-free-icons';
-    import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { page } from '$app/state';
+    import { lookFor } from '$lib/components/shell/look';
+    import Sticker from '$lib/components/shell/sticker.svelte';
     import { allDocPages } from '$lib/docs-pages';
 
     type Page = {
@@ -19,24 +20,38 @@
     const nextPage = $derived<Page | undefined>(pageIndex >= 0 ? pages[pageIndex + 1] : undefined);
 </script>
 
-{#if prevPage || nextPage}
-    <nav
-        aria-label="Adjacent pages"
-        class="mt-16 flex items-center justify-between gap-4 border-t border-[var(--docs-rule)] pt-5"
+{#snippet step(item: Page, direction: 'Previous' | 'Next')}
+    {@const look = lookFor(item.href)}
+    {@const next = direction === 'Next'}
+    <a
+        href={item.href}
+        class={`tile group/section press-soft flex min-w-0 items-center gap-3.5 p-4 hover:shadow-[0_0_0_1px_var(--color-border-strong),0_6px_20px_-10px_rgb(0_0_0/0.2)] focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none ${next ? 'flex-row-reverse text-end sm:col-start-2' : ''}`}
     >
+        <Sticker icon={look.icon} mesh={look.mesh} size={32} />
+        <span class="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span
+                class={`flex items-center gap-1 text-xs text-foreground-muted ${next ? 'justify-end' : ''}`}
+            >
+                {#if !next}
+                    <HugeiconsIcon icon={ChevronLeft} size={12} />
+                {/if}
+                {direction}
+                {#if next}
+                    <HugeiconsIcon icon={ChevronRight} size={12} />
+                {/if}
+            </span>
+            <span class="truncate text-base text-foreground">{item.label}</span>
+        </span>
+    </a>
+{/snippet}
+
+{#if prevPage || nextPage}
+    <nav aria-label="Adjacent pages" class="mt-16 grid gap-3 sm:grid-cols-2">
         {#if prevPage}
-            <Button href={prevPage.href} variant="ghost" class="-ms-3 min-w-0">
-                <HugeiconsIcon icon={ChevronLeft} size={16} />
-                <span class="sr-only">Previous:</span>
-                <span class="truncate">{prevPage.label}</span>
-            </Button>
+            {@render step(prevPage, 'Previous')}
         {/if}
         {#if nextPage}
-            <Button href={nextPage.href} variant="ghost" class="ms-auto -me-3 min-w-0">
-                <span class="sr-only">Next:</span>
-                <span class="truncate">{nextPage.label}</span>
-                <HugeiconsIcon icon={ChevronRight} size={16} />
-            </Button>
+            {@render step(nextPage, 'Next')}
         {/if}
     </nav>
 {/if}

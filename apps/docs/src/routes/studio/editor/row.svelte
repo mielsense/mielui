@@ -62,7 +62,7 @@
                 <button
                     type="button"
                     aria-label={`Reset ${label} to the preset`}
-                    class="pointer-events-auto grid size-6 shrink-0 place-items-center rounded-[var(--radius-sm)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                    class="pointer-events-auto grid size-6 shrink-0 place-items-center rounded-[var(--radius-sm)] text-foreground-muted hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
                     onclick={reset.run}
                 >
                     <HugeiconsIcon icon={Undo} size={13} />
@@ -98,10 +98,10 @@
     {:else}
         <div
             data-setting-row
-            class={`flex min-h-9 items-center justify-between gap-2 ps-3 pe-1 has-[[role=switch]]:pe-2 ${bar}`}
+            class="flex min-h-9 items-center justify-between gap-2 ps-3 pe-1 has-[[role=switch]]:pe-2"
         >
             <span class="flex min-w-0 items-center gap-1">
-                <span class="min-w-0 truncate text-sm text-foreground-muted">{label}</span>
+                <span class="min-w-0 truncate text-sm text-foreground">{label}</span>
                 {@render resetButton()}
             </span>
             <div

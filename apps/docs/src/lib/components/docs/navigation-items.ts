@@ -4,7 +4,6 @@ import {
     PaintBrush01Icon as Brush,
     Clock01Icon as Clock,
     Download04Icon as Download,
-    GithubIcon as Github,
     GridViewIcon as Grid,
     PaintBoardIcon as Palette,
     SwatchIcon as Swatch
@@ -17,32 +16,37 @@ import {
     navigationGroups,
     sanitizeComponent
 } from '$lib/components';
+import { groupLook, startLook } from '$lib/components/shell/look';
 import { componentGuidePages } from '$lib/docs-pages';
-import { GITHUB_URL } from '$lib/github';
 
 const PILL_PADDING = 12;
 
-/** Guide pages at the top of the docs sidebar. */
-export const guides = [
-    { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
-    { label: 'Installation', href: resolve('/docs/installation'), icon: Download },
-    { label: 'Theming', href: resolve('/docs/theming'), icon: Brush },
-    { label: 'Agent skill', href: resolve('/docs/agent-skill'), icon: Agent },
-    { label: 'Components', href: resolve('/docs/components'), icon: Grid }
-];
-/** Site pages the mobile sheet lists under the guides. */
-export const site = [
+/** Site pages, plain rows with icons at the top of the docs sidebar. */
+export const siteLinks = [
+    { label: 'Components', href: resolve('/docs/components'), icon: Grid },
     { label: 'Theme Studio', href: resolve('/studio'), icon: Palette },
     { label: 'Themes', href: resolve('/themes'), icon: Swatch },
-    { label: 'Changelog', href: resolve('/docs/changelog'), icon: Clock },
-    { label: 'GitHub', href: GITHUB_URL, icon: Github }
+    { label: 'Changelog', href: resolve('/docs/changelog'), icon: Clock }
 ];
+
+/** The guides, a group whose rows carry icons. */
+export const guideGroup = {
+    look: startLook,
+    items: [
+        { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
+        { label: 'Installation', href: resolve('/docs/installation'), icon: Download },
+        { label: 'Theming', href: resolve('/docs/theming'), icon: Brush },
+        { label: 'Agent skill', href: resolve('/docs/agent-skill'), icon: Agent }
+    ]
+};
+
 /** Component and block sections, each with its pages and nested guides. */
 export const sections = [
     ...componentTypes.map((type) => ({
         id: type.id,
         label: type.heading,
         href: componentTypeHref(type.id),
+        look: groupLook(type.id, type.heading, componentTypeHref(type.id)),
         items: type.items.map((component) => ({
             href: `/docs/components/${component}`,
             label: sanitizeComponent(component),
@@ -55,6 +59,11 @@ export const sections = [
             id: group.id,
             label: group.heading,
             href: group.id === 'actions' ? '/docs/actions' : componentTypeHref(group.id),
+            look: groupLook(
+                group.id,
+                group.heading,
+                group.id === 'actions' ? '/docs/actions' : componentTypeHref(group.id)
+            ),
             items: group.items.flatMap((component) => [
                 {
                     href: entryHref(group.id, component),

@@ -57,7 +57,7 @@
             <button
                 type="button"
                 aria-current={model.studioView === view.value ? 'page' : undefined}
-                class="flex h-9 w-full items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-secondary aria-[current=page]:text-foreground motion-reduce:transition-none"
+                class="flex h-9 w-full items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-start text-sm text-foreground-muted hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-secondary aria-[current=page]:text-foreground motion-reduce:transition-none"
                 onclick={() => {
                     model.studioView = view.value;
                 }}

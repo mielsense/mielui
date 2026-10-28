@@ -13,23 +13,25 @@
     );
 </script>
 
-<div class="flex h-10 shrink-0 items-center gap-3 px-6">
-    <div aria-hidden="true" class="flex h-3 min-w-0 flex-1 items-stretch gap-[3px]">
-        {#each { length: SEGMENTS } as _, index (index)}
+{#if position > 0}
+    <div class="flex h-10 shrink-0 items-center gap-3 px-6">
+        <div aria-hidden="true" class="flex h-3 min-w-0 flex-1 items-stretch gap-[3px]">
+            {#each { length: SEGMENTS } as _, index (index)}
+                <span
+                    class={`min-w-0 flex-1 rounded-full transition-colors [transition-duration:var(--motion-duration-panel)] motion-reduce:transition-none ${index < filled ? 'bg-primary' : 'bg-primary/15'}`}
+                ></span>
+            {/each}
+        </div>
+        <span class="flex shrink-0 items-baseline gap-1 text-xs tabular-nums">
+            <span class="sr-only">Page</span>
             <span
-                class={`min-w-0 flex-1 rounded-full transition-colors [transition-duration:var(--motion-duration-panel)] motion-reduce:transition-none ${index < filled ? 'bg-primary' : 'bg-primary/15'}`}
-            ></span>
-        {/each}
-    </div>
-    <span class="flex shrink-0 items-baseline gap-1 text-xs tabular-nums">
-        <span class="sr-only">Page</span>
-        <span
-            class="min-w-[3ch] text-end font-medium text-foreground"
-            use:numberShuffle={{ value: position, format: (value) => String(value) }}
-        >
-            {position}
+                class="min-w-[3ch] text-end font-medium text-foreground"
+                use:numberShuffle={{ value: position, format: (value) => String(value) }}
+            >
+                {position}
+            </span>
+            <span class="text-foreground-muted">/</span>
+            <span class="text-foreground-muted">{total}</span>
         </span>
-        <span class="text-foreground-muted">/</span>
-        <span class="text-foreground-muted">{total}</span>
-    </span>
-</div>
+    </div>
+{/if}

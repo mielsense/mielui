@@ -50,7 +50,7 @@ describe('ui.css typography tokens', () => {
         );
         expect(css).toContain('--ui-cursor-interactive: default;');
         expect(css).toContain('--text-sm: var(--font-size-body);');
-        expect(css).toContain('--motion-duration-press: 160ms;');
+        expect(css).toContain('--motion-duration-press: 120ms;');
         expect(css).toContain('--ease-press:');
         expect(css).toContain('.mielui-press:active');
     });

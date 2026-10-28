@@ -24,9 +24,6 @@ import { catalogPages } from '$lib/components';
 
 export type ShellIcon = typeof BookOpen01Icon;
 
-/** Docs pages that fill the panel, with no docs sidebar and no page tabs. */
-const fullPanelPages = ['/docs/changelog', '/docs/agent-skill'];
-
 /** One icon per component group. A component's page uses its group's icon. */
 const groupIcons: Record<string, ShellIcon> = {
     'native-controls': CursorPointer01Icon,
@@ -49,12 +46,6 @@ const guideIcons: Record<string, ShellIcon> = {
     '/docs/changelog': Clock01Icon,
     '/docs/components': GridViewIcon
 };
-
-export function usesDocsSidebar(pathname: string) {
-    return (
-        pathname.startsWith('/docs') && !fullPanelPages.some((path) => pathname.startsWith(path))
-    );
-}
 
 export function pageIcon(pathname: string) {
     const guide = guideIcons[pathname];

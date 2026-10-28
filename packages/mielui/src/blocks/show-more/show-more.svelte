@@ -147,7 +147,7 @@
             <button
                 {...triggerProps}
                 type="button"
-                class="mt-2 -ms-2.5 inline-flex min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-control)] px-2.5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-button)] text-foreground-muted transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:cursor-[var(--ui-cursor-interactive)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                class="mt-2 -ms-2.5 inline-flex min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-control)] px-2.5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-button)] text-foreground-muted hover:cursor-[var(--ui-cursor-interactive)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
             >
                 <span class="grid text-start">
                     <span

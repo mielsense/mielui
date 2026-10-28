@@ -5,7 +5,7 @@
 
 <a
     href={resolve('/')}
-    class="flex shrink-0 items-center gap-2.5 rounded-[var(--radius-control)] pe-2 no-underline focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+    class="brand flex shrink-0 items-center gap-2.5 rounded-[var(--radius-control)] pe-2 no-underline focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
     aria-label="mielui Home"
 >
     <span

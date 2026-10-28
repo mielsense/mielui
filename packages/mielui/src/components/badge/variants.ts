@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants';
 
 export const badge = tv({
-    base: 'inline-flex w-fit max-w-full items-center justify-center gap-1.5 min-h-6 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-transparent px-2 py-0.5 [font-size:var(--font-size-badge)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-badge)] transition-[background-color,border-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none hover:cursor-default focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+    base: 'inline-flex w-fit max-w-full items-center justify-center gap-1.5 min-h-6 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-transparent px-2 py-0.5 [font-size:var(--font-size-badge)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-badge)] hover:cursor-default focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
 
     /**
      * Badges are flat and take the control radius. Status variants are a soft tint under status text,

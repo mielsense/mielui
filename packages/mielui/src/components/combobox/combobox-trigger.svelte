@@ -195,7 +195,7 @@
             aria-label={labels?.()?.clear ?? 'Clear search'}
             {disabled}
             data-ui="combobox-trigger-clear"
-            class="-me-1 grid size-6 shrink-0 cursor-pointer place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] [&_svg]:size-4 [&_svg]:shrink-0"
+            class="-me-1 grid size-6 shrink-0 cursor-pointer place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] [&_svg]:size-4 [&_svg]:shrink-0"
             onmousedown={(event) => {
                 event.preventDefault();
             }}

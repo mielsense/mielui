@@ -4,6 +4,7 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { onMount } from 'svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import {
         DEFAULT_FONT,
         type FontCategory,
@@ -27,14 +28,11 @@
     <meta name="description" content="Set the typeface for the current Mielui theme." />
 </svelte:head>
 
-<div class="flex w-full flex-col gap-10 py-10 md:py-14">
-    <header class="flex max-w-2xl flex-col gap-2">
-        <Typography.H1>Fonts</Typography.H1>
-        <Typography.Text>
-            Set the typeface for the current theme. Your choice is saved and follows you across the
-            rest of Mielui.
-        </Typography.Text>
-    </header>
+<div class="flex w-full flex-col gap-10 pb-10">
+    <PageIntro title="Fonts">
+        Set the typeface for the current theme. Your choice is saved and follows you across the rest
+        of Mielui.
+    </PageIntro>
 
     {#each groups as group (group.id)}
         <section aria-labelledby={group.id} class="flex flex-col gap-4">

@@ -10,6 +10,8 @@
     import { applyLiveThemeCss } from '@mielui/svelte/themes/live';
     import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
     import { onMount } from 'svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { searchField } from '$lib/components/shell/look';
     import { loadGoogleFonts } from '$lib/fonts.svelte';
     import { handOffTheme } from '$lib/studio/handoff';
     import type { PageData } from './$types';
@@ -74,19 +76,12 @@
 </svelte:head>
 
 <div class="flex w-full flex-col gap-8 pb-10">
-    <header class="flex flex-col gap-3">
-        <h1
-            class="m-0 text-[2.5rem] leading-[1.1] font-medium tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
-        >
-            Themes
-        </h1>
-        <p class="m-0 max-w-[64ch] text-base leading-7 text-foreground-muted">
-            Apply a complete preset live, or copy its CSS and JSON into your project.
-        </p>
-    </header>
+    <PageIntro title="Themes">
+        Apply a complete preset live, or copy its CSS and JSON into your project.
+    </PageIntro>
 
     <div class="flex min-w-0 items-center justify-between gap-3">
-        <div class="min-w-0 flex-1 sm:max-w-sm">
+        <div class={`min-w-0 flex-1 sm:max-w-sm ${searchField}`}>
             <Input
                 bind:value={searchQuery}
                 type="search"
@@ -94,12 +89,15 @@
                 placeholder="Search themes"
                 class="w-full"
             >
-                {#snippet trailing()}
-                    <HugeiconsIcon icon={Search} size={16} aria-hidden="true" />
+                {#snippet leading()}
+                    <HugeiconsIcon icon={Search} size={14} aria-hidden="true" />
                 {/snippet}
             </Input>
         </div>
-        <Typography.Metadata class="shrink-0 whitespace-nowrap tabular-nums" aria-live="polite">
+        <Typography.Metadata
+            class="shrink-0 whitespace-nowrap text-[13px] tabular-nums"
+            aria-live="polite"
+        >
             {countLabel}
         </Typography.Metadata>
     </div>
@@ -125,7 +123,7 @@
         </EmptyState.Root>
     {:else}
         <ul
-            class="m-0 grid list-none grid-cols-1 gap-x-5 gap-y-8 p-0 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+            class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
         >
             {#each filteredThemes as theme (theme.slug)}
                 <ThemeCard {theme} onApply={applyTheme} onDetails={openDetail} />

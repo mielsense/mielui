@@ -242,7 +242,7 @@
     --motion-duration-modal-in: 400ms;
     --motion-duration-modal-out: 150ms;
     --motion-press-px: var(--size-hairline);
-    --motion-duration-press: 160ms;
+    --motion-duration-press: 120ms;
     --motion-duration-item: 110ms;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-press: cubic-bezier(0.22, 1, 0.36, 1);

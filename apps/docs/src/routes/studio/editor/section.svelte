@@ -41,9 +41,7 @@
 </script>
 
 <section class="flex flex-col gap-1.5 [&:not(:has([data-setting-row]))]:hidden">
-    <div class="flex h-7 items-center justify-between gap-2 ps-0.5">
-        <h2 class="m-0 text-[13px] font-medium text-foreground">{title}</h2>
-    </div>
+    <h2 class="m-0 flex h-8 items-center ps-3 text-[13px] font-medium text-foreground">{title}</h2>
     <div class="flex flex-col gap-1.5">
         {@render children()}
     </div>

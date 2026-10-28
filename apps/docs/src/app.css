@@ -10,6 +10,7 @@ body {
 /* Reserve scrollbar space so opening an overlay (which locks body scroll)
    never shifts centered content sideways. */
 html {
+    background-color: var(--color-background);
     scrollbar-gutter: stable;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -105,9 +106,38 @@ pre {
     background: var(--color-border-strong);
 }
 
-::view-transition-old(root),
+/* Between the landing page and the docs: the old page fades and sinks back a little, the new
+   one fades up from just below, and the brand glides between the header and the sidebar. */
+.brand {
+    view-transition-name: brand;
+}
+
+::view-transition-old(root) {
+    animation: page-out 260ms var(--ease-out) both;
+}
+
 ::view-transition-new(root) {
-    @apply animate-none mix-blend-normal;
+    animation: page-in 300ms var(--ease-out) both;
+}
+
+/* biome-ignore lint/correctness/noUnknownTypeSelector: `brand` is a view-transition name, not a type selector. */
+::view-transition-group(brand) {
+    animation-duration: 300ms;
+    animation-timing-function: var(--ease-out);
+}
+
+@keyframes page-out {
+    to {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
 }
 
 ::view-transition {
@@ -131,4 +161,288 @@ pre {
     --color-foreground-muted: color-mix(in oklab, var(--docs-paper) 62%, var(--docs-ink));
     background-color: var(--color-secondary);
     color: var(--color-foreground);
+}
+
+/* ---- Site look ----
+   The landing page and the docs share one quiet look: the page color is the background,
+   white tiles hold content, and soft color meshes with film grain carry the color. */
+
+/* Instrument Serif italic, cut to basic Latin: it sets one accent word per headline. */
+@font-face {
+    font-family: 'Instrument Serif';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/instrument-serif-italic.woff2') format('woff2');
+}
+
+/* In the base layer, so it beats ui.css's @theme default but loses to a live Studio theme
+   and to the font picker's inline style. Keep the stack identical to SYSTEM_FONT_FAMILY in
+   $lib/fonts.svelte.ts. */
+@layer base {
+    :root {
+        --font-sans:
+            -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Tight', system-ui, sans-serif;
+        --font-serif: 'Instrument Serif', Georgia, serif;
+        --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    }
+}
+
+::selection {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+}
+
+@layer components {
+    /* The italic serif word inside a sans headline. */
+    .accent {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+    }
+
+    /* Headlines: tracking tightens as they grow. */
+    .display {
+        color: var(--color-foreground);
+        font-weight: 500;
+        letter-spacing: -0.035em;
+        line-height: 1.02;
+    }
+
+    /* The landing page column: about 1330px of content, with gutters that grow with the screen. */
+    .wrap {
+        @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-10;
+    }
+
+    /* A quiet card on the page: the card color and a hairline shadow, no border. */
+    .tile {
+        border-radius: 24px;
+        background-color: var(--color-card);
+        box-shadow:
+            0 0 0 1px color-mix(in oklab, var(--color-foreground) 6%, transparent),
+            0 1px 2px rgb(0 0 0 / 0.03);
+    }
+
+    /* A link inside a sentence. */
+    .link {
+        color: var(--color-foreground);
+        text-decoration-line: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--color-border-strong);
+
+        &:hover {
+            text-decoration-color: currentColor;
+        }
+    }
+
+    /* Press feedback: a small scale while held. Transform only, so hover colors stay instant. */
+    .press {
+        transition: transform 100ms ease-out;
+
+        &:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+    }
+
+    .press-soft {
+        transition: transform 120ms ease-out;
+
+        &:active {
+            transform: scale(0.99);
+        }
+    }
+
+    /* A key cap in running text. */
+    .key {
+        display: inline-flex;
+        min-width: 1.6em;
+        align-items: center;
+        justify-content: center;
+        border: var(--border-size, 1px) solid var(--color-border);
+        border-radius: 6px;
+        padding: 0.15em 0.4em;
+        background-color: var(--color-card);
+        box-shadow: 0 1px 0 var(--color-border);
+        color: var(--color-foreground);
+        font-family: var(--font-sans);
+        font-size: 0.86em;
+        font-weight: 500;
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    /* Film grain over whatever background the element has, blended into the color only. */
+    .grain {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image: var(--noise);
+            background-size: 200px 200px;
+            opacity: 0.22;
+            mix-blend-mode: overlay;
+        }
+    }
+
+    /* The hero banner: a lavender mesh, drawn larger than the banner, drifting very slowly.
+       The layer slides, so the drift runs on the compositor instead of repainting. */
+    .dusk {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 160%;
+            height: 160%;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse at 12% 110%, #ffd9e8 0, transparent 45%),
+                radial-gradient(ellipse at 30% 0%, #d7a2e0 0, transparent 55%),
+                radial-gradient(ellipse at 85% 85%, #8f6bff 0, transparent 55%),
+                radial-gradient(ellipse at 75% 10%, #f1dcff 0, transparent 50%), #c9a8e8;
+            animation: drift 22s ease-in-out infinite alternate;
+        }
+    }
+
+    /* The warm closing card: soft blobs over orange. Pair with grain. */
+    .sunrise {
+        background:
+            radial-gradient(circle at 18% 20%, #ffe14d 0, transparent 55%),
+            radial-gradient(circle at 85% 25%, #ff7a1a 0, transparent 50%),
+            radial-gradient(circle at 60% 100%, #ff2d87 0, transparent 60%), #ffb21a;
+    }
+
+    /* Docs: the page group's tint behind the title, fading straight down to nothing. */
+    .mesh-glow {
+        border-radius: 24px 24px 0 0;
+        background: var(--tint);
+        opacity: 0.3;
+        mask-image: linear-gradient(to bottom, black, transparent);
+    }
+
+    .dark .mesh-glow {
+        opacity: 0.16;
+    }
+
+    /* Each line of a section fades up out of a slight blur, staggered down the section.
+       Big surfaces only rise: blurring a large bitmap every frame stutters. Runs once on load. */
+    .stagger > * {
+        animation: line-enter 520ms var(--ease-out) backwards;
+        animation-delay: calc(80ms + var(--n, 0) * 60ms);
+    }
+
+    .stagger > [data-rise] {
+        animation-name: rise;
+    }
+
+    .stagger > :nth-child(2) {
+        --n: 1;
+    }
+
+    .stagger > :nth-child(3) {
+        --n: 2;
+    }
+
+    .stagger > :nth-child(4) {
+        --n: 3;
+    }
+
+    .stagger > :nth-child(5) {
+        --n: 4;
+    }
+
+    .stagger > :nth-child(n + 6) {
+        --n: 5;
+    }
+
+    /* For the glow button on a white page: a white lit fill in light mode, a lifted grey in dark. */
+    .glow-plain {
+        --mielui-glow-color: #fff;
+    }
+
+    .dark .glow-plain {
+        --mielui-glow-color: #333;
+        --mielui-glow-light: 0.45;
+    }
+
+    /* The glow for a white button on color: bright at the top, a warm shade inside the bottom. */
+    .glow-white {
+        --mielui-glow-color: #fff;
+        --mielui-glow-top: #ffffff;
+        --mielui-glow-bottom: #efe6df;
+        --mielui-glow-shadow:
+            inset 0 1px 0 #fff, inset 0 -2px 4px rgb(150 70 20 / 0.14), 0 0 0 1px rgb(
+                120 40 0 / 0.14
+            ),
+            0 1px 2px rgb(120 40 0 / 0.16), 0 10px 28px -6px rgb(120 30 0 / 0.38),
+            0 0 0 5px rgb(255 255 255 / 0.12);
+        color: #2b1000;
+    }
+}
+
+/* Outside the layers, so it beats the glow variant's own text color on the dark fill. */
+.dark .glow-plain {
+    color: var(--color-foreground);
+}
+
+@keyframes drift {
+    to {
+        translate: -37.5% -37.5%;
+    }
+}
+
+@keyframes line-enter {
+    0% {
+        opacity: 0;
+        filter: blur(4px);
+        transform: translateY(0.4em);
+    }
+}
+
+@keyframes rise {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+/* After the first navigation the reveal is done for the visit; pages just appear. */
+html.revealed .stagger > * {
+    animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .press,
+    .press-soft {
+        transition: none;
+    }
+
+    .dusk::before,
+    .stagger > * {
+        animation: none;
+    }
+}
+
+/* The site's own ink, from mielwm: a neutral grey page with white cards in light mode, a
+   near-black page with lighter cards in dark mode. A live Studio theme writes its own style tag
+   and replaces this. */
+:root:not(:has(#mielui-live-theme-style)) {
+    --mielui-neutral-10: #f5f5f5;
+}
+
+.dark:not(:has(#mielui-live-theme-style)) {
+    --mielui-neutral-0: #161616;
+    --mielui-neutral-10: #0e0e0e;
 }

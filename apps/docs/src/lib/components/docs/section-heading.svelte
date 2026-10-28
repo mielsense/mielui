@@ -18,7 +18,7 @@
     {#if description}
         <HoverCard.Root placement="bottom-start">
             <HoverCard.Trigger
-                class="inline-flex size-5 shrink-0 items-center justify-center rounded-full text-foreground-muted transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                class="inline-flex size-5 shrink-0 items-center justify-center rounded-full text-foreground-muted hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
             >
                 <span class="sr-only">{`About ${title}`}</span>
                 <HugeiconsIcon icon={InformationCircleIcon} size={14} aria-hidden="true" />

@@ -18,7 +18,7 @@
         aria-current={current ? 'page' : undefined}
         class={cn(
             className,
-            'inline-flex min-h-[calc(var(--size-control-sm)-var(--size-hairline))] min-w-0 items-center gap-1.5 rounded-[var(--radius-control)] px-2 [font-size:var(--font-size-body)] [letter-spacing:var(--tracking-body)] leading-tight outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:shadow-[var(--focus-ring)] [&_svg]:shrink-0',
+            'inline-flex min-h-[calc(var(--size-control-sm)-var(--size-hairline))] min-w-0 items-center gap-1.5 rounded-[var(--radius-control)] px-2 [font-size:var(--font-size-body)] [letter-spacing:var(--tracking-body)] leading-tight outline-none focus-visible:shadow-[var(--focus-ring)] [&_svg]:shrink-0',
             current
                 ? 'text-foreground [font-weight:var(--font-weight-header)]'
                 : 'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground'

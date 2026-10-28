@@ -4,6 +4,7 @@
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
+    import { floatingCluster } from '$lib/components/shell/look';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import { loadGoogleFonts } from '$lib/fonts.svelte';
     import { getStudioContext } from '$lib/studio-context';
@@ -70,10 +71,6 @@
     <meta name="description" content="Build, preview, and export a Mielui theme." />
 </svelte:head>
 
-<Sidebar label="Theme configuration" wide>
-    <Inspector />
-</Sidebar>
-
 <main data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
     <h1 class="sr-only">Theme Studio</h1>
     <section
@@ -90,7 +87,7 @@
                             Edit
                             <span class="hidden sm:inline">theme</span>
                         </Sheet.Trigger>
-                        <Sheet.Content side="left">
+                        <Sheet.Content side="right">
                             <Sheet.Header>
                                 <Sheet.Title>Edit theme</Sheet.Title>
                             </Sheet.Header>
@@ -134,7 +131,7 @@
                         }
                     }
                 }
-                class="pointer-events-auto shadow-[var(--elevation-float)] ring-1 ring-border"
+                class={`pointer-events-auto bg-card/80! [@media(prefers-reduced-transparency:reduce)]:bg-card! ${floatingCluster}`}
             >
                 {#each previewTabs as tab (tab.value)}
                     <ToggleGroup.Item
@@ -179,6 +176,13 @@
         </div>
     </section>
 </main>
+
+<Sidebar label="Theme configuration" wide>
+    {#snippet header()}
+        <div class="h-3 shrink-0"></div>
+    {/snippet}
+    <Inspector />
+</Sidebar>
 
 <ExportPanel
     bind:open={editor.state.setupOpen}

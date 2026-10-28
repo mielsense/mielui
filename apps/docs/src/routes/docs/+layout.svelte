@@ -36,10 +36,8 @@
         {@attach scrollFade({ size: 44, target: 'parent' })}
         class="h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size]"
     >
-        <div class="w-full px-5 pt-8 pb-24 sm:px-10 lg:pt-14 xl:px-20">
-            <div
-                class="mx-auto flex w-full max-w-[60rem] min-w-0 flex-col has-[[data-docs-toolbar]]:max-w-none"
-            >
+        <div class="flex w-full justify-center px-5 pt-8 pb-24 sm:px-10 lg:pt-14 xl:px-20">
+            <div class="flex min-w-0 flex-[0_1_60rem] flex-col">
                 <div bind:this={content} class="docs-article w-full min-w-0">
                     {@render children()}
                 </div>
@@ -47,6 +45,11 @@
                     <DocsPager />
                 {/if}
             </div>
+            <div
+                aria-hidden="true"
+                data-sidebar-balance
+                class="hidden flex-[0_1000_16.5rem] lg:block"
+            ></div>
         </div>
     </div>
     <aside
