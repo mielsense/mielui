@@ -45,8 +45,9 @@
     const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.
+    // Reading `isThemeStudio` re-applies the font after an untouched Studio clears its theme.
     $effect(() => {
-        if (getStoredLiveThemeCss()) {
+        if (isThemeStudio || getStoredLiveThemeCss()) {
             document.documentElement.style.removeProperty('--font-sans');
             return;
         }

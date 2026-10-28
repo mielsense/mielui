@@ -73,7 +73,9 @@
         class={cn(
             className,
             buttonClasses,
-            isOn ? 'bg-primary' : 'bg-[var(--color-border-strong)]'
+            isOn
+                ? 'bg-[color-mix(in_oklab,var(--color-primary)_92%,var(--color-foreground))] dark:bg-primary'
+                : 'bg-[var(--color-border-strong)]'
         )}
         onclick={userOnclick}
     >

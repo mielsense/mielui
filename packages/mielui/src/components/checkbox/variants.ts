@@ -43,7 +43,7 @@ export const checkboxBox = tv({
          * glow shadow instead of replacing it.
          */
         checked: {
-            true: 'mielui-glow [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
+            true: 'mielui-glow [--mielui-glow-color:color-mix(in_oklab,var(--color-primary)_92%,var(--color-foreground))] dark:[--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
             false: 'border-[var(--mielui-control-border)] bg-[var(--color-field)] peer-hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
         }
     },

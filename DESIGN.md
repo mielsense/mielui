@@ -199,7 +199,7 @@ are flat and uniform, and one spring family moves it all.
    sections.
 3. **Squircles for surfaces, one radius for controls.** Plates take continuous
    corners. Everything pressable that is not a plate takes `--radius-control`:
-   a 12px rounded rectangle by default, 4px in the sharp scale, and a pill in
+   a 14px rounded rectangle by default, 4px in the sharp scale, and a pill in
    the rounded scale. Never hand-pick a radius for a control.
 4. **Filled actions are flat.** Primary, secondary, and destructive buttons,
    moving thumbs, and selected segments share one material, `.mielui-glow`: a

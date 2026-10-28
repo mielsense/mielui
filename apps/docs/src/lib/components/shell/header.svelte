@@ -14,7 +14,7 @@
     import { guideGroup, sections, siteLinks } from '$lib/components/docs/navigation-items';
     import Logo from '$lib/components/logo.svelte';
     import { getSearch } from '$lib/components/search/context';
-    import { formatStarCount, GITHUB_URL } from '$lib/github';
+    import { GITHUB_URL, githubLabel } from '$lib/github';
     import ThemeToggle from './theme-toggle.svelte';
 
     let { starCount = null }: { starCount?: number | null } = $props();
@@ -114,7 +114,7 @@
                         href={GITHUB_URL}
                         target="_blank"
                         rel="noreferrer"
-                        aria-label={`Mielui on GitHub, ${formatStarCount(starCount)} stars`}
+                        aria-label={githubLabel(starCount)}
                         class="size-8 text-foreground-muted hover:text-foreground"
                     >
                         <HugeiconsIcon icon={Github} size={16} />

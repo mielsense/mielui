@@ -10,3 +10,4 @@
 - Closing a Sheet or Dialog while it opens, or reopening it while it closes, turns it around from where it is instead of jumping or snapping into place.
 - Reopening a Popover, DropdownMenu, ContextMenu, HoverCard, or DatePicker while it closes turns it around from where it is instead of restarting its entrance.
 - Clicking a DropdownMenu trigger while its menu closes reopens the menu instead of being swallowed.
+- In light mode, checked Checkbox and Radio fills and the on Switch track are slightly darker, so the default brand color reaches 3:1 against the page.

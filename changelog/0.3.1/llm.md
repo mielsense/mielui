@@ -28,7 +28,7 @@ In the docs, `html` paints `--color-background`, and the root layout copies the 
 
 Theme Studio applies its draft as the live theme only while the draft differs from the untouched Default preset. An untouched draft is never saved, and leaving the Studio removes it, so a visit alone never replaces the site's palette and font. Keep that check in `controller.svelte.ts` if you change how the Studio persists drafts.
 
-## Flat by default (ship as 0.4.0)
+## Flat by default
 
 The default look is flat. `DEFAULT_THEME.chrome.edgeHighlight` is 0 and `controlShadows` is false, and `ui.css` bakes the same values in `:root` and `.dark`. Every filled control still uses `.mielui-glow`, but at an edge highlight of 0 it draws one solid fill (`--mielui-glow-color`) held by its hairline ring (`--mielui-glow-ring`), with no gradient, inner light, or drop shadow. Do not replace `.mielui-glow` with a hand-written `bg-primary` on a new filled control: keep the class, set `--mielui-glow-color`, and pair it with `shadow-[var(--mielui-glow-shadow)]` and `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]` as before. The theme then decides whether it is lit. The fill stays on `background-image`, so hide an unselected fill with `bg-none` and `before:hidden`, as Calendar days do.
 
@@ -36,7 +36,9 @@ Edge highlight still means the strength of the lit material. Any value above 0 l
 
 Flat hover and press move the whole fill toward the ink (`--color-foreground`) by a few percent, instantly, so they work in both modes without per-variant hover colors. Do not add a `hover:bg-*` to a `.mielui-glow` control.
 
-A selected segment on a track (ghost and segmented Tabs, ToggleGroup items) carries selection by text as well as fill: foreground color and `--font-weight-button`/`--font-weight-label` on the selected item, muted color and `--font-weight-body` on the rest. A white fill on a grey track cannot reach 3:1 on its own, so keep both cues if you restyle them.
+A selected segment on a track (ghost and segmented Tabs, ToggleGroup items) carries selection by text color as well as fill: foreground on the selected item, muted on the rest. A white fill on a grey track cannot reach 3:1 on its own, so keep both cues if you restyle them. Keep one font weight for selected and unselected items, so a label never widens and shifts its neighbours.
+
+In light mode, checked Checkbox and Radio fills and the Switch track mix the primary 92% with the ink (`color-mix(in oklab, var(--color-primary) 92%, var(--color-foreground))`), so the default brand reaches 3:1 against the page. Dark mode keeps the plain primary. Copy that pair on any new checked control instead of using `bg-primary` alone.
 
 A near-white primary button with dark text is a theme choice, not a variant: use the Open preset or set the brand color.
 

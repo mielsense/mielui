@@ -30,7 +30,7 @@
     import type { ShellIcon } from '$lib/components/shell/page-icon';
     import Sticker from '$lib/components/shell/sticker.svelte';
     import ThemeToggle from '$lib/components/shell/theme-toggle.svelte';
-    import { formatStarCount, GITHUB_URL } from '$lib/github';
+    import { formatStarCount, GITHUB_URL, githubLabel } from '$lib/github';
     import pkg from '../../../../packages/mielui/package.json';
 
     import type { PageData } from './$types';
@@ -176,7 +176,7 @@
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Mielui on GitHub, {stars} stars"
+                aria-label={githubLabel(data.starCount ?? null)}
                 class="hidden h-8 gap-1.5 px-2.5 text-foreground-muted hover:text-foreground md:inline-flex"
             >
                 <HugeiconsIcon icon={GithubIcon} size={16} />

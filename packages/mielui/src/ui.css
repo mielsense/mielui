@@ -682,7 +682,7 @@
 
     /* Lit hover fades in more light. Flat hover shifts the whole fill toward the ink
        at once, and press shifts it further. */
-    .mielui-glow:hover,
+    .mielui-glow:hover:not(:disabled):not([aria-disabled='true']),
     .mielui-glow[data-state='open'] {
         --mielui-glow-tone: calc(0.06 * (1 - var(--mielui-glow-on)));
     }

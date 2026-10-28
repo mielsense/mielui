@@ -292,7 +292,7 @@ const css = themeToCss(theme);`}
         />
         <Typography.Text variant="body" class="m-0">
             Studio exposes Edge highlight on the Surface tab. It is off by default. Turning it on
-            restores 33%, or the last strength used in that session, and you can adjust the strength
+            restores 30%, or the last strength used in that session, and you can adjust the strength
             while it is on. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve
             it.
         </Typography.Text>

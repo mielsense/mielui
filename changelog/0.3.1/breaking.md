@@ -1,4 +1,4 @@
-- The default theme is flat. Primary, secondary, and destructive buttons, switch and slider thumbs, checked checkboxes and radios, selected tabs, toggles, pagination pages, and calendar days take one solid fill held by a hairline, with no gradient, inner light, or drop shadow. This release should ship as 0.4.0.
+- The default theme is flat. Primary, secondary, and destructive buttons, switch and slider thumbs, checked checkboxes and radios, selected tabs, toggles, pagination pages, and calendar days take one solid fill held by a hairline, with no gradient, inner light, or drop shadow.
 - `chrome.edgeHighlight` defaults to 0 instead of 0.33. Set it above 0 to light every filled control again; 0.33 restores the previous look.
 - `chrome.controlShadows` defaults to off, so fields, outline buttons, keycaps, and toolbar keys are held by their hairline without an edge light or contact shadow.
 - Flat filled controls change tone on hover at once and darken further on press, instead of fading in a light.
