@@ -29,7 +29,7 @@
     const prompts = [
         {
             label: 'Release notes',
-            text: 'Write release notes for version 0.3.0.'
+            text: 'Write release notes for version 0.4.0.'
         },
         {
             label: 'Name a color',

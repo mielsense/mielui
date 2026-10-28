@@ -13,7 +13,7 @@ Mielui began from Sivir UI and is maintained independently, with its own compone
 
 Inspect the project before changing code:
 
-1. Confirm the installed Mielui release's peer requirements. Mielui 0.3.0 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
+1. Confirm the installed Mielui release's peer requirements. Mielui 0.4.0 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
 2. Read the package manifest, lockfile, global CSS entry, and nearby Svelte components.
 3. Detect the integration mode:
    - Package mode: `@mielui/svelte` is a dependency and components import from it.
