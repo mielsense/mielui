@@ -5,15 +5,15 @@
     import * as Form from '@mielui/svelte/components/form';
     import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-    import Remote from './examples/remote.svelte';
-    import RemoteSrc from './examples/remote.svelte?raw';
     import RemoteBasic from './examples/remote-basic.svelte';
     import RemoteBasicSrc from './examples/remote-basic.svelte?raw';
+    import Remote from './examples/remote-profile.svelte';
+    import RemoteSrc from './examples/remote-profile.svelte?raw';
     import StatusToneExample from './examples/status-tone.svelte';
     import StatusToneExampleSrc from './examples/status-tone.svelte?raw';
     import {
@@ -76,20 +76,23 @@ export const validateProfile = form(
     </Form.Actions>
     <Form.Status>{message}</Form.Status>
 </Form.Root>`;
-    const remoteConfig = `const config = {
-    compilerOptions: {
-        experimental: {
-            async: true
-        }
-    },
-    kit: {
-        experimental: {
-            remoteFunctions: true
-        }
-    }
-};
+    const remoteConfig = `import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 
-export default config;`;
+export default defineConfig({
+    plugins: [
+        sveltekit({
+            compilerOptions: {
+                experimental: {
+                    async: true
+                }
+            },
+            experimental: {
+                remoteFunctions: true
+            }
+        })
+    ]
+});`;
     const actionExample = `<script lang="ts">
     import { enhance } from '$app/forms';
     import * as Form from '@mielui/svelte/components/form';
@@ -217,8 +220,9 @@ export default config;`;
         <Typography.Text variant="supporting">
             The docs application opts in to remote functions and async compilation. Mielui itself
             imports no Kit runtime and requires no experimental flag. To run this example in your
-            own Kit 2 application, explicitly enable both options and install Valibot (pnpm add
-            valibot). These examples target Kit 2.70 or later and Svelte 5.39 or later. See the{' '}
+            own app, enable both options in the sveltekit() plugin in vite.config.ts and install
+            Valibot (pnpm add valibot). These examples target Kit 3 and Svelte 5.57.1 or later. See
+            the{' '}
             <a
                 href="https://svelte.dev/docs/kit/remote-functions"
                 class="underline underline-offset-4"
@@ -233,10 +237,10 @@ export default config;`;
             Validate at the server boundary
         </Typography.H3>
         <Typography.Text variant="supporting">
-            Place the handler in a .remote.ts file under src, outside src/lib/server. Its schema is
-            the authority. Real mutations must authenticate and authorize the current request before
-            changing data. This demonstration waits briefly to make pending feedback visible and
-            returns a validation result; it writes nothing.
+            Place the handler in a .remote.ts file under src, outside any server directory. Its
+            schema is the authority. Real mutations must authenticate and authorize the current
+            request before changing data. This demonstration waits briefly to make pending feedback
+            visible and returns a validation result; it writes nothing.
         </Typography.Text>
         <CodeBlock code={RemoteServerSrc} lang="typescript" copy="overlay" />
         <Typography.H3 class="docs-subsection-heading">

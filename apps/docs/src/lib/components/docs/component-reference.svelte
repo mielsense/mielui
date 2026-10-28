@@ -2,8 +2,8 @@
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import * as Collapsible from '@mielui/svelte/components/collapsible';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import type { ComponentPart } from '$lib/component-anatomy';
-    import type { ReferencePart } from '$lib/server/api-reference';
+    import type { ComponentPart } from '#lib/component-anatomy.js';
+    import type { ReferencePart } from '#lib/server/api-reference.js';
     import PropTable from './prop-table.svelte';
     import { insetListClass } from './rows.svelte';
     import SectionHeading from './section-heading.svelte';

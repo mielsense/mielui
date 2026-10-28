@@ -5,8 +5,8 @@
     import * as Tabs from '@mielui/svelte/components/tabs';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { tick } from 'svelte';
-    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
-    import { searchField } from '$lib/components/shell/look';
+    import FadeScrollArea from '#lib/components/shell/fade-scroll-area.svelte';
+    import { searchField } from '#lib/components/shell/look.js';
     import Appearance from './appearance.svelte';
     import Colors from './colors.svelte';
     import { disclosure } from './controls.svelte';

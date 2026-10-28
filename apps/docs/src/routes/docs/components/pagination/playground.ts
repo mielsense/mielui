@@ -3,7 +3,7 @@ import {
     changed,
     number,
     type PlaygroundValues
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     siblings: number('Siblings', 1, {

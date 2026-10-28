@@ -1,5 +1,5 @@
-import { error, json } from '@sveltejs/kit';
-import { componentSource } from '$lib/server/component-source';
+import { error } from '@sveltejs/kit';
+import { componentSource } from '#lib/server/component-source.js';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = ({ params }) => {
@@ -7,5 +7,5 @@ export const GET: RequestHandler = ({ params }) => {
     if (!source) {
         error(404, 'Component not found');
     }
-    return json(source);
+    return Response.json(source);
 };

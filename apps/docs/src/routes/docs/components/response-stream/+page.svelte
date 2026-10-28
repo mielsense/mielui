@@ -2,9 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import { ResponseStream } from '@mielui/svelte/components/response-stream';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import AsyncStream from './examples/async-stream.svelte';
     import AsyncStreamSrc from './examples/async-stream.svelte?raw';
     import Complete from './examples/complete.svelte';

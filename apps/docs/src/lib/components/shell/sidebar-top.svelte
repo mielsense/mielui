@@ -4,9 +4,9 @@
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import Logo from '$lib/components/logo.svelte';
-    import { getSearch } from '$lib/components/search/context';
-    import { formatStarCount, GITHUB_URL } from '$lib/github';
+    import Logo from '#lib/components/logo.svelte';
+    import { getSearch } from '#lib/components/search/context.js';
+    import { formatStarCount, GITHUB_URL } from '#lib/github.js';
     import ThemeToggle from './theme-toggle.svelte';
 
     let { starCount = null }: { starCount?: number | null } = $props();

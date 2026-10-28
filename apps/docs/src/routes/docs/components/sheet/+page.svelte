@@ -4,9 +4,9 @@
     import { Input } from '@mielui/svelte/components/input';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
     import IssueForm from './examples/issue-form.svelte';

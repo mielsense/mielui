@@ -1,10 +1,10 @@
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
-import { componentGroups, components, sanitizeComponent } from '$lib/components';
-import { catalogSections, componentGuidePages } from '$lib/docs-pages';
-import { componentReference } from '$lib/server/api-reference';
-import { mieluiGuideMarkdown } from '$lib/skill';
-import { titleCase } from '$lib/text';
+import { changelogLlmVersions, changelogVersions } from '#lib/changelog.js';
+import { componentGroups, components, sanitizeComponent } from '#lib/components.js';
+import { catalogSections, componentGuidePages } from '#lib/docs-pages.js';
+import { componentReference } from '#lib/server/api-reference.js';
+import { mieluiGuideMarkdown } from '#lib/skill.js';
+import { titleCase } from '#lib/text.js';
 import {
     classExample,
     dataUiExample,
@@ -13,7 +13,7 @@ import {
     themeImport,
     themeJsonFields,
     tokenGroups
-} from '$lib/theming';
+} from '#lib/theming.js';
 
 type ComponentManifest = {
     name: string;

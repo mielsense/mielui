@@ -1,6 +1,6 @@
 <script lang="ts">
     import { densities, radiusScales } from '@mielui/svelte/themes/theme';
-    import { spacingTokenGroups } from '$lib/studio-advanced-tokens';
+    import { spacingTokenGroups } from '#lib/studio-advanced-tokens.js';
     import { isDensity, isRadiusScale } from './config';
     import { getThemeEditor } from './context';
     import { selectRow, spacingTokenRow } from './controls.svelte';

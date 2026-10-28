@@ -11,9 +11,9 @@
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import BasicMenu from './examples/basic-menu.svelte';
     import BasicMenuSrc from './examples/basic-menu.svelte?raw';
     import CheckboxRadioExample from './examples/checkbox-radio.svelte';

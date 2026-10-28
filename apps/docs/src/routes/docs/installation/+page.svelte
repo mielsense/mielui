@@ -1,11 +1,11 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PackageCommand from '#lib/components/docs/package-command.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import Rows from '#lib/components/docs/rows.svelte';
     import { resolve } from '$app/paths';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PackageCommand from '$lib/components/docs/package-command.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Rows from '$lib/components/docs/rows.svelte';
 
     const packageInstall = 'pnpm add @mielui/svelte';
 

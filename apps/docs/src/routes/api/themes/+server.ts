@@ -1,4 +1,4 @@
-import { listRegistryThemes, RegistryRequestError } from '$lib/server/theme-registry';
+import { listRegistryThemes, RegistryRequestError } from '#lib/server/theme-registry.js';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ fetch }) => {

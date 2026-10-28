@@ -4,7 +4,7 @@ import {
     quote,
     select,
     tag
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     cue: select('Edge cue', ['blur', 'fade', 'none'], 'blur')

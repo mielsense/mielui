@@ -3,9 +3,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import {
         endDate,
         endTime,
@@ -18,7 +18,7 @@
         startDate,
         startTime,
         weekendMatcher
-    } from '$lib/components/docs/playground/calendar';
+    } from '#lib/components/docs/playground/calendar.js';
     import DisabledExample from './examples/disabled.svelte';
     import DisabledExampleSrc from './examples/disabled.svelte?raw';
     import EventsExample from './examples/events.svelte';

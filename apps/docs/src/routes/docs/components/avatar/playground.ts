@@ -5,7 +5,7 @@ import {
     type PlaygroundValues,
     select,
     text
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     shape: select('Shape', ['circle', 'square'], 'circle'),

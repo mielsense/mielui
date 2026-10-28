@@ -17,7 +17,7 @@ import {
     SwatchIcon,
     ToggleOnIcon
 } from '@hugeicons/core-free-icons';
-import { catalogPages } from '$lib/components';
+import { catalogPages } from '#lib/components.js';
 import type { ShellIcon } from './page-icon';
 
 /** Soft color meshes. Each pairs with the `grain` class. */

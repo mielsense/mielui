@@ -1,8 +1,8 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { fromAction } from 'svelte/attachments';
+    import { allDocPages } from '#lib/docs-pages.js';
     import { page } from '$app/state';
-    import { allDocPages } from '$lib/docs-pages';
 
     const SEGMENTS = 24;
     const total = allDocPages.length;

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { formatStarCount, githubLabel } from '$lib/github';
+import { formatStarCount, githubLabel } from '#lib/github.js';
 
 beforeEach(() => {
     vi.resetModules();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 it('shares a cached count and keeps it when GitHub rate limits requests', async () => {
-    const { fetchStarCount } = await import('$lib/server/github');
+    const { fetchStarCount } = await import('#lib/server/github.js');
     const fetcher = vi
         .fn<typeof fetch>()
         .mockResolvedValueOnce(new Response(JSON.stringify({ stargazers_count: 73 })))
@@ -24,7 +24,7 @@ it('shares a cached count and keeps it when GitHub rate limits requests', async 
 });
 
 it('rejects malformed counts without breaking the page', async () => {
-    const { fetchStarCount } = await import('$lib/server/github');
+    const { fetchStarCount } = await import('#lib/server/github.js');
     const fetcher = vi
         .fn<typeof fetch>()
         .mockResolvedValue(new Response(JSON.stringify({ stargazers_count: -1 })));

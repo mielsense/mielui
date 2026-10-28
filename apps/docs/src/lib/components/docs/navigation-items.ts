@@ -8,16 +8,16 @@ import {
     PaintBoardIcon as Palette,
     SwatchIcon as Swatch
 } from '@hugeicons/core-free-icons';
-import { resolve } from '$app/paths';
+import { groupLook, startLook } from '#lib/components/shell/look.js';
 import {
     componentTypeHref,
     componentTypes,
     entryHref,
     navigationGroups,
     sanitizeComponent
-} from '$lib/components';
-import { groupLook, startLook } from '$lib/components/shell/look';
-import { componentGuidePages } from '$lib/docs-pages';
+} from '#lib/components.js';
+import { componentGuidePages } from '#lib/docs-pages.js';
+import { resolve } from '$app/paths';
 
 const PILL_PADDING = 12;
 

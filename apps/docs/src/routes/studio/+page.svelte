@@ -4,10 +4,10 @@
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import { floatingCluster } from '$lib/components/shell/look';
-    import Sidebar from '$lib/components/shell/sidebar.svelte';
-    import { loadGoogleFonts } from '$lib/fonts.svelte';
-    import { getStudioContext } from '$lib/studio-context';
+    import { floatingCluster } from '#lib/components/shell/look.js';
+    import Sidebar from '#lib/components/shell/sidebar.svelte';
+    import { loadGoogleFonts } from '#lib/fonts.svelte.js';
+    import { getStudioContext } from '#lib/studio-context.js';
     import AiPreview from './ai-preview.svelte';
     import AppPreview from './app-preview.svelte';
     import ChartPreview from './chart-preview.svelte';

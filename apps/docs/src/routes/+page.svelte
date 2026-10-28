@@ -14,23 +14,23 @@
     import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { resolve } from '$app/paths';
+    import HomeDemos from '#lib/components/demos/demos.svelte';
+    import HomeCompose from '#lib/components/home/compose.svelte';
+    import HomeWall from '#lib/components/home/wall.svelte';
+    import Logo from '#lib/components/logo.svelte';
+    import { groupLook, mesh } from '#lib/components/shell/look.js';
+    import type { ShellIcon } from '#lib/components/shell/page-icon.js';
+    import Sticker from '#lib/components/shell/sticker.svelte';
+    import ThemeToggle from '#lib/components/shell/theme-toggle.svelte';
     import {
         catalogPages,
         components,
         componentTypeHref,
         navigationGroups,
         sanitizeComponent
-    } from '$lib/components';
-    import HomeDemos from '$lib/components/demos/demos.svelte';
-    import HomeCompose from '$lib/components/home/compose.svelte';
-    import HomeWall from '$lib/components/home/wall.svelte';
-    import Logo from '$lib/components/logo.svelte';
-    import { groupLook, mesh } from '$lib/components/shell/look';
-    import type { ShellIcon } from '$lib/components/shell/page-icon';
-    import Sticker from '$lib/components/shell/sticker.svelte';
-    import ThemeToggle from '$lib/components/shell/theme-toggle.svelte';
-    import { formatStarCount, GITHUB_URL, githubLabel } from '$lib/github';
+    } from '#lib/components.js';
+    import { formatStarCount, GITHUB_URL, githubLabel } from '#lib/github.js';
+    import { resolve } from '$app/paths';
     import pkg from '../../../../packages/mielui/package.json';
 
     import type { PageData } from './$types';
@@ -319,7 +319,7 @@
                     send a follow-up, or change the issue's labels.
                 </p>
             </div>
-            {@render more(resolve('/docs/components/ai-components'), 'AI components')}
+            {@render more(resolve('docs/components/ai-components'), 'AI components')}
         </div>
         <HomeDemos />
     </section>

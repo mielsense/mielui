@@ -6,7 +6,7 @@ import {
     type PlaygroundValues,
     select,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     tone: select('Tone', ['primary', 'muted', 'success', 'warning', 'error'], 'primary'),

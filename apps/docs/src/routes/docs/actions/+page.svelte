@@ -1,8 +1,8 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import Rows from '#lib/components/docs/rows.svelte';
     import { resolve } from '$app/paths';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Rows from '$lib/components/docs/rows.svelte';
 
     const actions = [
         {

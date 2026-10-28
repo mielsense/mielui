@@ -9,12 +9,12 @@
     import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
+    import FadeScrollArea from '#lib/components/shell/fade-scroll-area.svelte';
     import type {
         AnimationTokenDefinition,
         ColorTokenDefinition,
         SpacingTokenDefinition
-    } from '$lib/studio-advanced-tokens';
+    } from '#lib/studio-advanced-tokens.js';
     import { getThemeEditor } from './context';
     import { animationTokenRow, colorTokenRow, spacingTokenRow } from './controls.svelte';
     import type { SettingReset } from './row.svelte';

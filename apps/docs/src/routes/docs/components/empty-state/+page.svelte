@@ -5,8 +5,8 @@
     import * as EmptyState from '@mielui/svelte/components/empty-state';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Inbox from './examples/inbox.svelte';
     import InboxSrc from './examples/inbox.svelte?raw';
     import Search from './examples/search.svelte';

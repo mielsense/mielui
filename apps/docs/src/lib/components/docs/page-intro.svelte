@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
+    import { lookFor } from '#lib/components/shell/look.js';
+    import Sticker from '#lib/components/shell/sticker.svelte';
     import { page } from '$app/state';
-    import { lookFor } from '$lib/components/shell/look';
-    import Sticker from '$lib/components/shell/sticker.svelte';
 
     let { title, children }: { title: string; children?: Snippet } = $props();
 

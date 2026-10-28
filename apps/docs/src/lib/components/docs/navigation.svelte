@@ -1,10 +1,10 @@
 <script lang="ts">
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import type { Look } from '#lib/components/shell/look.js';
+    import Sticker from '#lib/components/shell/sticker.svelte';
+    import TravelingPill from '#lib/components/shell/traveling-pill.svelte';
     import { goto } from '$app/navigation';
     import { page } from '$app/state';
-    import type { Look } from '$lib/components/shell/look';
-    import Sticker from '$lib/components/shell/sticker.svelte';
-    import TravelingPill from '$lib/components/shell/traveling-pill.svelte';
     import { guideGroup, measurePill, scrollParent, sections, siteLinks } from './navigation-items';
 
     let {

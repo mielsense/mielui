@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Switch } from '@mielui/svelte/components/switch';
-    import { animationTokenGroups } from '$lib/studio-advanced-tokens';
+    import { animationTokenGroups } from '#lib/studio-advanced-tokens.js';
     import { cursorChoices, isMotionFeel, movementPresets } from './config';
     import { getThemeEditor } from './context';
     import { animationTokenRow, selectRow, toggleChoice } from './controls.svelte';

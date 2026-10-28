@@ -1,6 +1,6 @@
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
 import { expect, it } from 'vitest';
-import { scopedThemeCss } from '$lib/components/home/scoped-theme';
+import { scopedThemeCss } from '#lib/components/home/scoped-theme.js';
 
 it('keeps every rule of a theme inside its scope', () => {
     for (const theme of builtInThemePresets) {

@@ -2,7 +2,7 @@
     import { Button } from '@mielui/svelte/components/button';
     import type { Theme } from '@mielui/svelte/themes/theme';
     import { mode } from 'mode-watcher';
-    import { capitalize } from '$lib/text';
+    import { capitalize } from '#lib/text.js';
     import { fontName, specimen } from './specimen';
 
     let {

@@ -2,11 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-    import { resolve } from '$app/paths';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PackageCommand from '$lib/components/docs/package-command.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Rows from '$lib/components/docs/rows.svelte';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PackageCommand from '#lib/components/docs/package-command.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import Rows from '#lib/components/docs/rows.svelte';
     import {
         classExample,
         dataUiExample,
@@ -15,7 +14,8 @@
         themeImport,
         themeJsonFields,
         tokenGroups
-    } from '$lib/theming';
+    } from '#lib/theming.js';
+    import { resolve } from '$app/paths';
 
     const presetSlugs = builtInThemePresets.map((preset) => `\`${preset.slug}\``);
 

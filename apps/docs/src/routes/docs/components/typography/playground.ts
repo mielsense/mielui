@@ -1,5 +1,5 @@
 import type { TypographyTextVariant } from '@mielui/svelte/components/typography';
-import { attributes, type PlaygroundValues, select } from '$lib/components/docs/playground';
+import { attributes, type PlaygroundValues, select } from '#lib/components/docs/playground.js';
 
 export const controls = {
     role: select(

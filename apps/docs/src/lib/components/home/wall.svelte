@@ -17,9 +17,9 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import { fromAction } from 'svelte/attachments';
+    import { loadGoogleFonts } from '#lib/fonts.svelte.js';
+    import { handOffTheme } from '#lib/studio/handoff.js';
     import { resolve } from '$app/paths';
-    import { loadGoogleFonts } from '$lib/fonts.svelte';
-    import { handOffTheme } from '$lib/studio/handoff';
     import { scopedThemeCss } from './scoped-theme';
 
     const scope = '[data-home-wall]';

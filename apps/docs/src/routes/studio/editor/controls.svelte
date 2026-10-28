@@ -12,7 +12,7 @@
         formatPx,
         normalizeEase,
         type SpacingTokenDefinition
-    } from '$lib/studio-advanced-tokens';
+    } from '#lib/studio-advanced-tokens.js';
     import { type FontWeight, fontWeights, formatChoice } from './config';
     import Row, { type SettingReset } from './row.svelte';
     import type { ThemeTokenEditor } from './tokens';

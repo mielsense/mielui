@@ -2,9 +2,10 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
+import { kitOptions } from './vite.config';
 
 export default defineConfig({
-    plugins: [tailwindcss(), sveltekit()],
+    plugins: [tailwindcss(), sveltekit(kitOptions)],
     optimizeDeps: {
         include: [
             '@floating-ui/dom',

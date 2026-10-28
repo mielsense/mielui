@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Chat from '$lib/components/demos/chat.svelte';
-    import CodingAgent from '$lib/components/demos/coding-agent.svelte';
-    import DemoFrame from '$lib/components/demos/demo-frame.svelte';
-    import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
+    import Chat from '#lib/components/demos/chat.svelte';
+    import CodingAgent from '#lib/components/demos/coding-agent.svelte';
+    import DemoFrame from '#lib/components/demos/demo-frame.svelte';
+    import { fadeX, scrollFade } from '#lib/components/shell/scroll-fade.js';
 </script>
 
 <div

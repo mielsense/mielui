@@ -1,5 +1,5 @@
-import { markdownResponse } from '$lib/markdown-response';
-import { llmDocPaths } from '$lib/sitemap';
+import { markdownResponse } from '#lib/markdown-response.js';
+import { llmDocPaths } from '#lib/sitemap.js';
 import type { RequestHandler } from './$types';
 
 export const prerender = true;

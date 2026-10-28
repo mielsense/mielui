@@ -5,7 +5,7 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-    import Sticker from '$lib/components/shell/sticker.svelte';
+    import Sticker from '#lib/components/shell/sticker.svelte';
     import { getThemeEditor } from './context';
 
     const editor = getThemeEditor();

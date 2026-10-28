@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { ReferenceProperty } from '$lib/server/api-reference';
+    import type { ReferenceProperty } from '#lib/server/api-reference.js';
     import InlineText from './inline-text.svelte';
     import { insetListClass } from './rows.svelte';
 

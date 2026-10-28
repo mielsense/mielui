@@ -6,7 +6,7 @@ import {
     select,
     tag,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     side: select('Side', ['top', 'bottom', 'left', 'right'], 'top'),

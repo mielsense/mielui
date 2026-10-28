@@ -6,7 +6,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Composer from '@mielui/svelte/components/composer';
     import * as Tabs from '@mielui/svelte/components/tabs';
-    import { mesh } from '$lib/components/shell/look';
+    import { mesh } from '#lib/components/shell/look.js';
 
     const chartData = [
         {

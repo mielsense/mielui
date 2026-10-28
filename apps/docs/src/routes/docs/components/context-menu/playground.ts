@@ -5,7 +5,7 @@ import {
     select,
     tag,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     surface: select('Surface', ['theme', 'solid', 'glass'], 'theme'),

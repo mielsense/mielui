@@ -4,12 +4,12 @@
         collectRuleInputs,
         type TokenIndex,
         tokensForElement
-    } from '$lib/studio/token-usage';
+    } from '#lib/studio/token-usage.js';
     import {
         animationTokenDefinitions,
         colorTokenDefinitions,
         spacingTokenDefinitions
-    } from '$lib/studio-advanced-tokens';
+    } from '#lib/studio-advanced-tokens.js';
     import { getThemeEditor } from './context';
     import { createElementPicker, describeElement } from './element-picker.svelte';
     import { createSettingFilter, setSettingFilter } from './setting-filter.svelte';

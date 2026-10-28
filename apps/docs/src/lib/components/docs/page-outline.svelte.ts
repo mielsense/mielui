@@ -1,6 +1,6 @@
 import { tick } from 'svelte';
 import { prefersReducedMotion } from 'svelte/motion';
-import { replaceState } from '$app/navigation';
+import { goto } from '$app/navigation';
 import { page } from '$app/state';
 import { PREVIEW_SELECTOR } from './preview';
 
@@ -75,7 +75,11 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             headingTop(heading) -
             scroll.getBoundingClientRect().top -
             headingInset();
-        replaceState(`#${heading.id}`, page.state);
+        goto(`#${heading.id}`, {
+            shallow: true,
+            replace: true,
+            state: page.state
+        });
         heading.node.setAttribute('tabindex', '-1');
         heading.node.classList.add('focus:outline-none');
         heading.node.focus({ preventScroll: true });

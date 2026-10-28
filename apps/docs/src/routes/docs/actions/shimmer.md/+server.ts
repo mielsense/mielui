@@ -1,4 +1,4 @@
-import { markdownResponse } from '$lib/markdown-response';
+import { markdownResponse } from '#lib/markdown-response.js';
 import example from '../shimmer/example.svelte?raw';
 
 import textExample from '../shimmer/text-example.svelte?raw';

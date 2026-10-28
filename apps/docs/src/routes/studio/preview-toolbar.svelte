@@ -12,8 +12,8 @@
     import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { floatingCluster } from '$lib/components/shell/look';
-    import { getStudioContext } from '$lib/studio-context';
+    import { floatingCluster } from '#lib/components/shell/look.js';
+    import { getStudioContext } from '#lib/studio-context.js';
     import { getThemeEditor } from './editor/context';
 
     let {

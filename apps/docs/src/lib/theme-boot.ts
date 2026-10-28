@@ -1,4 +1,4 @@
-import { DEFAULT_FONT, FONT_STORAGE_KEY, fonts, googleFontStylesheets } from '$lib/fonts.svelte';
+import { DEFAULT_FONT, FONT_STORAGE_KEY, fonts, googleFontStylesheets } from '#lib/fonts.svelte.js';
 
 /** Where `@mielui/svelte/themes/live` keeps the live theme's CSS and the id of its style tag. */
 export const LIVE_THEME_KEY = 'mielui-live-theme-css-v2';

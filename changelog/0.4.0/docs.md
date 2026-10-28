@@ -29,3 +29,4 @@
 - Opening Theme Studio without changing anything no longer replaces the site's colors and font on every page.
 - The current page in the docs sidebar sits on a soft wash in the foreground color instead of a lit pill.
 - Theme Studio's Edge highlight is off by default and turns on at 30%.
+- The Form page shows how to enable remote functions in SvelteKit 3, in the `sveltekit()` plugin options in `vite.config.ts`.

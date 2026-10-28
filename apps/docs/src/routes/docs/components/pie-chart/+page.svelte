@@ -2,10 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as PieChart from '@mielui/svelte/components/pie-chart';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { chartGuides } from '$lib/chart-guides';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { chartGuides } from '#lib/chart-guides.js';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import States from './examples/states.svelte';
     import StatesSource from './examples/states.svelte?raw';
     import {

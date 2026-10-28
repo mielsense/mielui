@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { colorTokenGroups } from '$lib/studio-advanced-tokens';
+    import { colorTokenGroups } from '#lib/studio-advanced-tokens.js';
     import {
         backgroundSwatches,
         baseSwatches,

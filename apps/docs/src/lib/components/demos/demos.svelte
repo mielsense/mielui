@@ -2,8 +2,8 @@
     import { ArrowUpRight01Icon } from '@hugeicons/core-free-icons';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { mesh } from '#lib/components/shell/look.js';
     import { resolve } from '$app/paths';
-    import { mesh } from '$lib/components/shell/look';
     import Chat from './chat.svelte';
     import CodingAgent from './coding-agent.svelte';
     import Issue from './issue.svelte';

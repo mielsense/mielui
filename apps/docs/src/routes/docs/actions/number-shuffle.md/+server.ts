@@ -1,4 +1,4 @@
-import { markdownResponse } from '$lib/markdown-response';
+import { markdownResponse } from '#lib/markdown-response.js';
 import example from '../number-shuffle/example.svelte?raw';
 import formatted from '../number-shuffle/formatted.svelte?raw';
 

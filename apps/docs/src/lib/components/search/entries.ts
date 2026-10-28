@@ -3,10 +3,10 @@ import {
     PaintBoardIcon as Palette,
     SwatchIcon as Swatch
 } from '@hugeicons/core-free-icons';
+import { pageIcon, type ShellIcon } from '#lib/components/shell/page-icon.js';
+import { componentTypes, entryHref, navigationGroups, sanitizeComponent } from '#lib/components.js';
+import { componentGuidePages } from '#lib/docs-pages.js';
 import { resolve } from '$app/paths';
-import { componentTypes, entryHref, navigationGroups, sanitizeComponent } from '$lib/components';
-import { pageIcon, type ShellIcon } from '$lib/components/shell/page-icon';
-import { componentGuidePages } from '$lib/docs-pages';
 import type { SearchEntry } from './types';
 
 export type PaletteEntry = {

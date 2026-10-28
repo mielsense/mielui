@@ -10,10 +10,10 @@
     import { applyLiveThemeCss } from '@mielui/svelte/themes/live';
     import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
     import { onMount } from 'svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import { searchField } from '$lib/components/shell/look';
-    import { loadGoogleFonts } from '$lib/fonts.svelte';
-    import { handOffTheme } from '$lib/studio/handoff';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import { searchField } from '#lib/components/shell/look.js';
+    import { loadGoogleFonts } from '#lib/fonts.svelte.js';
+    import { handOffTheme } from '#lib/studio/handoff.js';
     import type { PageData } from './$types';
     import ThemeCard from './theme-card.svelte';
     import ThemeDetailDialog from './theme-detail-dialog.svelte';

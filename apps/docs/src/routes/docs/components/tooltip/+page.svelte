@@ -3,9 +3,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import Bottom from './examples/bottom.svelte';
     import BottomSrc from './examples/bottom.svelte?raw';
     import Glass from './examples/glass.svelte';

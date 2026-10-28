@@ -1,14 +1,14 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
+    import DocsPager from '#lib/components/docs/docs-pager.svelte';
+    import { magneticHeadings } from '#lib/components/docs/magnetic-headings.js';
+    import PageMinimap from '#lib/components/docs/page-minimap.svelte';
+    import { createPageOutline } from '#lib/components/docs/page-outline.svelte.js';
+    import ScrollEdge from '#lib/components/shell/scroll-edge.svelte';
+    import { scrollFade } from '#lib/components/shell/scroll-fade.js';
+    import { getShell } from '#lib/components/shell/shell.svelte.js';
     import { page } from '$app/state';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
-    import { magneticHeadings } from '$lib/components/docs/magnetic-headings';
-    import PageMinimap from '$lib/components/docs/page-minimap.svelte';
-    import { createPageOutline } from '$lib/components/docs/page-outline.svelte';
-    import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
-    import { scrollFade } from '$lib/components/shell/scroll-fade';
-    import { getShell } from '$lib/components/shell/shell.svelte';
-    import '$lib/components/docs/docs-layout.css';
+    import '#lib/components/docs/docs-layout.css';
 
     const { children }: { children: Snippet } = $props();
     const settleHeading = magneticHeadings(

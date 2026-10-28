@@ -7,14 +7,14 @@
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import Navigation from '#lib/components/docs/navigation.svelte';
+    import { guideGroup, sections, siteLinks } from '#lib/components/docs/navigation-items.js';
+    import Logo from '#lib/components/logo.svelte';
+    import { getSearch } from '#lib/components/search/context.js';
+    import { GITHUB_URL, githubLabel } from '#lib/github.js';
     import { afterNavigate } from '$app/navigation';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
-    import Navigation from '$lib/components/docs/navigation.svelte';
-    import { guideGroup, sections, siteLinks } from '$lib/components/docs/navigation-items';
-    import Logo from '$lib/components/logo.svelte';
-    import { getSearch } from '$lib/components/search/context';
-    import { GITHUB_URL, githubLabel } from '$lib/github';
     import ThemeToggle from './theme-toggle.svelte';
 
     let { starCount = null }: { starCount?: number | null } = $props();

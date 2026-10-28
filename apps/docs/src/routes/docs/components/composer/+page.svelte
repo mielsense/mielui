@@ -4,10 +4,10 @@
     import * as Composer from '@mielui/svelte/components/composer';
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import SectionHeading from '#lib/components/docs/section-heading.svelte';
     import AllowEmptyExample from './examples/allow-empty.svelte';
     import AllowEmptyExampleSrc from './examples/allow-empty.svelte?raw';
     import Attachments from './examples/attachments.svelte';

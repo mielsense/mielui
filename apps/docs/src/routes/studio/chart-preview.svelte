@@ -8,7 +8,7 @@
     import * as PieChart from '@mielui/svelte/components/pie-chart';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
-    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
+    import FadeScrollArea from '#lib/components/shell/fade-scroll-area.svelte';
     import { getThemeEditor } from './editor/context';
 
     let year = $state('2026');

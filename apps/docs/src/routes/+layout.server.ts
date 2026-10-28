@@ -1,4 +1,4 @@
-import { fetchStarCount } from '$lib/server/github';
+import { fetchStarCount } from '#lib/server/github.js';
 import type { LayoutServerLoad } from './$types';
 
 // Serve every page the crawler reaches as static HTML from the CDN; anything else still renders on demand.

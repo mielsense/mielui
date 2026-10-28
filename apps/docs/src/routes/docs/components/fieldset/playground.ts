@@ -3,7 +3,7 @@ import {
     expression,
     type PlaygroundValues,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     legend: toggle('Legend', 'Content', true),

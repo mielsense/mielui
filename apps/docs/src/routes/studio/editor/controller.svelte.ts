@@ -8,9 +8,9 @@ import {
 import { DEFAULT_THEME, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode } from 'mode-watcher';
 import { onMount, untrack } from 'svelte';
-import { removeStorage } from '$lib/storage';
-import { takeHandedOffTheme } from '$lib/studio/handoff';
-import { LIVE_THEME_KEY } from '$lib/theme-boot';
+import { removeStorage } from '#lib/storage.js';
+import { takeHandedOffTheme } from '#lib/studio/handoff.js';
+import { LIVE_THEME_KEY } from '#lib/theme-boot.js';
 import { readThemeAppearance } from './appearance';
 import { readThemeBaseline, type ThemeBaseline } from './baseline';
 import { createThemeChanges } from './changes.svelte';

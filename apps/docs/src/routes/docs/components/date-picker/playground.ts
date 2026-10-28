@@ -1,4 +1,3 @@
-import { type PlaygroundValues, tag } from '$lib/components/docs/playground';
 import {
     constraintAttributes,
     contentAttributes,
@@ -8,7 +7,8 @@ import {
     pickerControls,
     script,
     valueDeclaration
-} from '$lib/components/docs/playground/calendar';
+} from '#lib/components/docs/playground/calendar.js';
+import { type PlaygroundValues, tag } from '#lib/components/docs/playground.js';
 
 export const controls = pickerControls;
 

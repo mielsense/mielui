@@ -1,6 +1,6 @@
-import { components, sanitizeComponent } from '$lib/components';
-import type { SearchEntry, SearchIndex } from '$lib/components/search/types';
-import { componentReference } from '$lib/server/api-reference';
+import type { SearchEntry, SearchIndex } from '#lib/components/search/types.js';
+import { components, sanitizeComponent } from '#lib/components.js';
+import { componentReference } from '#lib/server/api-reference.js';
 
 const pages = import.meta.glob<string>('/src/routes/docs/**/+page.svelte', {
     eager: true,

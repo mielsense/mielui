@@ -3,10 +3,10 @@
     import * as Conversation from '@mielui/svelte/components/conversation';
     import * as Message from '@mielui/svelte/components/message';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
+    import SectionHeading from '#lib/components/docs/section-heading.svelte';
     import EmptyState from './examples/empty-state.svelte';
     import EmptyStateSrc from './examples/empty-state.svelte?raw';
     import FollowOutput from './examples/follow-output.svelte';

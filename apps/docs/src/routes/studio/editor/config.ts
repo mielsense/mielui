@@ -5,13 +5,13 @@ import {
     radiusScales,
     type Theme
 } from '@mielui/svelte/themes/theme';
-import { fonts } from '$lib/fonts.svelte';
+import { fonts } from '#lib/fonts.svelte.js';
 import type {
     AnimationTokenName,
     ColorTokenName,
     SpacingTokenName
-} from '$lib/studio-advanced-tokens';
-import { capitalize } from '$lib/text';
+} from '#lib/studio-advanced-tokens.js';
+import { capitalize } from '#lib/text.js';
 
 export type FoundationPalette = {
     base: string;

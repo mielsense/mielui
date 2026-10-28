@@ -1,6 +1,6 @@
 import { parseTheme, type Theme, type ThemeRecord } from '@mielui/svelte/themes/theme';
-import { dev } from '$app/environment';
-import { env } from '$env/dynamic/private';
+import { dev } from '$app/env';
+import { THEME_REGISTRY_URL } from '$app/env/private';
 
 export type RegistryTheme = ThemeRecord;
 
@@ -16,7 +16,7 @@ export class RegistryRequestError extends Error {
 }
 
 function getRegistryBaseUrl() {
-    const configured = env.THEME_REGISTRY_URL?.trim();
+    const configured = THEME_REGISTRY_URL.trim();
     if (configured) {
         return configured.replace(/\/+$/, '');
     }

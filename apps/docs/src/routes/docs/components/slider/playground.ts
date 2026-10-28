@@ -5,7 +5,7 @@ import {
     type PlaygroundValues,
     select,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     mode: select('Mode', ['default', 'range', 'field'], 'default'),

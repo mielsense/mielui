@@ -1,8 +1,8 @@
 import { error, json } from '@sveltejs/kit';
-import { isActivePhase } from '$lib/run-types';
-import { assertLocalRequest } from '$lib/server/local-only';
-import { runManager } from '$lib/server/run-manager';
-import { terminalManager } from '$lib/server/terminal-manager';
+import { isActivePhase } from '#lib/run-types.js';
+import { assertLocalRequest } from '#lib/server/local-only.js';
+import { runManager } from '#lib/server/run-manager.js';
+import { terminalManager } from '#lib/server/terminal-manager.js';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async (event) => {

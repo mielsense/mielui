@@ -2,9 +2,9 @@
     import * as Accordion from '@mielui/svelte/components/accordion';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '#lib/components/docs/index.js';
+    import InlineText from '#lib/components/docs/inline-text.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import MultipleMode from './examples/multiple-mode.svelte';
     import MultipleModeSrc from './examples/multiple-mode.svelte?raw';
     import SingleMode from './examples/single-mode.svelte';

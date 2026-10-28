@@ -1,4 +1,4 @@
-import { capitalize } from '$lib/text';
+import { capitalize } from '#lib/text.js';
 
 export const BUTTON_VARIANTS = [
     'primary',

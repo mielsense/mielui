@@ -11,7 +11,7 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { createTable, FlexRender } from '@tanstack/svelte-table';
-    import { capitalize } from '$lib/text';
+    import { capitalize } from '#lib/text.js';
     import InvoiceDialog from './invoice-dialog.svelte';
     import { invoiceColumns, invoiceFeatures } from './invoice-table';
     import type { AppPreviewModel } from './model.svelte';

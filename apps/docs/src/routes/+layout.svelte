@@ -1,29 +1,29 @@
 <script lang="ts">
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
-    import CopyPage from '$lib/components/docs/copy-page.svelte';
-    import Navigation from '$lib/components/docs/navigation.svelte';
-    import { stayOnPage } from '$lib/components/docs/stay-on-page';
-    import { setSearch } from '$lib/components/search/context';
-    import Header from '$lib/components/shell/header.svelte';
-    import { floatingCluster } from '$lib/components/shell/look';
-    import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
-    import { fadeYStart, scrollFade } from '$lib/components/shell/scroll-fade';
-    import SectionTrail from '$lib/components/shell/section-trail.svelte';
-    import { createShell, setShell } from '$lib/components/shell/shell.svelte';
-    import Sidebar from '$lib/components/shell/sidebar.svelte';
-    import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
-    import SidebarTop from '$lib/components/shell/sidebar-top.svelte';
-    import { setStudioContext } from '$lib/studio-context';
+    import CopyPage from '#lib/components/docs/copy-page.svelte';
+    import Navigation from '#lib/components/docs/navigation.svelte';
+    import { stayOnPage } from '#lib/components/docs/stay-on-page.js';
+    import { setSearch } from '#lib/components/search/context.js';
+    import Header from '#lib/components/shell/header.svelte';
+    import { floatingCluster } from '#lib/components/shell/look.js';
+    import ScrollEdge from '#lib/components/shell/scroll-edge.svelte';
+    import { fadeYStart, scrollFade } from '#lib/components/shell/scroll-fade.js';
+    import SectionTrail from '#lib/components/shell/section-trail.svelte';
+    import { createShell, setShell } from '#lib/components/shell/shell.svelte.js';
+    import Sidebar from '#lib/components/shell/sidebar.svelte';
+    import SidebarCard from '#lib/components/shell/sidebar-card.svelte';
+    import SidebarTop from '#lib/components/shell/sidebar-top.svelte';
+    import { setStudioContext } from '#lib/studio-context.js';
     import '@mielui/svelte/ui.css';
     import '../app.css';
     import { inject as injectAnalytics } from '@vercel/analytics';
     import { onMount, type Snippet, untrack } from 'svelte';
-    import { dev } from '$app/environment';
+    import { createDocsFontState, DEFAULT_FONT, fonts } from '#lib/fonts.svelte.js';
+    import { themeBootScript } from '#lib/theme-boot.js';
+    import { dev } from '$app/env';
     import { beforeNavigate, onNavigate } from '$app/navigation';
     import { page, updated } from '$app/state';
-    import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
-    import { themeBootScript } from '$lib/theme-boot';
 
     import type { LayoutData } from './$types';
 
@@ -63,10 +63,10 @@
     });
 
     let Toaster = $state<typeof import('@mielui/svelte/components/toast').Toaster>();
-    let SiteSearch = $state<typeof import('$lib/components/search/palette.svelte').default>();
+    let SiteSearch = $state<typeof import('#lib/components/search/palette.svelte').default>();
 
     function loadSearch() {
-        void import('$lib/components/search/palette.svelte').then((module) => {
+        void import('#lib/components/search/palette.svelte').then((module) => {
             SiteSearch = module.default;
         });
     }
@@ -137,8 +137,8 @@
     let docsScrollEl = $state<HTMLDivElement>();
 
     // An open tab keeps running the build it loaded; load the next page in full after a deploy.
-    beforeNavigate(({ willUnload, to }) => {
-        if (updated.current && !willUnload && to?.url) {
+    beforeNavigate(({ willUnload, to, shallow }) => {
+        if (updated.current && !willUnload && !shallow && to?.url) {
             location.href = to.url.href;
         }
     });

@@ -1,5 +1,5 @@
 import { parseTheme, type Theme } from '@mielui/svelte/themes/theme';
-import { readStorage, removeStorage, writeStorage } from '$lib/storage';
+import { readStorage, removeStorage, writeStorage } from '#lib/storage.js';
 
 const HANDOFF_KEY = 'mielui-studio-handoff-v1';
 

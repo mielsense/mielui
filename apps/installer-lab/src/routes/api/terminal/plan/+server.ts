@@ -1,7 +1,7 @@
 import { error, json } from '@sveltejs/kit';
-import { isInstallPath, isRunSource } from '$lib/run-types';
-import { assertLocalRequest } from '$lib/server/local-only';
-import { buildManualPlan } from '$lib/server/manual-plan';
+import { isInstallPath, isRunSource } from '#lib/run-types.js';
+import { assertLocalRequest } from '#lib/server/local-only.js';
+import { buildManualPlan } from '#lib/server/manual-plan.js';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async (event) => {

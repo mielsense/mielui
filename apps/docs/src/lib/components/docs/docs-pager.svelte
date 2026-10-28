@@ -4,10 +4,10 @@
         ArrowRight01Icon as ChevronRight
     } from '@hugeicons/core-free-icons';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { lookFor } from '#lib/components/shell/look.js';
+    import Sticker from '#lib/components/shell/sticker.svelte';
+    import { allDocPages } from '#lib/docs-pages.js';
     import { page } from '$app/state';
-    import { lookFor } from '$lib/components/shell/look';
-    import Sticker from '$lib/components/shell/sticker.svelte';
-    import { allDocPages } from '$lib/docs-pages';
 
     type Page = {
         href: string;

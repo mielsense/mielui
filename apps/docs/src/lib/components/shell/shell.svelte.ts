@@ -1,5 +1,5 @@
 import { createContext } from 'svelte';
-import type { PageOutline } from '$lib/components/docs/page-outline.svelte';
+import type { PageOutline } from '#lib/components/docs/page-outline.svelte.js';
 
 export function createShell() {
     let outline = $state.raw<PageOutline>();

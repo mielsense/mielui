@@ -4,14 +4,14 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { onMount } from 'svelte';
-    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import PageIntro from '#lib/components/docs/page-intro.svelte';
     import {
         DEFAULT_FONT,
         type FontCategory,
         fonts,
         getDocsFontState,
         loadGoogleFonts
-    } from '$lib/fonts.svelte';
+    } from '#lib/fonts.svelte.js';
 
     const selectedFont = getDocsFontState();
     onMount(loadGoogleFonts);

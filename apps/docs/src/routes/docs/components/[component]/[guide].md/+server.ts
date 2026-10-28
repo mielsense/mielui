@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
-import { componentGuidePages } from '$lib/docs-pages';
-import { chartGuideMarkdown } from '$lib/llms';
-import { markdownResponse } from '$lib/markdown-response';
+import { componentGuidePages } from '#lib/docs-pages.js';
+import { chartGuideMarkdown } from '#lib/llms.js';
+import { markdownResponse } from '#lib/markdown-response.js';
 import type { EntryGenerator, RequestHandler } from './$types';
 
 export const prerender = true;

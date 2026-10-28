@@ -1,5 +1,5 @@
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-import { listRegistryThemes } from '$lib/server/theme-registry';
+import { listRegistryThemes } from '#lib/server/theme-registry.js';
 import type { PageServerLoad } from './$types';
 
 // The registry changes without a deploy, so this page stays server-rendered.

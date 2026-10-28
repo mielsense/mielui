@@ -6,7 +6,7 @@ import {
     quote,
     select,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     variant: select('Variant', ['outline', 'secondary', 'ghost'], 'outline'),

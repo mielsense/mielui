@@ -6,7 +6,7 @@ import {
     quote,
     select,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 type Revenue = {
     month: string;

@@ -8,7 +8,7 @@ import {
     tag,
     text,
     toggle
-} from '$lib/components/docs/playground';
+} from '#lib/components/docs/playground.js';
 
 export const controls = {
     topBar: select('Top bar', ['default', 'with action', 'filename only', 'none'], 'default'),

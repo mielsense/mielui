@@ -4,8 +4,8 @@
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import * as Tabs from '@mielui/svelte/components/tabs';
-    import PackageCommand from '$lib/components/docs/package-command.svelte';
-    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
+    import PackageCommand from '#lib/components/docs/package-command.svelte';
+    import FadeScrollArea from '#lib/components/shell/fade-scroll-area.svelte';
 
     let {
         open = $bindable(false),

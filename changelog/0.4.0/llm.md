@@ -44,3 +44,14 @@ A near-white primary button with dark text is a theme choice, not a variant: use
 
 Tooltip's default `delay` is 500ms and applies to the pointer only. A trigger focused from the keyboard (`:focus-visible`) opens at once; a click that focuses it still waits. Do not lower `delay` to make keyboard focus feel responsive.
 
+
+## SvelteKit 3
+
+`@mielui/svelte` now declares `@sveltejs/kit` as `^2.0.0 || ^3.0.0` (still optional). The package imports nothing from SvelteKit, so `import { Button } from '@mielui/svelte/components/button'` works the same in a SvelteKit 3 app.
+
+The CLI is the exception. `mielui add` copies source that imports `$lib/mielui/...`, and SvelteKit 3 no longer generates the `$lib` alias; it uses `#lib` subpath imports from `package.json` instead. In a SvelteKit 3 project:
+
+- Prefer package imports over `mielui add`.
+- If you need copied source, add `alias: { $lib: 'src/lib' }` to the `sveltekit()` plugin options in `vite.config.ts`. SvelteKit 3 marks `alias` as deprecated but still honors it.
+
+Remote-function form examples need `experimental.remoteFunctions` and `compilerOptions.experimental.async` in the `sveltekit()` plugin options; `svelte.config.js` is no longer read.
