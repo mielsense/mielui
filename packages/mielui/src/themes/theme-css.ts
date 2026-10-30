@@ -103,6 +103,9 @@ const MOTION: Record<MotionFeel, MotionSet> = {
     }
 };
 
+/** Matches `:root:not(.dark)` in specificity, so dark overrides beat ui.css's own `.dark` rule even when it loads later. */
+const DARK = '.dark.dark';
+
 const NEUTRAL_STEPS = [0, 10, 50, 100, 150, 300, 500, 900] as const;
 type NeutralRamp = Record<(typeof NEUTRAL_STEPS)[number], string>;
 
@@ -368,7 +371,7 @@ function chromeBlocks(chrome: ThemeChrome): string {
         };`,
         ...shared
     ]);
-    return block(':root:not(.dark)', light) + block('.dark', dark);
+    return block(':root:not(.dark)', light) + block(DARK, dark);
 }
 
 /** Generates complete, acyclic overrides for every public theme axis. */
@@ -422,7 +425,7 @@ export function themeToCss(themeInput: Theme): string {
             ...neutralDeclarations(NEUTRALS[theme.neutral].light),
             ...elevationDeclarations('light')
         ]) +
-        block('.dark', [
+        block(DARK, [
             ...brandDeclarations(theme.brand, 'dark'),
             ...neutralDeclarations(NEUTRALS[theme.neutral].dark),
             ...elevationDeclarations('dark')
@@ -442,7 +445,7 @@ export function themeToCss(themeInput: Theme): string {
     if (theme.foundation?.dark) {
         const declarations = foundationDeclarations(theme.foundation.dark);
         if (declarations.length > 0) {
-            css += block('.dark', declarations);
+            css += block(DARK, declarations);
         }
     }
 
@@ -461,7 +464,7 @@ export function themeToCss(themeInput: Theme): string {
     if (theme.tokens?.dark) {
         const declarations = tokenMapDeclarations(theme.tokens.dark);
         if (declarations.length > 0) {
-            css += block('.dark', declarations);
+            css += block(DARK, declarations);
         }
     }
 

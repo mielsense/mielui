@@ -1,0 +1,1 @@
+- Dark-mode colors from a theme, such as Background and On brand in the Theme Studio, now apply instead of being overridden by the default dark palette.

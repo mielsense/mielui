@@ -34,7 +34,7 @@ describe('themeToCss', () => {
         expect(css).toContain('--mielui-space-unit: 3.6px');
         expect(css).toContain('--motion-duration-menu: 60ms');
         expect(css).toContain(':root {');
-        expect(css).toContain('.dark {');
+        expect(css).toContain('.dark.dark {');
     });
 
     it('inherits appearance defaults when chrome and tokens are omitted', () => {
