@@ -29,13 +29,6 @@ blockquote {
     @apply text-pretty;
 }
 
-/* Registered so the homepage wall's mesh glides to a new theme's brand color. */
-@property --wall-tint {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: #ba7ca5;
-}
-
 /* Scroll fades update every scroll frame. Inherited, each update would restyle the
    whole scroller, so `scrollFade` writes them only to the elements that read them. */
 @property --fade-start {
@@ -280,78 +273,6 @@ pre {
         }
     }
 
-    /* The homepage component wall: a drifting mesh mixed from one brand color, `--wall-tint`.
-       The tint is a registered color, so a theme switch glides the mesh to the new brand. */
-    .wall {
-        position: relative;
-        isolation: isolate;
-        overflow: hidden;
-        background-color: color-mix(in oklab, var(--wall-tint) 40%, white);
-        transition: --wall-tint 700ms var(--ease-out);
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 160%;
-            height: 160%;
-            z-index: -1;
-            background:
-                radial-gradient(
-                    ellipse at 12% 100%,
-                    oklch(from var(--wall-tint) 0.9 calc(c * 0.6) calc(h - 50)) 0,
-                    transparent 45%
-                ),
-                radial-gradient(
-                    ellipse at 30% 0%,
-                    color-mix(in oklab, var(--wall-tint) 55%, white) 0,
-                    transparent 55%
-                ),
-                radial-gradient(
-                    ellipse at 85% 85%,
-                    oklch(from var(--wall-tint) calc(l * 0.85) c calc(h + 30)) 0,
-                    transparent 55%
-                ),
-                radial-gradient(
-                    ellipse at 70% 10%,
-                    color-mix(in oklab, var(--wall-tint) 15%, white) 0,
-                    transparent 50%
-                ),
-                color-mix(in oklab, var(--wall-tint) 40%, white);
-            animation: drift 22s ease-in-out infinite alternate;
-        }
-    }
-
-    .dark .wall {
-        background-color: color-mix(in oklab, var(--wall-tint) 30%, #0e0e0e);
-
-        &::before {
-            background:
-                radial-gradient(
-                    ellipse at 12% 100%,
-                    oklch(from var(--wall-tint) 0.45 calc(c * 0.7) calc(h - 50)) 0,
-                    transparent 45%
-                ),
-                radial-gradient(
-                    ellipse at 30% 0%,
-                    color-mix(in oklab, var(--wall-tint) 45%, #0e0e0e) 0,
-                    transparent 55%
-                ),
-                radial-gradient(
-                    ellipse at 85% 85%,
-                    oklch(from var(--wall-tint) 0.5 c calc(h + 30)) 0,
-                    transparent 55%
-                ),
-                radial-gradient(
-                    ellipse at 70% 10%,
-                    color-mix(in oklab, var(--wall-tint) 20%, #0e0e0e) 0,
-                    transparent 50%
-                ),
-                color-mix(in oklab, var(--wall-tint) 26%, #0e0e0e);
-        }
-    }
-
     /* Docs: the page group's tint behind the title, fading straight down to nothing. */
     .mesh-glow {
         border-radius: 24px 24px 0 0;
@@ -411,12 +332,6 @@ pre {
     color: var(--color-foreground);
 }
 
-@keyframes drift {
-    to {
-        translate: -37.5% -37.5%;
-    }
-}
-
 @keyframes line-enter {
     0% {
         opacity: 0;
@@ -443,13 +358,8 @@ html.revealed .stagger > * {
         transition: none;
     }
 
-    .wall::before,
     .stagger > * {
         animation: none;
-    }
-
-    .wall {
-        transition: none;
     }
 }
 
@@ -460,7 +370,8 @@ html.revealed .stagger > * {
     --mielui-neutral-10: #f5f5f5;
 }
 
-.dark:not(:has(#mielui-live-theme-style)) {
+:root.dark:not(:has(#mielui-live-theme-style)),
+:root:not(:has(#mielui-live-theme-style)) .dark {
     --mielui-neutral-0: #161616;
     --mielui-neutral-10: #0e0e0e;
 }

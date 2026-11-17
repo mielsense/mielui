@@ -9,6 +9,7 @@
     import BrandMark from '@mielui/svelte/brand-mark';
     import * as Accordion from '@mielui/svelte/components/accordion';
     import { Button } from '@mielui/svelte/components/button';
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import {
@@ -98,24 +99,28 @@
         {
             value: 'compose',
             title: 'Compose the parts',
+            lang: 'svelte',
             detail: 'Card is Root, Header, Content, and Footer. Leave the footer out and the card closes on its content. What you write is what renders.',
             code: '<Card.Root>\n  <Card.Header>…</Card.Header>\n  <Card.Content>…</Card.Content>\n  <Card.Footer>…</Card.Footer>\n</Card.Root>'
         },
         {
             value: 'copy',
             title: 'Copy the source',
+            lang: 'sh',
             detail: 'One command puts the component file in your project. It is plain Svelte and Tailwind, so there is nothing to eject from.',
             code: 'pnpm dlx @mielui/svelte add card'
         },
         {
             value: 'theme',
             title: 'Theme it once',
+            lang: 'css',
             detail: 'Color, corners, type, and motion are tokens. Change them in one stylesheet and every component follows.',
             code: ':root {\n  --color-primary: #ba7ca5;\n  --radius-control: 12px;\n}'
         },
         {
             value: 'agent',
             title: 'Hand it to your agent',
+            lang: 'sh',
             detail: 'The Mielui skill gives coding agents the current component APIs, so what they write compiles.',
             code: 'npx skills add mielsense/mielui --skill mielui'
         }
@@ -493,24 +498,25 @@
                     collapsible={false}
                     class="min-w-0 flex-1 divide-y-0"
                 >
-                    {#each steps as item (item.value)}
+                    {#each steps as item, index (item.value)}
                         <Accordion.Item
                             value={item.value}
-                            class="rounded-[18px] border-b border-foreground/8 py-0 last:border-b-0 data-[state=open]:border-transparent data-[state=open]:bg-[color-mix(in_oklab,var(--color-foreground)_4%,var(--color-card))] data-[state=open]:shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-foreground)_10%,transparent)]"
+                            class="rounded-none border-t border-foreground/10 py-0 last:border-b"
                         >
                             <Accordion.Trigger
-                                class="min-h-[76px] px-[22px] text-xl font-normal tracking-[-0.015em] text-foreground/55 group-data-[state=open]:text-foreground"
+                                class="min-h-[76px] gap-4 px-0 text-xl font-normal tracking-[-0.015em] text-foreground/45 hover:text-foreground/70 group-data-[state=open]:text-foreground"
                             >
-                                {item.title}
+                                <span class="{mono} w-6 shrink-0 text-xs text-foreground/35">
+                                    0{index + 1}
+                                </span>
+                                <span class="flex-1">{item.title}</span>
                             </Accordion.Trigger>
-                            <Accordion.Content class="-mt-3 px-3.5">
-                                <div class="flex flex-col gap-3.5 pb-2">
+                            <Accordion.Content class="-me-2 -mt-2 ps-8">
+                                <div class="flex flex-col gap-4 pb-6">
                                     <p class="m-0 text-[15px] leading-[23px] text-foreground/60">
                                         {item.detail}
                                     </p>
-                                    <pre
-                                        class="m-0 overflow-x-auto rounded-xl bg-background px-3.5 py-3 font-mono text-xs leading-[19px] text-foreground/75"
-                                    >{item.code}</pre>
+                                    <CodeBlock code={item.code} lang={item.lang} copy="overlay" />
                                 </div>
                             </Accordion.Content>
                         </Accordion.Item>
