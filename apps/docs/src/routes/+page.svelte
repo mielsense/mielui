@@ -211,40 +211,42 @@
         Skip to content
     </a>
 
-    <div class="relative isolate overflow-clip bg-linear-to-b from-primary to-background to-72%">
-        <header class="wrap flex h-[76px] items-center gap-7">
+    <header class="wrap relative z-10 flex h-[76px] items-center gap-7">
+        <a
+            href={resolve('/')}
+            aria-label="mielui Home"
+            class="flex shrink-0 items-center gap-2 rounded-[var(--radius-control)] text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+        >
+            <BrandMark size={22} />
+            <span class="text-[17px] font-semibold tracking-[-0.02em]">mielui</span>
+        </a>
+        <nav aria-label="Site" class="flex flex-1 items-center gap-3 md:ps-4">
+            {#each nav as link (link.href)}
+                <a href={link.href} class={['max-md:hidden', navLink]}>{link.label}</a>
+            {/each}
             <a
-                href={resolve('/')}
-                aria-label="mielui Home"
-                class="flex shrink-0 items-center gap-2 rounded-[var(--radius-control)] text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+                class={['ms-auto max-sm:hidden', navLink]}
             >
-                <BrandMark size={22} />
-                <span class="text-[17px] font-semibold tracking-[-0.02em]">mielui</span>
+                GitHub
             </a>
-            <nav aria-label="Site" class="flex flex-1 items-center gap-3 md:ps-4">
-                {#each nav as link (link.href)}
-                    <a href={link.href} class={['max-md:hidden', navLink]}>{link.label}</a>
-                {/each}
-                <a
-                    href={GITHUB_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    class={['ms-auto max-sm:hidden', navLink]}
-                >
-                    GitHub
-                </a>
-                <Button
-                    href={resolve('/docs/installation')}
-                    variant="secondary"
-                    class="ms-auto gap-1.5 text-background [--mielui-glow-color:var(--color-foreground)] sm:ms-1"
-                >
-                    Get started
-                    <HugeiconsIcon icon={ArrowRight01Icon} size={14} strokeWidth={1.8} />
-                </Button>
-            </nav>
-        </header>
+            <Button
+                href={resolve('/docs/installation')}
+                variant="secondary"
+                class="ms-auto gap-1.5 text-background [--mielui-glow-color:var(--color-foreground)] sm:ms-1"
+            >
+                Get started
+                <HugeiconsIcon icon={ArrowRight01Icon} size={14} strokeWidth={1.8} />
+            </Button>
+        </nav>
+    </header>
 
-        <main id="home-content">
+    <main id="home-content">
+        <div
+            class="relative isolate -mt-[76px] overflow-clip bg-linear-to-b from-primary to-background to-72% pt-[76px]"
+        >
             <section
                 aria-labelledby="home-title"
                 class="wrap flex flex-col items-center gap-[22px] pt-20 pb-16 text-center sm:pt-28"
@@ -395,160 +397,168 @@
                     class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-background to-90%"
                 ></div>
             </div>
-        </main>
-    </div>
-
-    <section
-        aria-label="Why Mielui"
-        class="wrap flex flex-col gap-14 pt-16 pb-24 lg:flex-row lg:gap-20 lg:px-[120px] lg:pt-[100px] lg:pb-[120px]"
-    >
-        <div class="flex flex-1 flex-col gap-7 text-[22px] leading-[31px] tracking-[-0.01em]">
-            <p class="m-0">
-                Most kits hand you a package you can't open. Mielui hands you the files: plain
-                Svelte and Tailwind you read, change, and commit.
-            </p>
-            <p class="m-0">
-                Every component reads one set of tokens, so a theme is a stylesheet, not a fork.
-                <span class="text-foreground/40">
-                    Larger pieces are named parts you can omit, reorder, or restyle, and the agent
-                    skill keeps coding agents on the current API.
-                </span>
-            </p>
-            <Button
-                href={resolve('/docs/introduction')}
-                variant="secondary"
-                class="self-start text-background [--mielui-glow-color:var(--color-foreground)]"
-            >
-                Read the introduction
-            </Button>
         </div>
-        <div class="w-px shrink-0 bg-foreground/8 max-lg:hidden"></div>
-        <dl class="m-0 flex shrink-0 flex-col gap-11 lg:w-[300px]">
-            {#each stats as stat (stat.unit)}
-                <div class="flex flex-col-reverse gap-1.5">
-                    <dt class="text-[15px] text-foreground/60">{stat.detail}</dt>
-                    <dd class="m-0 text-[56px] leading-[56px] tracking-[-0.04em] tabular-nums">
-                        {stat.value}<span class="text-foreground/30">{` ${stat.unit}`}</span>
-                    </dd>
-                </div>
-            {/each}
-        </dl>
-    </section>
 
-    <section aria-labelledby="home-how" class="wrap flex flex-col gap-12 pb-24 lg:pb-[140px]">
-        <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <h2
-                id="home-how"
-                class="display m-0 max-w-[620px] text-4xl text-foreground sm:text-[52px] sm:leading-[54px] sm:tracking-[-0.04em]"
-            >
-                From one command to a screen you <span class={accent}>ship</span>
-            </h2>
-            <p class="m-0 max-w-[340px] text-[15px] leading-[23px] text-foreground/55">
-                Each step changes the same component on the left. Pick one to see the code and the
-                result side by side.
-            </p>
-        </div>
-        <div class="flex flex-col gap-10 lg:flex-row">
-            <div
-                aria-hidden="true"
-                class="flex h-[420px] shrink-0 items-center justify-center rounded-3xl bg-linear-to-b from-primary to-background lg:h-[520px] lg:w-[640px] {hairline}"
-            >
-                <div
-                    class="flex w-[340px] max-w-[85%] flex-col gap-3.5 rounded-[18px] bg-white p-[18px] text-[#292929] shadow-[0_30px_60px_-20px_rgb(20_10_20/0.55)]"
+        <section
+            aria-label="Why Mielui"
+            class="wrap flex flex-col gap-14 pt-16 pb-24 lg:flex-row lg:gap-20 lg:px-[120px] lg:pt-[100px] lg:pb-[120px]"
+        >
+            <div class="flex flex-1 flex-col gap-7 text-[22px] leading-[31px] tracking-[-0.01em]">
+                <p class="m-0">
+                    Most kits hand you a package you can't open. Mielui hands you the files: plain
+                    Svelte and Tailwind you read, change, and commit.
+                </p>
+                <p class="m-0">
+                    Every component reads one set of tokens, so a theme is a stylesheet, not a fork.
+                    <span class="text-foreground/40">
+                        Larger pieces are named parts you can omit, reorder, or restyle, and the
+                        agent skill keeps coding agents on the current API.
+                    </span>
+                </p>
+                <Button
+                    href={resolve('/docs/introduction')}
+                    variant="secondary"
+                    class="self-start text-background [--mielui-glow-color:var(--color-foreground)]"
                 >
-                    <div class="flex flex-col gap-0.5">
-                        <span class="text-[15px] font-medium">Release checklist</span>
-                        <span class="text-[13px] text-[#6d6d6d]">2 of 3 done</span>
+                    Read the introduction
+                </Button>
+            </div>
+            <div class="w-px shrink-0 bg-foreground/8 max-lg:hidden"></div>
+            <dl class="m-0 flex shrink-0 flex-col gap-11 lg:w-[300px]">
+                {#each stats as stat (stat.unit)}
+                    <div class="flex flex-col-reverse gap-1.5">
+                        <dt class="text-[15px] text-foreground/60">{stat.detail}</dt>
+                        <dd class="m-0 text-[56px] leading-[56px] tracking-[-0.04em] tabular-nums">
+                            {stat.value}<span class="text-foreground/30">{` ${stat.unit}`}</span>
+                        </dd>
                     </div>
-                    {#each checklist as item (item.label)}
-                        <div class="flex items-center gap-2.5 text-sm">
-                            {#if item.done}
-                                <span
-                                    class="grid size-[18px] place-items-center rounded-md bg-primary text-white"
-                                >
-                                    <HugeiconsIcon icon={Tick02Icon} size={11} strokeWidth={2.6} />
-                                </span>
-                            {:else}
-                                <span
-                                    class="size-[18px] rounded-md shadow-[inset_0_0_0_1px_rgb(41_41_41/0.22)]"
-                                ></span>
-                            {/if}
-                            {item.label}
+                {/each}
+            </dl>
+        </section>
+
+        <section aria-labelledby="home-how" class="wrap flex flex-col gap-12 pb-24 lg:pb-[140px]">
+            <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                <h2
+                    id="home-how"
+                    class="display m-0 max-w-[620px] text-4xl text-foreground sm:text-[52px] sm:leading-[54px] sm:tracking-[-0.04em]"
+                >
+                    From one command to a screen you <span class={accent}>ship</span>
+                </h2>
+                <p class="m-0 max-w-[340px] text-[15px] leading-[23px] text-foreground/55">
+                    Each step changes the same component on the left. Pick one to see the code and
+                    the result side by side.
+                </p>
+            </div>
+            <div class="flex flex-col gap-10 lg:flex-row">
+                <div
+                    aria-hidden="true"
+                    class="flex h-[420px] shrink-0 items-center justify-center rounded-3xl bg-linear-to-b from-primary to-background lg:h-[520px] lg:w-[640px] {hairline}"
+                >
+                    <div
+                        class="flex w-[340px] max-w-[85%] flex-col gap-3.5 rounded-[18px] bg-white p-[18px] text-[#292929] shadow-[0_30px_60px_-20px_rgb(20_10_20/0.55)]"
+                    >
+                        <div class="flex flex-col gap-0.5">
+                            <span class="text-[15px] font-medium">Release checklist</span>
+                            <span class="text-[13px] text-[#6d6d6d]">2 of 3 done</span>
+                        </div>
+                        {#each checklist as item (item.label)}
+                            <div class="flex items-center gap-2.5 text-sm">
+                                {#if item.done}
+                                    <span
+                                        class="grid size-[18px] place-items-center rounded-md bg-primary text-white"
+                                    >
+                                        <HugeiconsIcon
+                                            icon={Tick02Icon}
+                                            size={11}
+                                            strokeWidth={2.6}
+                                        />
+                                    </span>
+                                {:else}
+                                    <span
+                                        class="size-[18px] rounded-md shadow-[inset_0_0_0_1px_rgb(41_41_41/0.22)]"
+                                    ></span>
+                                {/if}
+                                {item.label}
+                            </div>
+                        {/each}
+                        <span
+                            class="flex h-[34px] items-center self-end rounded-xl bg-[#292929] px-3.5 text-sm font-medium text-white"
+                        >
+                            Publish
+                        </span>
+                    </div>
+                </div>
+                <Accordion.Root
+                    bind:value={step}
+                    collapsible={false}
+                    class="min-w-0 flex-1 divide-y-0"
+                >
+                    {#each steps as item (item.value)}
+                        <Accordion.Item
+                            value={item.value}
+                            class="rounded-[18px] border-b border-foreground/8 py-0 last:border-b-0 data-[state=open]:border-transparent data-[state=open]:bg-[color-mix(in_oklab,var(--color-foreground)_4%,var(--color-card))] data-[state=open]:shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-foreground)_10%,transparent)]"
+                        >
+                            <Accordion.Trigger
+                                class="min-h-[76px] px-[22px] text-xl font-normal tracking-[-0.015em] text-foreground/55 group-data-[state=open]:text-foreground"
+                            >
+                                {item.title}
+                            </Accordion.Trigger>
+                            <Accordion.Content class="-mt-3 px-3.5">
+                                <div class="flex flex-col gap-3.5 pb-2">
+                                    <p class="m-0 text-[15px] leading-[23px] text-foreground/60">
+                                        {item.detail}
+                                    </p>
+                                    <pre
+                                        class="m-0 overflow-x-auto rounded-xl bg-background px-3.5 py-3 font-mono text-xs leading-[19px] text-foreground/75"
+                                    >{item.code}</pre>
+                                </div>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    {/each}
+                </Accordion.Root>
+            </div>
+        </section>
+
+        <section aria-labelledby="home-index" class="wrap flex flex-col pb-24 lg:pb-[120px]">
+            <div class="flex flex-wrap items-baseline justify-between gap-3 pb-8">
+                <h2
+                    id="home-index"
+                    class="display m-0 text-4xl text-foreground sm:text-[44px] sm:leading-[48px] sm:tracking-[-0.04em]"
+                >
+                    {components.length}
+                    components
+                </h2>
+                <p class="m-0 text-sm text-foreground/55">Every name opens its page.</p>
+            </div>
+            {#each indexRows as row, rowIndex (rowIndex)}
+                <div
+                    class="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-foreground/10 pt-6 pb-10 sm:grid-cols-3 lg:grid-cols-6"
+                >
+                    {#each row as group (group.id)}
+                        <div class="flex flex-col gap-1.5">
+                            <h3 class="m-0 pb-2 text-[13px] font-normal text-foreground/45">
+                                <a href={group.href} class="hover:text-foreground">
+                                    {group.heading}
+                                </a>
+                            </h3>
+                            <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
+                                {#each group.items as item (item.href)}
+                                    <li>
+                                        <a
+                                            href={item.href}
+                                            class="text-[15px] leading-[21px] text-foreground/85 hover:text-foreground hover:underline hover:underline-offset-4"
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                {/each}
+                            </ul>
                         </div>
                     {/each}
-                    <span
-                        class="flex h-[34px] items-center self-end rounded-xl bg-[#292929] px-3.5 text-sm font-medium text-white"
-                    >
-                        Publish
-                    </span>
                 </div>
-            </div>
-            <Accordion.Root bind:value={step} collapsible={false} class="flex-1 divide-y-0">
-                {#each steps as item (item.value)}
-                    <Accordion.Item
-                        value={item.value}
-                        class="rounded-[18px] border-b border-foreground/8 py-0 last:border-b-0 data-[state=open]:border-transparent data-[state=open]:bg-[color-mix(in_oklab,var(--color-foreground)_4%,var(--color-card))] data-[state=open]:shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-foreground)_10%,transparent)]"
-                    >
-                        <Accordion.Trigger
-                            class="min-h-[76px] px-[22px] text-xl font-normal tracking-[-0.015em] text-foreground/55 group-data-[state=open]:text-foreground"
-                        >
-                            {item.title}
-                        </Accordion.Trigger>
-                        <Accordion.Content class="-mt-3 px-3.5">
-                            <div class="flex flex-col gap-3.5 pb-2">
-                                <p class="m-0 text-[15px] leading-[23px] text-foreground/60">
-                                    {item.detail}
-                                </p>
-                                <pre
-                                    class="m-0 overflow-x-auto rounded-xl bg-background px-3.5 py-3 font-mono text-xs leading-[19px] text-foreground/75"
-                                >{item.code}</pre>
-                            </div>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                {/each}
-            </Accordion.Root>
-        </div>
-    </section>
-
-    <section aria-labelledby="home-index" class="wrap flex flex-col pb-24 lg:pb-[120px]">
-        <div class="flex flex-wrap items-baseline justify-between gap-3 pb-8">
-            <h2
-                id="home-index"
-                class="display m-0 text-4xl text-foreground sm:text-[44px] sm:leading-[48px] sm:tracking-[-0.04em]"
-            >
-                {components.length}
-                components
-            </h2>
-            <p class="m-0 text-sm text-foreground/55">Every name opens its page.</p>
-        </div>
-        {#each indexRows as row, rowIndex (rowIndex)}
-            <div
-                class="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-foreground/10 pt-6 pb-10 sm:grid-cols-3 lg:grid-cols-6"
-            >
-                {#each row as group (group.id)}
-                    <div class="flex flex-col gap-1.5">
-                        <h3 class="m-0 pb-2 text-[13px] font-normal text-foreground/45">
-                            <a href={group.href} class="hover:text-foreground">
-                                {group.heading}
-                            </a>
-                        </h3>
-                        <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
-                            {#each group.items as item (item.href)}
-                                <li>
-                                    <a
-                                        href={item.href}
-                                        class="text-[15px] leading-[21px] text-foreground/85 hover:text-foreground hover:underline hover:underline-offset-4"
-                                    >
-                                        {item.label}
-                                    </a>
-                                </li>
-                            {/each}
-                        </ul>
-                    </div>
-                {/each}
-            </div>
-        {/each}
-    </section>
+            {/each}
+        </section>
+    </main>
 
     <footer class="border-t border-foreground/8">
         <div
