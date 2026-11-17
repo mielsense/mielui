@@ -1,0 +1,1 @@
+- The home page is redesigned: a dark hero in the theme's primary color with a coding-agent preview, a short case for Mielui, a how-it-works walkthrough, and an index of every component.
