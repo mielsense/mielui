@@ -1,1 +1,2 @@
 - Dark-mode colors from a theme, such as Background and On brand in the Theme Studio, now apply instead of being overridden by the default dark palette.
+- The docs site now runs SvelteKit 3.1.1 and patched Vercel and Node adapters, which fix several published security advisories.
