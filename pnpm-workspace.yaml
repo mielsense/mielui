@@ -28,3 +28,5 @@ auditConfig:
   ignoreGhsas:
     # deepmerge has no fixed release. Only vite-plugin-svelte uses it, to merge build config the repo writes itself.
     - GHSA-gcqx-w48m-w2h4
+    # picomatch has no fixed release. Only @vercel/nft uses it at build time, to match globs the repo writes itself.
+    - GHSA-fc5q-39xc-vjpf
