@@ -2,6 +2,7 @@
     import {
         ArrowRight01Icon,
         ArrowUp02Icon,
+        Cancel01Icon,
         Copy01Icon,
         Tick02Icon
     } from '@hugeicons/core-free-icons';
@@ -154,19 +155,31 @@
     ];
 
     let step = $state('compose');
-    let copied = $state(false);
+    let copyStatus = $state<'idle' | 'copied' | 'failed'>('idle');
     let copyTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const copyLabels = {
+        idle: `Copy ${installCommand}`,
+        copied: 'Copied the install command',
+        failed: 'Could not copy. Select the command to copy it.'
+    };
+
+    const copyIcons = {
+        idle: Copy01Icon,
+        copied: Tick02Icon,
+        failed: Cancel01Icon
+    };
 
     async function copyInstall() {
         try {
             await navigator.clipboard.writeText(installCommand);
+            copyStatus = 'copied';
         } catch {
-            return;
+            copyStatus = 'failed';
         }
-        copied = true;
         clearTimeout(copyTimer);
         copyTimer = setTimeout(() => {
-            copied = false;
+            copyStatus = 'idle';
         }, 1600);
     }
 
@@ -260,13 +273,14 @@
                     <button
                         type="button"
                         onclick={copyInstall}
-                        aria-label={copied ? 'Copied the install command' : `Copy ${installCommand}`}
+                        aria-label={copyLabels[copyStatus]}
+                        title={copyStatus === 'failed' ? copyLabels.failed : undefined}
                         class="press flex h-[var(--size-control-lg)] items-center gap-2.5 rounded-[var(--radius-control)] bg-foreground/8 px-[18px] font-mono text-[13px] text-foreground {hairline} hover:bg-foreground/12 focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
                     >
                         <span class="text-foreground/55" aria-hidden="true">$</span>
                         {installCommand}
                         <HugeiconsIcon
-                            icon={copied ? Tick02Icon : Copy01Icon}
+                            icon={copyIcons[copyStatus]}
                             size={14}
                             class="text-foreground/55"
                         />
