@@ -63,6 +63,7 @@
         return {
             id: group.id,
             heading: shortHeadings[group.id] ?? group.heading,
+            href: group.id === 'actions' ? resolve('/docs/actions') : componentTypeHref(group.id),
             items: group.items.map((slug) => {
                 return {
                     href: entryHref(group.id, slug),
@@ -511,7 +512,7 @@
                 {#each row as group (group.id)}
                     <div class="flex flex-col gap-1.5">
                         <h3 class="m-0 pb-2 text-[13px] font-normal text-foreground/45">
-                            <a href={componentTypeHref(group.id)} class="hover:text-foreground">
+                            <a href={group.href} class="hover:text-foreground">
                                 {group.heading}
                             </a>
                         </h3>
