@@ -274,7 +274,6 @@
                         type="button"
                         onclick={copyInstall}
                         aria-label={copyLabels[copyStatus]}
-                        title={copyStatus === 'failed' ? copyLabels.failed : undefined}
                         class="press flex h-[var(--size-control-lg)] items-center gap-2.5 rounded-[var(--radius-control)] bg-foreground/8 px-[18px] font-mono text-[13px] text-foreground {hairline} hover:bg-foreground/12 focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
                     >
                         <span class="text-foreground/55" aria-hidden="true">$</span>
@@ -285,6 +284,9 @@
                             class="text-foreground/55"
                         />
                     </button>
+                    <span role="status" class="sr-only">
+                        {copyStatus === 'idle' ? '' : copyLabels[copyStatus]}
+                    </span>
                 </div>
             </section>
 
