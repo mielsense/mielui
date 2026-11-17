@@ -220,7 +220,7 @@
         <a
             href={resolve('/')}
             aria-label="mielui Home"
-            class="flex shrink-0 items-center gap-2 rounded-[var(--radius-control)] text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+            class="brand flex shrink-0 items-center gap-2 rounded-[var(--radius-control)] text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
         >
             <BrandMark size={22} />
             <span class="text-[17px] font-semibold tracking-[-0.02em]">mielui</span>
@@ -504,7 +504,7 @@
                             class="rounded-none border-t border-foreground/10 py-0 last:border-b"
                         >
                             <Accordion.Trigger
-                                class="min-h-[76px] gap-4 px-0 text-xl font-normal tracking-[-0.015em] text-foreground/45 hover:text-foreground/70 group-data-[state=open]:text-foreground"
+                                class="min-h-[76px] gap-4 px-0 text-xl enabled:hover:bg-transparent font-normal tracking-[-0.015em] text-foreground/45 hover:text-foreground/70 group-data-[state=open]:text-foreground"
                             >
                                 <span class="{mono} w-6 shrink-0 text-xs text-foreground/35">
                                     0{index + 1}
